@@ -1,10 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import useCachedResources from './src/hooks/useCachedResources';
-import useColorScheme from './src/hooks/useColorScheme';
-import Navigation from './src/navigation';
+import "react-native-gesture-handler";
+import React from "react";
+import { ThemeProvider } from "@shopify/restyle";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-
+import theme from "./src/theme";
+import useCachedResources from "./src/hooks/useCachedResources";
+import useColorScheme from "./src/hooks/useColorScheme";
+import Navigation from "./src/navigation";
+import { RootStack } from "./src/navigation";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -14,10 +19,16 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+      <ThemeProvider theme={theme}>
+        <SafeAreaProvider>
+          {/* <Navigation colorScheme={colorScheme} /> */}
+          <NavigationContainer>
+
+          <StatusBar />
+          <RootStack />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ThemeProvider>
     );
   }
 }

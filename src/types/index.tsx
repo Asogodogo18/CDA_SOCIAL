@@ -1,4 +1,4 @@
 
 
 export {MediaType} from './global'
-export (SingleMessagePreviewProps) from './global.ts'
+export {SingleMessagePreviewProps} from './global'

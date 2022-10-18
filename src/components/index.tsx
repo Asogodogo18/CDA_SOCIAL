@@ -1,5 +1,6 @@
 export { default as Button } from "./shared/Button";
 export { default as Text } from "./shared/Text";
+export { default as Box } from "./shared/Box";
 export { default as TextInput } from "./shared/TextInput";
 export { default as Avatar } from "./shared/Avatar";
 export { default as FeedFilter } from "./shared/FeedFilters/FeedFilter";
