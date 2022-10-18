@@ -18,5 +18,4 @@ export { default as SingleMessagePreview } from "./Messages/SingleMessagePreview
 export { default as MessageListing } from "./Messages/MessageListing";
 export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
-export { default as Line } from "./shared/Line";
 export { default as AuthSectionDivider } from "./Auth/Divider";

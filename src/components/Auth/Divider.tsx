@@ -3,7 +3,8 @@ import { BoxProps, TextProps } from "@shopify/restyle";
 import { Theme } from "../../theme";
 import Box from "../shared/Box";
 import Text from "../shared/Text";
-import {Line} from "../../components";
+import Line from "../shared/Line";
+
 
 type ButtonProps = {
   textProps?: TextProps<Theme>;

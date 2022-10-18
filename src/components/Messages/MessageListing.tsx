@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import React from "react";
 import { SingleMessagePreviewProps } from "../../types/global";
-import { SingleMessagePreview } from "../../components";
+import SingleMessagePreview from "../../components/Messages/SingleMessagePreview";
 
 type MessageListingProps = {
   data: SingleMessagePreviewProps[];
