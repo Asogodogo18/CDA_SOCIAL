@@ -19,6 +19,7 @@ const palette = {
   //backgrounds
   nobg: "transparent",
   fadingWhite: "rgba(249,249,249,0.44)",
+  overlay:'rgba(5,57,26,0.67)',
 
   black: "#0B0B0B",
   white: "#FFFF",
@@ -52,10 +53,11 @@ const theme = createTheme({
     },
     subheader: {
       fontFamily: "Roboto",
-      fontWeight: "600",
-      fontSize: 28,
+      fontWeight: "bold",
+      fontSize: 20,
       lineHeight: 36,
       color: "black",
+      letterSpacing:1.5
     },
     title: {
       // fontFamily

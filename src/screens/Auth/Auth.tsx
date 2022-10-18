@@ -1,24 +1,92 @@
-
-
-import { Box,Avatar,Text } from "../../components";
-import { ImageBackground,Dimensions } from "react-native";
-import React from "react";
-const {height,width}=Dimensions.get('screen')
-const Auth = () => {
+import {
+  Box,
+  Avatar,
+  Text,
+  TextInput,
+  Button,
+  AuthSectionDivider,
+  SocialIconGroup,
+} from "../../components";
+import {
+  ImageBackground,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
+const { height, width } = Dimensions.get("screen");
+const Auth = ({navigation}) => {
+  const [userName, setUserName] = useState("");
+  const [passWord, setPassWord] = useState("");
   return (
-    <Box
-      // height={40}
-      // width={"100%"}
-      flex={1}
-   
-      backgroundColor={"whitishGray"}
+    <ImageBackground
+      source={require("../../../assets/Auth/bg2.png")}
+      style={{ height: height - 40, width }}
+      resizeMode="cover"
     >
-      <ImageBackground source={require('../../../assets/Auth/bg2.png')} style={{height,width}} resizeMode='cover'>
-
-      <Avatar type="main" source={require('../../../assets/logo.png')}/>
-      <Text variant={"body"} color="white" marginTop={"l"}>CLUSTERDIGITALAFRICA</Text>
-      </ImageBackground>
-    </Box>
+      <Box
+        // height={40}
+        // width={"100%"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        flex={1}
+        backgroundColor={"overlay"}
+      >
+        <Box
+          alignItems={"center"}
+          justifyContent={"space-around"}
+          flex={3}
+          my={"xl"}
+          pt={"m"}
+        >
+          <Image
+            source={require("../../../assets/logo.png")}
+            style={{ width: 64, height: 64 }}
+            resizeMode="contain"
+          />
+          <Text variant={"subheader"} color="white" marginTop={"xl"}>
+            CLUSTERDIGITALAFRICA
+          </Text>
+        </Box>
+        <Box alignItems={"center"} justifyContent={"space-around"} flex={5.5} width={"100%"}>
+          <TextInput
+            mb={"m"}
+            value={userName}
+            onChange={setUserName}
+            placeholder={"Nom D'utilisateur"}
+          />
+          <TextInput
+            mb={"m"}
+            value={passWord}
+            onChange={setPassWord}
+            placeholder={"Mot de Passe"}
+          />
+          <Button primary title="Se Connecter" onPress={() => {}} />
+          <Button primary={false} title="S'inscrire" onPress={() => {}} />
+          <AuthSectionDivider />
+          <SocialIconGroup onPress={() => {}} />
+        </Box>
+        <Box
+          flexDirection={"row"}
+          flex={1.5}
+          px={"m"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          width={"100%"}
+        >
+          <TouchableOpacity onPress={()=>navigation.navigate('Mpo')}>
+            <Text variant={"body"} color="white">
+              Mot de Passe Oublie
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text variant={"body"} color="white">
+              Aide ?
+            </Text>
+          </TouchableOpacity>
+        </Box>
+      </Box>
+    </ImageBackground>
   );
 };
 

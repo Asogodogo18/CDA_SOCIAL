@@ -19,3 +19,4 @@ export { default as MessageListing } from "./Messages/MessageListing";
 export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
 export { default as AuthSectionDivider } from "./Auth/Divider";
+export {default as SocialIconGroup} from './shared/SocialGroup'
