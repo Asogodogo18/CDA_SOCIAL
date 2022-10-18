@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator screenOptions={{headerShown:false}}>
       <Drawer.Screen name="Accueil" component={BottomTabNavigator} />
       <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
@@ -27,7 +27,7 @@ const BottomTab = createBottomTabNavigator();
 
 function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName="TabOne">
+    <BottomTab.Navigator initialRouteName="Home" screenOptions={{headerShown:false}}>
       <BottomTab.Screen name="Home" component={Home} />
       <BottomTab.Screen name="Search" component={Search} />
       <BottomTab.Screen name="Messages" component={Messages} />

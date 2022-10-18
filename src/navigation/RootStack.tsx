@@ -6,7 +6,7 @@ import AppStack from "./AppStack";
 
 const RootStack = () => {
   return (
-    <rootStack.Navigator>
+    <rootStack.Navigator screenOptions={{headerShown:false}}>
       <rootStack.Screen name="AuthNavigation" component={AuthNavigation} />
       <rootStack.Screen name="AppStack" component={AppStack} />
     </rootStack.Navigator>
