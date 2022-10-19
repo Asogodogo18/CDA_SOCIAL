@@ -17,7 +17,12 @@ const Search = () => {
       <SearchFilters data={SearchFilter} onPress={() => {}} />
       <ScrollView>
         <Post data={PostImage} />
-        <Post data={PostMixedContent} />
+        <Post data={PostMultipleImages} />
+        <Post data={PostImage} />
+
+        <Post data={PostMultipleImages} />
+        <Post data={PostImage} />
+
         <Post data={PostMultipleImages} />
       </ScrollView>
     </Box>

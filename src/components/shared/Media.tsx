@@ -5,8 +5,9 @@ import { MediaType } from "../../types";
 
 type MediaProps = {
   media: MediaType;
+  single?: boolean;
 };
-const Media: React.FC<MediaProps> = ({ media }) => {
+const Media: React.FC<MediaProps> = ({ media, single }) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
   console.log("media: ", media);
@@ -32,12 +33,23 @@ const Media: React.FC<MediaProps> = ({ media }) => {
       <Image
         source={{ uri: media.url }}
         resizeMode="contain"
-        style={{
-          width: 80,
-          height: 80,
-          overflow: "hidden",
-          borderRadius:8
-        }}
+        style={
+          !single
+            ? {
+                width: 100,
+                height: 100,
+                overflow: "hidden",
+                borderRadius: 8,
+              }
+            : {
+                width: "100%",
+                height: 150,
+                overflow: "hidden",
+                alignSelf: "center",
+                borderRadius: 8,
+
+              }
+        }
       />
     </TouchableOpacity>
   );
