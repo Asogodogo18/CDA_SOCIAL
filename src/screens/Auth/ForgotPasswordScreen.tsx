@@ -1,40 +1,90 @@
+import React, { useState } from "react";
 import {
   ImageBackground,
   Dimensions,
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
-const { height, width } = Dimensions.get("screen");
-import {
-  Box,
-  Avatar,
-  Text,
-  TextInput,
-  Button,
-  AuthSectionDivider,
-  SocialIconGroup,
-} from "../../components";
+import { Box, Avatar, Text, TextInput, Button } from "../../components";
 import { AntDesign } from "@expo/vector-icons";
-import BgForgot from "../../../assets/bg_forgot.svg";
-import Banner from "../../../assets/logo_forgot_password.svg";
-const ForgotPasswordScreen = () => {
+import Banner from "../../../assets/bg_forgot.svg";
+import Logo from "../../../assets/logo_forgot_password.svg";
+const { height, width } = Dimensions.get("screen");
+
+const ForgotPasswordScreen = ({navigation}) => {
+  const [email, setEmail] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [switchController, setSwitchController] = useState(false);
   return (
-    <Box flex={1} pt={"xl"}>
-      <TouchableOpacity>
-        <AntDesign name="left" size={24} color="black" />
+    <Box  height={height} width={width} pt={"xl"} backgroundColor={"white"} >
+      <TouchableOpacity onPress={()=>navigation.goBack()} style={{padding:5,margin:5}}>
+        <AntDesign name="left" size={30} color="black" />
       </TouchableOpacity>
 
-      <Text variant={"subheader"} textAlign={"center"}>RECUPERATION MOT DE PASSE</Text>
-      <Banner style={{height:50,width:50}} />
-      <BgForgot stye={{
-            overflow: "hidden",
-            position: "absolute",
-  
-            zIndex: -10,
-            bottom:0,
+      <Text variant={"subheader"} textAlign={"center"} style={{width:250,alignSelf:'center',fontSize:30,}} >
+        RECUPERATION MOT de PASSE
+      </Text>
+      <Logo
+        height={250}
+        width={250}
+        style={{
+          overflow: "hidden",
+          position: "relative",
+       
+          alignSelf: "center",
+        }}
+      />
+      {switchController ? (
+        <TextInput
+          mb={"m"}
+          value={email}
+          onChange={setEmail}
+          placeholder={"Votre Email"}
+          alignSelf={"center"}
+          elevation={3}
+        />
+      ) : (
+        <TextInput
+          mb={"m"}
+          value={telephone}
+          onChange={setTelephone}
+          placeholder={"Votre Numero Telephone"}
+          alignSelf={"center"}
+          elevation={3}
+        />
+      )}
 
-      }}/>
+      {!switchController ? (
+        <TouchableOpacity onPress={() => setSwitchController(true)} style={{position:'relative',right:0,left:240,}}>
+          <Text variant={"titleBold"}  color={'overlay'}>
+            Utiliser Email
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={() => setSwitchController(false)} style={{position:'relative',right:0,left:90}}>
+          <Text variant={"titleBold"} textAlign={"center"} color={'overlay'}>
+            Utiliser Telephone
+          </Text>
+        </TouchableOpacity>
+      )}
+
+      <Button
+        primary
+        onPress={() => {}}
+        title="VALIDER"
+        alignSelf={"center"}
+        mt={"l"}
+        elevation={5}
+      />
+      <Banner
+        style={{
+          overflow: "hidden",
+          position: "absolute",
+
+          zIndex: -10,
+          bottom: 0,
+        }}
+      />
     </Box>
   );
 };

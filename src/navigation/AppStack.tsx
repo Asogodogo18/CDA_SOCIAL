@@ -6,7 +6,7 @@ import Profile from '../screens/App/DrawerSceens/Profile'
 //Bottom Screens
 import Home from '../screens/App/BottomTabScreens/Home'
 import Search from '../screens/App/BottomTabScreens/Search'
-import Messages from '../screens/App/BottomTabScreens/Notifications'
+import Messages from '../screens/App/BottomTabScreens/Messages'
 import Notifications from '../screens/App/BottomTabScreens/Notifications'
 import { FontAwesome } from "@expo/vector-icons";
 

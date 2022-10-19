@@ -43,7 +43,7 @@ const FollowCard: React.FC<FollowCardProps> = () => {
           overflow={'hidden'}
         >
           <Image
-            source={{ uri: "https://via.placeholder.com/600/372c93" }}
+            source={{ uri: "https://st.depositphotos.com/1008939/2240/i/450/depositphotos_22408839-stock-photo-serious.jpg" }}
             resizeMode="cover"
             style={{ width: "100%", height: "100%", overflow: "hidden" }}
           />

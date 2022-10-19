@@ -148,7 +148,7 @@ const Post: React.FC<PostProps> = ({ data, ...props }) => {
       minWidth={300}
       {...props}
     >
-      <TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.8}>
         <PostHeader {...userDetails} />
         <PostContent media={media} body={text} />
         <PostFooter {...footer} />

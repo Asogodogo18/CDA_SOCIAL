@@ -61,7 +61,7 @@ const Auth = ({navigation}) => {
             onChange={setPassWord}
             placeholder={"Mot de Passe"}
           />
-          <Button primary title="Se Connecter" onPress={() => {}} />
+          <Button primary title="Se Connecter" onPress={() => navigation.navigate('AppStack')} />
           <Button primary={false} title="S'inscrire" onPress={() => {}} />
           <AuthSectionDivider />
           <SocialIconGroup onPress={() => {}} />
