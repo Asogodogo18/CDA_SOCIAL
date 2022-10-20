@@ -91,7 +91,6 @@ const Avatar: React.FC<AvatarProps> = ({ type, onPress, source, ...props }) => {
         style={{
           overflow: "hidden",
           position: "absolute",
-
           zIndex: -10,
         }}
         width={CONTAINER_WIDTH}

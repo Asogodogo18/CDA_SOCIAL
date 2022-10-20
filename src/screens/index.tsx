@@ -1,3 +1,17 @@
-export {default as OnboardingScreen} from "./Auth/Onboarding"
-export {default as AuthScreen} from "./Auth/Auth"
-export {default as ForgotPasswordScreen} from "./Auth/ForgotPasswordScreen"
+//AUTH SCREENS
+export { default as OnboardingScreen } from "./Auth/Onboarding";
+export { default as AuthScreen } from "./Auth/Auth";
+export { default as ForgotPasswordScreen } from "./Auth/ForgotPasswordScreen";
+
+//DRAWER SCREENS
+export { default as Education } from "./App/DrawerScreens/Education";
+export { default as Profile } from "./App/DrawerScreens/Profile";
+export { default as Favorite } from "./App/DrawerScreens/Favorite";
+export { default as Tools } from "./App/DrawerScreens/Tools";
+export { default as Topics } from "./App/DrawerScreens/Topics";
+
+//TAB SCREENS
+export { default as Home } from "./App/BottomTabScreens/Home";
+export { default as Messages } from "./App/BottomTabScreens/Messages";
+export { default as Search } from "./App/BottomTabScreens/Search";
+export {default as Notifications} from "./App/BottomTabScreens/Notifications"
