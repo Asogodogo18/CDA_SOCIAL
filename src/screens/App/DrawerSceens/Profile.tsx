@@ -12,7 +12,7 @@ import { ScrollView } from "react-native";
 import React from "react";
 import { PostImage, PostMultipleImages } from "../../../data/post";
 
-const Profile = ({njavigation}) => {
+const Profile = ({navigation}) => {
   const handleNavigation=()=>{
     return(
       navigation.navigate("HomeStack",{screen:'PostDetails'})
