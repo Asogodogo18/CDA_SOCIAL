@@ -1,13 +1,43 @@
-import { View, Text } from "react-native";
-import React from "react";
-import Layout from "../../Layout";
-import { Box } from "../../../components";
+import {
+  Box,
+  Text,
+  Post,
+  Searchbar,
+  SearchFilters,
+  ProfileHeader,
+  TabNav,
+} from "../../../components";
 
-const Profile = () => {
+import { ScrollView } from "react-native";
+import React from "react";
+import { PostImage, PostMultipleImages } from "../../../data/post";
+
+const Profile = ({navigation}) => {
+  const handleNavigation=()=>{
+    return(
+      navigation.navigate("HomeStack",{screen:'PostDetails'})
+    )
+  }
   return (
-    <Layout>
-      <Box backgroundColor={"purpleLight"} flex={1}></Box>
-    </Layout>
+    <ScrollView
+      contentContainerStyle={{ alignContent: "center", backgroundColor:"#F3F3F3" }}
+      showsHorizontalScrollIndicator={false}
+    >
+      <Box mt={'xl'}>
+        <ProfileHeader user="Amadou Diarra" />
+      </Box>
+      <Box my={"m"}>
+        <TabNav />
+      </Box>
+      <Box
+        flex={1}
+         px={'m'}
+      >
+        <Post data={PostImage} onPress={handleNavigation} />
+        <Post data={PostMultipleImages} onPress={handleNavigation} />
+        <Post data={PostImage} onPress={handleNavigation} />
+      </Box>
+    </ScrollView>
   );
 };
 
