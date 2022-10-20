@@ -15,6 +15,7 @@ const palette = {
   whitishGray: "#F7F7F7",
   gray: "#A1A1A1",
   grayDark: "#848383",
+  danger:"red",
 
   //backgrounds
   nobg: "transparent",
