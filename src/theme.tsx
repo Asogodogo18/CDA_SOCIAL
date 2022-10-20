@@ -68,9 +68,10 @@ const theme = createTheme({
     },
     titleBold: {
       // fontFamily
-      fontSize: 14,
+      fontSize: 18,
       fontWeight: "bold",
       color: "black",
+      letterSpacing:1.5
     },
     title1: {
       // fontFamily

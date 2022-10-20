@@ -11,7 +11,7 @@ import {
 } from "../../../components";
 
 import React from "react";
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 import {
   TouchableOpacity,
   Dimensions,
@@ -29,7 +29,13 @@ import {
 } from "../../../data/post";
 
 const { width, height } = Dimensions.get("screen");
+
 const Home = ({ navigation }) => {
+  const handleNavigation = () => {
+    return navigation.navigate("HomeStack", {
+      screen: "PostDetails",
+    });
+  };
   return (
     <ScrollView
       contentContainerStyle={{ alignContent: "center", marginTop: 15 }}
@@ -85,9 +91,9 @@ const Home = ({ navigation }) => {
           <Stories data={FollowingList} />
         </Box>
 
-        <Post data={PostImage} />
-        <Post data={PostMixedContent} />
-        <Post data={PostMultipleImages} />
+        <Post data={PostImage} onPress={handleNavigation} />
+        <Post data={PostMixedContent} onPress={handleNavigation} />
+        <Post data={PostMultipleImages} onPress={handleNavigation} />
 
         <ScrollView
           horizontal
@@ -99,16 +105,16 @@ const Home = ({ navigation }) => {
           <FollowCard />
           <FollowCard />
         </ScrollView>
-        <Post data={PostMultipleImages} />
-        <Post data={PostVideo} />
+        <Post data={PostMultipleImages} onPress={handleNavigation} />
+        <Post data={PostVideo} onPress={handleNavigation} />
 
         <ScrollView horizontal contentContainerStyle={{ padding: 10 }}>
           <FollowCard />
           <FollowCard />
           <FollowCard />
         </ScrollView>
-        <Post data={PostMultipleImages} />
-        <Post data={PostVideo} />
+        <Post data={PostMultipleImages} onPress={handleNavigation} />
+        <Post data={PostVideo} onPress={handleNavigation} />
       </Box>
     </ScrollView>
   );

@@ -14,7 +14,7 @@ import defaultMessageList from "../../../data/messageLisiting";
 const { width, height } = Dimensions.get("screen");
 const Messages = () => {
   return (
-    <ScrollView nestedScrollEnabled style={{  paddingBottom: 150,flexGrow:1 }} >
+    <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled style={{  paddingBottom: 150,flexGrow:1 }} >
       <Box flex={1} mt={"m"} pt={"m"}>
         <Box
           flexDirection={"row"}
@@ -36,9 +36,11 @@ const Messages = () => {
         <Box mt={"ml"} p={"m"}>
           <Text variant={"titleBold"}>En Ligne</Text>
         </Box>
-        <Box>
+     
           <Stories data={FollowingList} />
-        </Box>
+          <Text variant={"titleBold"} margin={'m'}>Tous les Message</Text>
+
+        
         <MessageListing data={defaultMessageList} />
       </Box>
     </ScrollView>

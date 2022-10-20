@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //Drawer Screens
 import Profile from '../screens/App/DrawerSceens/Profile'
 //Bottom Screens
@@ -8,9 +9,22 @@ import Home from '../screens/App/BottomTabScreens/Home'
 import Search from '../screens/App/BottomTabScreens/Search'
 import Messages from '../screens/App/BottomTabScreens/Messages'
 import Notifications from '../screens/App/BottomTabScreens/Notifications'
+//Details Screen
+import PostDetails from "../screens/App/Details/PostDetails";
 import { FontAwesome } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator()
+
+const StackApp = () =>{
+  return(
+    <Stack.Navigator screenOptions={{headerShown:false}}>
+      <Stack.Screen name="Home" component={Home}/>
+      <Stack.Screen name="PostDetails" component={PostDetails}/>
+
+    </Stack.Navigator>
+  )
+}
 
 const AppStack = () => {
   return (
@@ -27,8 +41,8 @@ const BottomTab = createBottomTabNavigator();
 
 function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName="Home" screenOptions={{headerShown:false}}>
-      <BottomTab.Screen name="Home" component={Home} />
+    <BottomTab.Navigator initialRouteName="HomeStack" screenOptions={{headerShown:false}}>
+      <BottomTab.Screen name="HomeStack" component={StackApp} options={{tabBarLabel:'Home'}} />
       <BottomTab.Screen name="Search" component={Search} />
       <BottomTab.Screen name="Messages" component={Messages} />
       <BottomTab.Screen name="Notifications" component={Notifications} />

@@ -146,7 +146,7 @@ const Banner = () => {
 };
 const Header: React.FC<HeaderProps> = ({ user }) => {
   return (
-    <Box overflow={"hidden"} minHeight={237} maxHeight={250}>
+    <Box overflow={"hidden"} minHeight={237} maxHeight={250} elevation={5}>
       <ImageBackground
         resizeMode="cover"
         style={{

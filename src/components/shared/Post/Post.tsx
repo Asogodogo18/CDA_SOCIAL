@@ -11,7 +11,9 @@ import { TouchableOpacity, View } from "react-native";
 import Media from "../Media";
 
 type PostProps = {
+  onPress:()=>void;
   data: any;
+
 } & Partial<BoxProps<Theme>>;
 
 type PostHeaderProps = {
@@ -116,7 +118,7 @@ const PostFooter: React.FC<PostFooterProps> = ({
   );
 };
 
-const PostContent: React.FC<PostContentProps> = ({ media, body }) => {
+const PostContent: React.FC<PostContentProps> = ({ media, body, }) => {
   return (
     <Box flexGrow={1}>
       {media.length === 0 ? null : media.length <= 1 ? (
@@ -134,7 +136,7 @@ const PostContent: React.FC<PostContentProps> = ({ media, body }) => {
   );
 };
 
-const Post: React.FC<PostProps> = ({ data, ...props }) => {
+const Post: React.FC<PostProps> = ({onPress, data, ...props }) => {
   const { userDetails, media, text, footer } = data;
   console.log("PostContent media: ", media);
 
@@ -148,7 +150,7 @@ const Post: React.FC<PostProps> = ({ data, ...props }) => {
       minWidth={300}
       {...props}
     >
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
         <PostHeader {...userDetails} />
         <PostContent media={media} body={text} />
         <PostFooter {...footer} />

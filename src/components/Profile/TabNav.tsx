@@ -40,6 +40,7 @@ const TabNav: React.FC<TabNavProps> = () => {
       backgroundColor="white"
       borderRadius={10}
       flexDirection="row"
+      elevation={5}
     >
       <TabContainer onPress={() => setIsActive(0)}>
         <AntDesign
