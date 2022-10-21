@@ -24,6 +24,8 @@ const palette = {
 
   black: "#0B0B0B",
   white: "#FFFF",
+  messageOutBG: "rgba(79,186,128,0.5)",
+  messageInBg: "#D9D9D9",
 };
 
 const theme = createTheme({

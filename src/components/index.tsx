@@ -20,4 +20,8 @@ export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
 export { default as AuthSectionDivider } from "./Auth/Divider";
 export {default as SocialIconGroup} from './shared/SocialGroup'
-export { default as CustomDrawerContent } from "./drawer/CustomDrawer";
+export {default as CustomDrawerContent } from "./drawer/CustomDrawer";
+export { default as MessageHeader } from "./Messages/MessageHeader";
+export { default as Message } from "./Messages/Message";
+export {default as Line} from './shared/Line'
+export{default as SectionHeader} from './shared/SectionHeader'

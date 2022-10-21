@@ -12,7 +12,10 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import { CustomDrawerContent } from "../components";
 import Layout from "../screens/Layout";
+//Details Screens
 import PostDetails from "../screens/App/Details/PostDetails";
+//Chats Screens
+import Chats from "../screens/App/Messages/Chats";
 import {
   Education,
   Favorite,
@@ -32,7 +35,15 @@ const StackApp = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="PostDetails" component={PostDetails} />
+      <Stack.Screen name="Publication" component={PostDetails} options={{ headerShown: true }} />
+    </Stack.Navigator>
+  );
+};
+const StackChats = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Messages" component={Messages} />
+      <Stack.Screen name="Chats" component={Chats} />
     </Stack.Navigator>
   );
 };
@@ -107,7 +118,7 @@ function BottomTabNavigator() {
           options={{ tabBarLabel: "Home" }}
         />
         <BottomTab.Screen name="Search" component={Search} />
-        <BottomTab.Screen name="Messages" component={Messages} />
+        <BottomTab.Screen name="StackChats" component={StackChats}  options={{ tabBarLabel: "Messages" }} />
         <BottomTab.Screen name="Notifications" component={Notifications} />
       </BottomTab.Navigator>
     </Layout>

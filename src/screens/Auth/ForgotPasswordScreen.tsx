@@ -56,13 +56,13 @@ const ForgotPasswordScreen = ({navigation}) => {
 
       {!switchController ? (
         <TouchableOpacity onPress={() => setSwitchController(true)} style={{position:'relative',right:0,left:240,}}>
-          <Text variant={"titleBold"}  color={'overlay'}>
+          <Text variant={"title"}  color={'overlay'}>
             Utiliser Email
           </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={() => setSwitchController(false)} style={{position:'relative',right:0,left:90}}>
-          <Text variant={"titleBold"} textAlign={"center"} color={'overlay'}>
+          <Text variant={"title"} textAlign={"center"} color={'overlay'}>
             Utiliser Telephone
           </Text>
         </TouchableOpacity>

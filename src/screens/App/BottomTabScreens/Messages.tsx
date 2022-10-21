@@ -8,18 +8,22 @@ import {
   SwitchControl,
   Stories,
   MessageListing,
+  SectionHeader,
 } from "../../../components";
 import FollowingList from "../../../data/stories";
 import defaultMessageList from "../../../data/messageLisiting";
 const { width, height } = Dimensions.get("screen");
 const Messages = () => {
   return (
-    <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled style={{  paddingBottom: 150,flexGrow:1 }} >
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      nestedScrollEnabled
+      style={{ paddingBottom: 150, flexGrow: 1 }}
+    >
       <Box flex={1} mt={"m"} pt={"m"}>
         <Box
           flexDirection={"row"}
           justifyContent={"space-between"}
-          // padding={"m"}
           mt={"ml"}
           mb={"ml"}
           p={"m"}
@@ -30,17 +34,14 @@ const Messages = () => {
           </TouchableOpacity>
         </Box>
         <Box mb={"ml"}>
-          <Searchbar placeholder="Recherche" />
+          <Searchbar placeholder="Recherche"  />
         </Box>
         <SwitchControl />
-        <Box mt={"ml"} p={"m"}>
-          <Text variant={"titleBold"}>En Ligne</Text>
-        </Box>
-     
-          <Stories data={FollowingList} />
-          <Text variant={"titleBold"} margin={'m'}>Tous les Message</Text>
+        <SectionHeader title={"En Ligne"} more={true} link={() => {}} />
 
-        
+        <Stories data={FollowingList} />
+        <SectionHeader title={"Tous Les Messages"} more={false}  />
+
         <MessageListing data={defaultMessageList} />
       </Box>
     </ScrollView>

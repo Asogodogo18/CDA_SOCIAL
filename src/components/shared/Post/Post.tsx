@@ -10,10 +10,16 @@ import Avatar from "../Avatar";
 import { TouchableOpacity, View } from "react-native";
 import Media from "../Media";
 
-type PostProps = {
-  onPress:()=>void;
-  data: any;
+enum PostTypes {
+  main,
+  details,
+  reply,
+}
 
+type PostProps = {
+  data: any;
+  type: keyof typeof PostTypes;
+  onPress: () => void;
 } & Partial<BoxProps<Theme>>;
 
 type PostHeaderProps = {
@@ -21,6 +27,7 @@ type PostHeaderProps = {
   name: string;
   username: string;
   timestamp: string;
+  type: keyof typeof PostTypes;
 };
 
 type PostFooterProps = {
@@ -33,6 +40,8 @@ type PostFooterProps = {
 type PostContentProps = {
   media: MediaType[];
   body?: string;
+  timestamp: string;
+  type: keyof typeof PostTypes;
 };
 
 const PostHeader: React.FC<PostHeaderProps> = ({
@@ -40,6 +49,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   avatarSrc,
   username,
   timestamp,
+  type,
 }) => {
   return (
     <Box
@@ -54,17 +64,19 @@ const PostHeader: React.FC<PostHeaderProps> = ({
         <Text variant={"title"}>{name}</Text>
         <Text variant={"subtitle"}>@{username}</Text>
       </Box>
-      <Box marginLeft={"l"} flexDirection={"row"} alignItems={"center"}>
-        <Box
-          width={4}
-          height={4}
-          borderRadius={4}
-          backgroundColor={"grayDark"}
-        />
-        <Text marginLeft={"s"} variant={"caption"}>
-          {timestamp}
-        </Text>
-      </Box>
+      {type !== "details" && (
+        <Box marginLeft={"l"} flexDirection={"row"} alignItems={"center"}>
+          <Box
+            width={4}
+            height={4}
+            borderRadius={4}
+            backgroundColor={"grayDark"}
+          />
+          <Text marginLeft={"s"} variant={"caption"}>
+            {timestamp}
+          </Text>
+        </Box>
+      )}
     </Box>
   );
 };
@@ -118,11 +130,22 @@ const PostFooter: React.FC<PostFooterProps> = ({
   );
 };
 
-const PostContent: React.FC<PostContentProps> = ({ media, body, }) => {
+const PostContent: React.FC<PostContentProps> = ({
+  type,
+  media,
+  body,
+  timestamp,
+}) => {
   return (
     <Box flexGrow={1}>
+      {type === "reply" && (
+        <Text fontSize={12} variant={"caption"}>
+          En réponse{" "}
+        </Text>
+      )}
+
       {media.length === 0 ? null : media.length <= 1 ? (
-        <Media media={media[0]} single={true} />
+        <Media media={media[0]} />
       ) : (
         <Box flexGrow={1} flexDirection={"row"} flexWrap={"wrap"}>
           {media?.map((item, index) => (
@@ -132,14 +155,13 @@ const PostContent: React.FC<PostContentProps> = ({ media, body, }) => {
       )}
 
       <Text variant="body1">{body}</Text>
+      {type === "details" && <Text variant={"caption"}>{timestamp}</Text>}
     </Box>
   );
 };
 
-const Post: React.FC<PostProps> = ({onPress, data, ...props }) => {
+const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
   const { userDetails, media, text, footer } = data;
-  console.log("PostContent media: ", media);
-
   return (
     <Box
       my={"s"}
@@ -150,9 +172,14 @@ const Post: React.FC<PostProps> = ({onPress, data, ...props }) => {
       minWidth={300}
       {...props}
     >
-      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-        <PostHeader {...userDetails} />
-        <PostContent media={media} body={text} />
+      <TouchableOpacity onPress={onPress}>
+        <PostHeader type={type} {...userDetails} />
+        <PostContent
+          type={type}
+          media={media}
+          body={text}
+          timestamp={userDetails.timestamp}
+        />
         <PostFooter {...footer} />
       </TouchableOpacity>
     </Box>

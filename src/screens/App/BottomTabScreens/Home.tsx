@@ -8,6 +8,7 @@ import {
   Stories,
   Post,
   FollowCard,
+  SectionHeader,
 } from "../../../components";
 
 import React from "react";
@@ -32,8 +33,8 @@ const { width, height } = Dimensions.get("screen");
 
 const Home = ({ navigation }) => {
   const handleNavigation = () => {
-    return navigation.navigate("HomeStack", {
-      screen: "PostDetails",
+    navigation.navigate("HomeStack", {
+      screen: "Publication",
     });
   };
   return (
@@ -75,25 +76,23 @@ const Home = ({ navigation }) => {
             onPress={() => console.log("Press")}
           />
         </Box>
-        <Box
-          flexDirection={"row"}
-          justifyContent={"space-between"}
-          // padding={"m"}
-          mt={"ml"}
-          mb={"ml"}
-        >
-          <Text variant={"title"}>NOW</Text>
-          <TouchableOpacity>
-            <Text variant={"title"}>Voir Plus</Text>
-          </TouchableOpacity>
-        </Box>
+
+        <SectionHeader title={"Now"} more={true} link={() => {}} />
         <Box mb={"m"}>
           <Stories data={FollowingList} />
         </Box>
 
-        <Post data={PostImage} onPress={handleNavigation} />
-        <Post data={PostMixedContent} onPress={handleNavigation} />
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
+        <Post data={PostImage} onPress={handleNavigation} type={"main"} />
+        <Post
+          data={PostMixedContent}
+          onPress={handleNavigation}
+          type={"main"}
+        />
+        <Post
+          data={PostMultipleImages}
+          onPress={handleNavigation}
+          type={"main"}
+        />
 
         <ScrollView
           horizontal
@@ -105,16 +104,24 @@ const Home = ({ navigation }) => {
           <FollowCard />
           <FollowCard />
         </ScrollView>
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
-        <Post data={PostVideo} onPress={handleNavigation} />
+        <Post
+          data={PostMultipleImages}
+          onPress={handleNavigation}
+          type={"main"}
+        />
+        <Post data={PostVideo} onPress={handleNavigation} type={"main"} />
 
         <ScrollView horizontal contentContainerStyle={{ padding: 10 }}>
           <FollowCard />
           <FollowCard />
           <FollowCard />
         </ScrollView>
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
-        <Post data={PostVideo} onPress={handleNavigation} />
+        <Post
+          data={PostMultipleImages}
+          onPress={handleNavigation}
+          type={"main"}
+        />
+        <Post data={PostVideo} onPress={handleNavigation} type={"main"} />
       </Box>
     </ScrollView>
   );

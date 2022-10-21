@@ -1,14 +1,22 @@
 import { FlatList } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { SingleMessagePreviewProps } from "../../types/global";
 import SingleMessagePreview from "../../components/Messages/SingleMessagePreview";
+import { useNavigation } from "@react-navigation/native";
 
 type MessageListingProps = {
   data: SingleMessagePreviewProps[];
 };
 
 const MessageListing: React.FC<MessageListingProps> = ({ data }) => {
-  const renderItem = ({ item }) => <SingleMessagePreview {...item} />;
+  const navigation = useNavigation();
+  const handlePress = () => {
+    navigation.navigate("StackChats", { screen: "Chats" });
+  };
+
+  const renderItem = ({ item }) => (
+    <SingleMessagePreview onPress={handlePress} {...item} />
+  );
 
   return (
     <FlatList

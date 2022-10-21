@@ -1,25 +1,41 @@
+import React from "react";
+import { ScrollView } from "react-native";
+import { Box, Post, ReplyField, Line } from "../../../components";
 
-import React from 'react'
 import {
-    Box,
-    Searchbar,
-    Text,
-    SwitchControl,
-    Stories,
-    MessageListing,
-    Post,
-  } from "../../../components";
+  Poste,
+  PostImage,
+  PostMultipleImages,
+  PostMixedContent,
+  PostVideo,
+} from "../../../data/post";
 
-export default function PostDetails({route}) {
+export default function PostDetails({ route }) {
   // const {data}=route.param
-  console.log(route.param);
-  
-  return (
-    <Box flex={1} justifyContent={'center'} alignItems={"center"}>
-      
-      <Text variant={"subheader"} >PostDetails</Text>
-      {/* <Post data={data} onPress={()=>{}} /> */}
+  // console.log(route.param);
 
+  return (
+    <Box flex={1}>
+      <ScrollView>
+        <Post data={Poste} type={"reply"} onPress={() => {}} />
+
+        <Line
+          width={"100%"}
+          height={2}
+          alignSelf={"center"}
+          backgroundColor={"lightgreen"}
+        />
+
+        <ReplyField placeholder="Votre Commentaire" />
+        <Post data={PostImage} type={"reply"} onPress={() => {}} />
+        <Line
+          width={"100%"}
+          height={2}
+          alignSelf={"center"}
+          backgroundColor={"lightgreen"}
+        />
+        <Post data={PostImage} type={"reply"} onPress={() => {}} />
+      </ScrollView>
     </Box>
-  )
+  );
 }

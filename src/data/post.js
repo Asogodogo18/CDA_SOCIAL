@@ -1,4 +1,4 @@
-const Post = {
+const Poste = {
   userDetails: {
     name: "John Pololo",
     avatarSrc:
@@ -135,4 +135,4 @@ const PostMultipleImages = {
     shareCount: "20",
   },
 };
-export { Post, PostImage, PostVideo, PostMixedContent, PostMultipleImages };
+export { Poste, PostImage, PostVideo, PostMixedContent, PostMultipleImages };
