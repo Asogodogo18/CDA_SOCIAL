@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useRef, useState } from "react";
 import { Video } from "expo-av";
-import { MediaType } from "../../types";
+import { MediaType } from "../../types/global";
 
 type MediaProps = {
   media: MediaType;
@@ -43,7 +43,7 @@ const Media: React.FC<MediaProps> = ({ media, single }) => {
               }
             : {
                 width: "100%",
-                height: 150,
+                height: 250,
                 overflow: "hidden",
                 alignSelf: "center",
                 borderRadius: 8,

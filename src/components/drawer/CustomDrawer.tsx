@@ -7,6 +7,7 @@ import {
   MaterialCommunityIcons,
   Fontisto,
   MaterialIcons,
+  Ionicons,
 } from "@expo/vector-icons";
 
 import Box from "../shared/Box";
@@ -239,6 +240,38 @@ const CustomDrawer = (props) => {
           ]}
           onPress={() => navigation.navigate("Topics")}
           focused={isFocused("Topics")}
+        />
+        <DrawerItem
+          pressColor="lightgreen"
+          icon={({ focused, color, size }) => (
+            <Box
+              width={40}
+              backgroundColor={"nobg"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <Ionicons
+                name="settings"
+                size={focused ? 28 : 24}
+                color={focused ? "white" : "#666666"}
+              />
+            </Box>
+          )}
+          label={({ focused }) => {
+            return (
+              <Text style={focused ? styles.activeText : styles.inactiveText}>
+                Parametre
+              </Text>
+            );
+          }}
+          style={[
+            isFocused("Parametre")
+              ? styles.activeContainer
+              : styles.inActiveContainer,
+            { paddingLeft: 25 },
+          ]}
+          onPress={() => navigation.navigate("Parametre")}
+          focused={isFocused("Parametre")}
         />
       </DrawerContentScrollView>
       <Button

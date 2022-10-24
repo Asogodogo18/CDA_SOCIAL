@@ -26,7 +26,7 @@ export default function PostDetails({ route }) {
           backgroundColor={"lightgreen"}
         />
 
-        <ReplyField placeholder="Votre Commentaire" />
+        <ReplyField  placeholder="Votre Commentaire" />
         <Post data={PostImage} type={"reply"} onPress={() => {}} />
         <Line
           width={"100%"}

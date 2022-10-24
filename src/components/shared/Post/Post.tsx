@@ -2,13 +2,13 @@ import React, { ReactNode } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 
-import { MediaType } from "../../../types";
 import theme, { Theme } from "../../../theme";
 import Box from "../Box";
 import Text from "../Text";
 import Avatar from "../Avatar";
 import { TouchableOpacity, View } from "react-native";
 import Media from "../Media";
+import { MediaType } from "../../../types/global";
 
 enum PostTypes {
   main,
@@ -145,7 +145,7 @@ const PostContent: React.FC<PostContentProps> = ({
       )}
 
       {media.length === 0 ? null : media.length <= 1 ? (
-        <Media media={media[0]} />
+        <Media single={true} media={media[0]} />
       ) : (
         <Box flexGrow={1} flexDirection={"row"} flexWrap={"wrap"}>
           {media?.map((item, index) => (
