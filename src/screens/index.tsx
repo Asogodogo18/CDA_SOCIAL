@@ -9,7 +9,7 @@ export { default as Profile } from "./App/DrawerScreens/Profile";
 export { default as Favorite } from "./App/DrawerScreens/Favorite";
 export { default as Tools } from "./App/DrawerScreens/Tools";
 export { default as Topics } from "./App/DrawerScreens/Topics";
-export { default as Parametre } from "./App/DrawerScreens/Parametre";
+export { default as Parametre } from "./App/DrawerScreens/Settings";
 //PARAMETRE SCREENS
 export {default as InnerParams } from './App/ParametreScreens/InnerParams'
 

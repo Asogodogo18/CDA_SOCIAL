@@ -15,7 +15,7 @@ import { SectionItems } from "../../../components";
 
 import { General } from "../../../data/sectionItems";
 
-const Parametre = ({ navigation }) => {
+const Settings = ({ navigation }) => {
   return (
     <Layout>
       <Box backgroundColor={"messageInBg"} flex={1} style={{ paddingTop: 20 }}>
@@ -70,4 +70,4 @@ const Parametre = ({ navigation }) => {
   );
 };
 
-export default Parametre;
+export default Settings

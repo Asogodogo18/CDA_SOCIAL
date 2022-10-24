@@ -33,9 +33,9 @@ const Profile = ({navigation}) => {
         flex={1}
          px={'m'}
       >
-        <Post data={PostImage} onPress={handleNavigation} />
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
-        <Post data={PostImage} onPress={handleNavigation} />
+        <Post type="main" data={PostImage} onPress={handleNavigation} />
+        <Post data={PostMultipleImages} onPress={handleNavigation} type={"main"} />
+        <Post data={PostImage} onPress={handleNavigation} type={"main"} />
       </Box>
     </ScrollView>
   );
