@@ -10,6 +10,11 @@ export { default as Favorite } from "./App/DrawerScreens/Favorite";
 export { default as Tools } from "./App/DrawerScreens/Tools";
 export { default as Topics } from "./App/DrawerScreens/Topics";
 export { default as Parametre } from "./App/DrawerScreens/Parametre";
+//PARAMETRE SCREENS
+export {default as InnerParams } from './App/ParametreScreens/InnerParams'
+
+
+
 
 
 //TAB SCREENS

@@ -9,6 +9,7 @@ enum ItemsType {
 }
 
 type SectionItemProps = {
+  id: number;
   icon: React.ReactNode;
   label: string;
   type: keyof typeof ItemsType;
@@ -20,7 +21,14 @@ type SectionsItemsProps = {
   data: SectionItemProps[];
 };
 
-const SectionsItems: React.FC<SectionsItemsProps> = ({ title, data }) => {
+const SectionsItems: React.FC<SectionsItemsProps> = ({
+  title,
+  data,
+  navigation,
+}) => {
+  const handleNavigation = (item:any) => {
+     navigation.navigate("InnerParams",{id:item});
+  };
   return (
     <Box width={"100%"} padding={"m"} pt={"xl"}>
       <Text
@@ -32,7 +40,7 @@ const SectionsItems: React.FC<SectionsItemsProps> = ({ title, data }) => {
         {title}
       </Text>
       {data.map((sectionItem, index) => (
-        <SectionItem key={index} {...sectionItem} />
+        <SectionItem key={index} {...sectionItem} onPress={()=>handleNavigation(sectionItem.id)} />
       ))}
     </Box>
   );

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: Platform.OS === "ios" ? "center" : null,
+   
   },
   tabBar: {
     height: 70,

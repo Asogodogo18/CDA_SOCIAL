@@ -26,8 +26,10 @@ import {
   Search,
   Tools,
   Topics,
-  Parametre
+  Parametre,
 } from "../screens";
+// Parametre Screens
+import { InnerParams } from "../screens";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -36,7 +38,11 @@ const StackApp = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Publication" component={PostDetails} options={{ headerShown: true }} />
+      <Stack.Screen
+        name="Publication"
+        component={PostDetails}
+        options={{ headerShown: true }}
+      />
     </Stack.Navigator>
   );
 };
@@ -48,7 +54,15 @@ const StackChats = () => {
     </Stack.Navigator>
   );
 };
+const ParametreStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown:false}}>
+      <Stack.Screen name="Parametre" component={Parametre} />
 
+      <Stack.Screen name="InnerParams" component={InnerParams} />
+    </Stack.Navigator>
+  );
+};
 const AppStack = () => {
   return (
     <LinearGradient style={{ flex: 1 }} colors={["#EFF9FB", "#77FFD9"]}>
@@ -97,10 +111,10 @@ const AppStack = () => {
           options={{ headerShown: false }}
           component={Topics}
         />
-         <Drawer.Screen
+        <Drawer.Screen
           name="Parametre"
-          options={{ headerShown: false }}
-          component={Parametre}
+          options={{ headerShown: false,title:'Parametre' }}
+          component={ParametreStack}
         />
       </Drawer.Navigator>
     </LinearGradient>
@@ -124,7 +138,11 @@ function BottomTabNavigator() {
           options={{ tabBarLabel: "Home" }}
         />
         <BottomTab.Screen name="Search" component={Search} />
-        <BottomTab.Screen name="StackChats" component={StackChats}  options={{ tabBarLabel: "Messages" }} />
+        <BottomTab.Screen
+          name="StackChats"
+          component={StackChats}
+          options={{ tabBarLabel: "Messages" }}
+        />
         <BottomTab.Screen name="Notifications" component={Notifications} />
       </BottomTab.Navigator>
     </Layout>

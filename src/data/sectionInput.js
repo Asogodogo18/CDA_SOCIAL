@@ -1,3 +1,7 @@
+import React, { useState } from "react";
+const [name, setName] = useState("Doe");
+const [surName, setSurName] = useState("John");
+const [username, setUsername] = useState("@JohnDoe");
 const sectionInput = [
   {
     label: "Nom de famille",
@@ -16,4 +20,4 @@ const sectionInput = [
   },
 ];
 
-export { sectionInput };
+export default sectionInput;

@@ -271,7 +271,7 @@ const CustomDrawer = (props) => {
             { paddingLeft: 25 },
           ]}
           onPress={() => navigation.navigate("Parametre")}
-          focused={isFocused("Parametre")}
+          focused={isFocused('Parametre')}
         />
       </DrawerContentScrollView>
       <Button

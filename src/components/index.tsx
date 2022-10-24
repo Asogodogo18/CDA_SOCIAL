@@ -19,11 +19,19 @@ export { default as MessageListing } from "./Messages/MessageListing";
 export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
 export { default as AuthSectionDivider } from "./Auth/Divider";
-export {default as SocialIconGroup} from './shared/SocialGroup'
-export {default as CustomDrawerContent } from "./drawer/CustomDrawer";
+export { default as SocialIconGroup } from "./shared/SocialGroup";
+export { default as CustomDrawerContent } from "./drawer/CustomDrawer";
 export { default as MessageHeader } from "./Messages/MessageHeader";
 export { default as Message } from "./Messages/Message";
-export {default as Line} from './shared/Line'
-export{default as SectionHeader} from './shared/SectionHeader'
+export { default as Line } from "./shared/Line";
+export { default as SectionHeader } from "./shared/SectionHeader";
 export { default as SectionItems } from "./Settings/SectionsItems";
 export { default as SectionInput } from "./Settings/SectionInput";
+export { default as Infos } from "./Params/Infos";
+export { default as Securite } from "./Params/Securite";
+
+export { default as Notify } from "./Params/Notify";
+
+export { default as Verify } from "./Params/Verify";
+export { default as Language } from "./Params/Language";
+export { default as Country } from "./Params/Country";
