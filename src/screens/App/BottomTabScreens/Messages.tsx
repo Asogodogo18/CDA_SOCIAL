@@ -37,7 +37,7 @@ const Messages = () => {
           <Searchbar placeholder="Recherche"  />
         </Box>
         <SwitchControl />
-        <SectionHeader title={"En Ligne"} more={true} link={() => {}} />
+        <SectionHeader title={"En Ligne"} more={true} />
 
         <Stories data={FollowingList} />
         <SectionHeader title={"Tous Les Messages"} more={false}  />

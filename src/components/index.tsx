@@ -25,3 +25,5 @@ export { default as MessageHeader } from "./Messages/MessageHeader";
 export { default as Message } from "./Messages/Message";
 export {default as Line} from './shared/Line'
 export{default as SectionHeader} from './shared/SectionHeader'
+export { default as SectionItems } from "./Settings/SectionsItems";
+export { default as SectionInput } from "./Settings/SectionInput";

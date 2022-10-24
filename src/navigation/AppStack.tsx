@@ -26,6 +26,7 @@ import {
   Search,
   Tools,
   Topics,
+  Parametre
 } from "../screens";
 
 const Drawer = createDrawerNavigator();
@@ -95,6 +96,11 @@ const AppStack = () => {
           name="Topics"
           options={{ headerShown: false }}
           component={Topics}
+        />
+         <Drawer.Screen
+          name="Parametre"
+          options={{ headerShown: false }}
+          component={Parametre}
         />
       </Drawer.Navigator>
     </LinearGradient>

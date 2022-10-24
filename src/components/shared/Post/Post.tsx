@@ -2,13 +2,13 @@ import React, { ReactNode } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 
-import { MediaType } from "../../../types";
 import theme, { Theme } from "../../../theme";
 import Box from "../Box";
 import Text from "../Text";
 import Avatar from "../Avatar";
 import { TouchableOpacity, View } from "react-native";
 import Media from "../Media";
+import { MediaType } from "../../../types/global";
 
 enum PostTypes {
   main,
