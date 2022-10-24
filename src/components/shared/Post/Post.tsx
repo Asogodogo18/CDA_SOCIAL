@@ -145,7 +145,7 @@ const PostContent: React.FC<PostContentProps> = ({
       )}
 
       {media.length === 0 ? null : media.length <= 1 ? (
-        <Media media={media[0]} />
+        <Media single={true} media={media[0]} />
       ) : (
         <Box flexGrow={1} flexDirection={"row"} flexWrap={"wrap"}>
           {media?.map((item, index) => (
