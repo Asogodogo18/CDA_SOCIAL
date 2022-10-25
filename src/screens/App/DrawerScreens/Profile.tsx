@@ -24,7 +24,7 @@ const Profile = ({navigation}) => {
       showsHorizontalScrollIndicator={false}
     >
       <Box mt={'xl'}>
-        <ProfileHeader user="Amadou Diarra" />
+        <ProfileHeader user="Amadou Diarra"   />
       </Box>
       <Box my={"m"}>
         <TabNav />

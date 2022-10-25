@@ -16,8 +16,8 @@ export default function PostDetails({ route }) {
 
   return (
     <Box flex={1}>
-      <ScrollView>
-        <Post data={Poste} type={"details"} onPress={() => {}} />
+      <ScrollView contentContainerStyle={{padding:2}}>
+        <Post data={PostMultipleImages} type={"details"} onPress={() => {}} />
 
         <Line
           width={"100%"}

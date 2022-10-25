@@ -76,7 +76,7 @@ const Auth = ({navigation}) => {
         >
           <TouchableOpacity onPress={()=>navigation.navigate('Mpo')}>
             <Text variant={"body"} color="white">
-              Mot de Passe Oublie
+              Mot de Passe Oublié ?
             </Text>
           </TouchableOpacity>
           <TouchableOpacity>

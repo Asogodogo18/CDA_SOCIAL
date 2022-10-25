@@ -8,7 +8,7 @@ import { PostImage, PostMultipleImages } from "../../../data/post";
 const Search = ({navigation}) => {
   const handleNavigation=()=>{
     return(
-      navigation.navigate("HomeStack",{screen:'PostDetails'})
+      navigation.navigate("HomeStack",{screen:'Publication'})
     )
   }
   return (

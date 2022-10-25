@@ -5,7 +5,6 @@ import {
   Text,
   Infos,
   Securite,
-  Notify,
   Verify,
   Language,
   Country,
@@ -21,16 +20,14 @@ const InnerParams = ({ route }) => {
     case 2:
       return <Securite />;
       break;
+
     case 3:
-      return <Notify />;
-      break;
-    case 4:
       return <Verify />;
       break;
-    case 5:
+    case 4:
       return <Language />;
       break;
-    case 6:
+    case 5:
       return <Country />;
     default:
       null;

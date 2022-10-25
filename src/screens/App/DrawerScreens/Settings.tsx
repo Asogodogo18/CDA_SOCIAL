@@ -14,8 +14,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { SectionItems } from "../../../components";
 
 import { General } from "../../../data/sectionItems";
-
+import { useNavigation } from "@react-navigation/native";
 const Settings = ({ navigation }) => {
+ 
   return (
     <Layout>
       <Box backgroundColor={"messageInBg"} flex={1} style={{ paddingTop: 20 }}>
@@ -26,7 +27,7 @@ const Settings = ({ navigation }) => {
           elevation={5}
           backgroundColor={"white"}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.goBack()}>
             <Ionicons name="ios-chevron-back" size={24} color="black" />
           </TouchableOpacity>
           <Text variant={"titleBold"} style={{ marginLeft: 10 }}>

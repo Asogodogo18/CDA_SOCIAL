@@ -69,6 +69,7 @@ const theme = createTheme({
       fontSize: 14,
       fontWeight: "500",
       color: "black",
+      letterSpacing:1.5
     },
     titleBold: {
       // fontFamily

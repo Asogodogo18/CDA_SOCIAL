@@ -18,11 +18,13 @@ import {
   Dimensions,
   ScrollView,
   StatusBar,
+  FlatList,
 } from "react-native";
 
 import defaultFilters from "../../../data/feed";
 import FollowingList from "../../../data/stories";
 import {
+  Poste,
   PostImage,
   PostMixedContent,
   PostMultipleImages,
@@ -41,6 +43,7 @@ const Home = ({ navigation }) => {
     <ScrollView
       contentContainerStyle={{ alignContent: "center", marginTop: 15 }}
       showsHorizontalScrollIndicator={false}
+      nestedScrollEnabled
     >
       <StatusBar backgroundColor="white" barStyle={"dark-content"} />
       <Box flex={1} p={"m"}>
@@ -54,7 +57,9 @@ const Home = ({ navigation }) => {
         >
           <Avatar
             type={"header"}
-            source={require("../../../../assets/profil.jpg")}
+            source={{
+              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPnozsb1QEhjyjE7p-bGl9hQOkJh0brsUKoA&usqp=CAU",
+            }}
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             position={"absolute"}
             left={150}
@@ -81,8 +86,32 @@ const Home = ({ navigation }) => {
         <Box mb={"m"}>
           <Stories data={FollowingList} />
         </Box>
-
-        <Post data={PostImage} onPress={handleNavigation} type={"main"} />
+        <FlatList
+          data={Poste}
+          renderItem={({ item }) => (
+            <Post
+              data={item}
+              type={`${item.type}`}
+              onPress={handleNavigation}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          ListFooterComponent={() => (
+            <ScrollView
+              horizontal
+              contentContainerStyle={{ padding: 10 }}
+              showsHorizontalScrollIndicator={false}
+            >
+              <FollowCard />
+              <FollowCard />
+              <FollowCard />
+              <FollowCard />
+            </ScrollView>
+          )}
+          ListFooterComponentStyle={{marginBottom:10}}
+        />
+        
+        {/* <Post data={PostImage} onPress={handleNavigation} type={"main"} />
         <Post
           data={PostMixedContent}
           onPress={handleNavigation}
@@ -121,7 +150,7 @@ const Home = ({ navigation }) => {
           onPress={handleNavigation}
           type={"main"}
         />
-        <Post data={PostVideo} onPress={handleNavigation} type={"main"} />
+        <Post data={PostVideo} onPress={handleNavigation} type={"main"} /> */}
       </Box>
     </ScrollView>
   );

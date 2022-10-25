@@ -1,6 +1,6 @@
 import { TouchableOpacity, ImageBackground } from "react-native";
 import React from "react";
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { AntDesign, SimpleLineIcons, Entypo } from "@expo/vector-icons";
 import Box from "../shared/Box";
 import Avatar from "../shared/Avatar";
@@ -13,6 +13,7 @@ type HeaderProps = {
 type ProfileNavProps = {
   name: string;
   username: string;
+  onPress:()=>void
 };
 
 type ActionProps = {
@@ -31,8 +32,7 @@ const Action: React.FC<ActionProps> = ({ count, title }) => {
   );
 };
 
-const Navbar: React.FC<ProfileNavProps> = ({ name, username }) => {
-  // const Navigation = useNavigation ()
+const Navbar: React.FC<ProfileNavProps> = ({ name, username,onPress }) => {
   return (
     <Box
       position={"absolute"}
@@ -46,6 +46,8 @@ const Navbar: React.FC<ProfileNavProps> = ({ name, username }) => {
       alignItems={"center"}
     >
       <TouchableOpacity
+          onPress={onPress}
+
         style={{
           width: 30,
           height: 30,
@@ -145,6 +147,8 @@ const Banner = () => {
   );
 };
 const Header: React.FC<HeaderProps> = ({ user }) => {
+  const Navigation = useNavigation ()
+
   return (
     <Box overflow={"hidden"} minHeight={237} maxHeight={250} elevation={5}>
       <ImageBackground
@@ -161,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
             "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm309-aew-013_1_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=2724bd9481a065ee24e7e7eaaabf1c55",
         }}
       >
-        <Navbar name={"Jhon Doe"} username={"Zifu_D0"} />
+        <Navbar name={"Jhon Doe"} username={"Zifu_D0"} onPress={()=>Navigation.goBack()} />
         <Banner />
       </ImageBackground>
     </Box>

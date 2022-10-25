@@ -21,7 +21,7 @@ const ForgotPasswordScreen = ({navigation}) => {
         <AntDesign name="left" size={30} color="black" />
       </TouchableOpacity>
 
-      <Text variant={"subheader"} textAlign={"center"} style={{width:250,alignSelf:'center',fontSize:30,}} >
+      <Text variant={"subheader"}  style={{width:250,alignSelf:'center',fontSize:36,textAlign:'center',fontWeight:'bold',letterSpacing:1.5}} >
         RECUPERATION MOT de PASSE
       </Text>
       <Logo
@@ -29,7 +29,7 @@ const ForgotPasswordScreen = ({navigation}) => {
         width={250}
         style={{
           overflow: "hidden",
-          position: "relative",
+          position: "relative", 
        
           alignSelf: "center",
         }}

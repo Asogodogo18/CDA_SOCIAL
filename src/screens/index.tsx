@@ -2,7 +2,6 @@
 export { default as OnboardingScreen } from "./Auth/Onboarding";
 export { default as AuthScreen } from "./Auth/Auth";
 export { default as ForgotPasswordScreen } from "./Auth/ForgotPasswordScreen";
-
 //DRAWER SCREENS
 export { default as Education } from "./App/DrawerScreens/Education";
 export { default as Profile } from "./App/DrawerScreens/Profile";
@@ -12,11 +11,6 @@ export { default as Topics } from "./App/DrawerScreens/Topics";
 export { default as Parametre } from "./App/DrawerScreens/Settings";
 //PARAMETRE SCREENS
 export {default as InnerParams } from './App/ParametreScreens/InnerParams'
-
-
-
-
-
 //TAB SCREENS
 export { default as Home } from "./App/BottomTabScreens/Home";
 export { default as Messages } from "./App/BottomTabScreens/Messages";

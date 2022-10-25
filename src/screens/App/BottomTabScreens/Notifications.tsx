@@ -1,13 +1,23 @@
-
-import React from 'react'
-import { Box, Text, Post, Searchbar, SearchFilters } from "../../../components";
+import React from "react";
+import {
+  Box,
+  Text,
+  Post,
+  Searchbar,
+  SearchFilters,
+  MessageListing,
+} from "../../../components";
+import Notify from "../../../data/notify";
 
 const Notifications = () => {
   return (
-    <Box flex={1} backgroundColor={'overlay'} justifyContent={'center'} alignItems={'center'}>
-      <Text variant={"header"}>Notifications ABBA</Text>
+    <Box flex={1} backgroundColor={"white"}>
+      <Text variant={'titleBold'} style={{marginTop:30,margin:5,padding:5}}>Noticification</Text>
+      <Box style={{paddingBottom:70}}>
+        <MessageListing data={Notify} />
+      </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Notifications
+export default Notifications;
