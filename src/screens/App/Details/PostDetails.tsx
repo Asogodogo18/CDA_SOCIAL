@@ -12,12 +12,12 @@ import {
 
 export default function PostDetails({ route }) {
   // const {data}=route.param
-  // console.log(route.param);
+  // //console.log(route.param);
 
   return (
     <Box flex={1}>
       <ScrollView>
-        <Post data={Poste} type={"reply"} onPress={() => {}} />
+        <Post data={Poste} type={"details"} onPress={() => {}} />
 
         <Line
           width={"100%"}

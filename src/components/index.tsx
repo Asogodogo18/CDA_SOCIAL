@@ -19,11 +19,21 @@ export { default as MessageListing } from "./Messages/MessageListing";
 export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
 export { default as AuthSectionDivider } from "./Auth/Divider";
-export {default as SocialIconGroup} from './shared/SocialGroup'
-export {default as CustomDrawerContent } from "./drawer/CustomDrawer";
+export { default as SocialIconGroup } from "./shared/SocialGroup";
+export { default as CustomDrawerContent } from "./drawer/CustomDrawer";
 export { default as MessageHeader } from "./Messages/MessageHeader";
 export { default as Message } from "./Messages/Message";
-export {default as Line} from './shared/Line'
-export{default as SectionHeader} from './shared/SectionHeader'
+export { default as Line } from "./shared/Line";
+export { default as SectionHeader } from "./shared/SectionHeader";
 export { default as SectionItems } from "./Settings/SectionsItems";
 export { default as SectionInput } from "./Settings/SectionInput";
+
+export { default as Banner } from "./Auth/Banner";
+
+//StepsIndicator
+export { default as StepsIndicator } from "./Auth/Steps";
+export { default as Step1 } from "./Auth/FirstStep";
+export { default as Step2 } from "./Auth/SecondStep";
+export { default as Step3 } from "./Auth/ThirdStep";
+export { default as Step4 } from "./Auth/FourthStep";
+export { default as Step5 } from "./Auth/FifthStep";

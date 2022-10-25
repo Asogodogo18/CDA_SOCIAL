@@ -10,7 +10,7 @@ type MediaProps = {
 const Media: React.FC<MediaProps> = ({ media, single }) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
-  console.log("media: ", media);
+  //console.log("media: ", media);
 
   if (media.type === "video")
     return (
