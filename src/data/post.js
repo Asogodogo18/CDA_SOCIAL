@@ -10,12 +10,7 @@ const Poste = [
       username: "john_polo",
     },
 
-    media: [
-      {
-        url: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-        type: "video",
-      },
-    ],
+    media: [],
     text: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
     footer: [
       {
@@ -39,8 +34,8 @@ const Poste = [
 
     media: [
       {
-        url: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-        type: "video",
+        url: "https://previews.123rf.com/images/kho/kho1309/kho130900100/21895248-beaut%C3%A9-portrait-de-jeune-mul%C3%A2tre-femme-de-mode-fra%C3%AEche-de-profil-tonique.jpg",
+        type: "image",
       },
     ],
     text: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",

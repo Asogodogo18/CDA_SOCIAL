@@ -52,7 +52,7 @@ const SectionIcon: React.FunctionComponent<SectionIconProps> = ({
   const Default = "gray";
   const condition = type && iconName;
 
-  console.log(type);
+  // console.log(type);
   return (
     <Box width={"100%"}>
       <TouchableOpacity

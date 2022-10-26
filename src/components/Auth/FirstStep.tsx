@@ -23,7 +23,7 @@ const FirstStep: React.FC<FirstStepProps> = ({ image, onPress, ...props }) => {
       quality: 1,
     });
 
-    console.log(result);
+    //console.log(result);
 
     if (!result.cancelled) {
       onPress(result.uri);
