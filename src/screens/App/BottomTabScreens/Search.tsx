@@ -15,7 +15,7 @@ const Search = ({navigation}) => {
     <Box flex={1} mt={"xl"} pt={"m"}>
       <Searchbar placeholder="Recherche" />
       <SearchFilters data={SearchFilter} onPress={() => {}} />
-      <ScrollView contentContainerStyle={{flexGrow:1,padding:10}}>
+      <ScrollView contentContainerStyle={{flexGrow:1,padding:10,paddingBottom:90}}>
         <Post data={PostImage} onPress={handleNavigation}/>
         <Post data={PostMultipleImages} onPress={handleNavigation} />
         <Post data={PostImage} onPress={handleNavigation} />

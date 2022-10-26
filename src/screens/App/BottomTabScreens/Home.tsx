@@ -99,7 +99,7 @@ const Home = ({ navigation }) => {
           ListFooterComponent={() => (
             <ScrollView
               horizontal
-              contentContainerStyle={{ padding: 10 }}
+              contentContainerStyle={{ paddingBottom: 70 }}
               showsHorizontalScrollIndicator={false}
             >
               <FollowCard />
