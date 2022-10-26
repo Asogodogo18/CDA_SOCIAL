@@ -1,11 +1,16 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import { BoxProps } from "@shopify/restyle";
+import { Theme } from "../../theme";
+import Box from "../shared/Box";
+import Text from "../shared/Text";
 
-const ThirdStep = () => {
+type ThirdStepProps = {} & Partial<BoxProps<Theme>>;
+
+const ThirdStep :React.FC<ThirdStepProps> = ({ ...props }) => {
   return (
-    <View>
-      <Text>ThirdStep</Text>
-    </View>
+    <Box backgroundColor={'fadingWhite'} flex={1} justifyContent={"center"} alignItems={"center"} {...props}>
+      <Text variant={'body2'} >TEXT</Text>
+    </Box>
   )
 }
 

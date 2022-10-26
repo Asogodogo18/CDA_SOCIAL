@@ -18,16 +18,13 @@ if (Platform.OS === "android") {
 const status = ["1", "2", "3", "4", "5"];
 const activeColor = "#444";
 
-export default function StepsIndicator({
-  activeIndex,
-}) {
+export default function StepsIndicator({ activeIndex }) {
   const onPress = () => {
     LayoutAnimation.easeInEaseOut();
   };
 
   useEffect(() => {
     onPress();
-
     return () => {};
   }, [activeIndex]);
 
@@ -68,10 +65,10 @@ export default function StepsIndicator({
 
 const styles = StyleSheet.create({
   constainer: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    bottom: 0,
+    flex: 1,
+    height: 350,
+    justifyContent: "center",
+    alignItems: "center",
   },
   statusContainer: {
     flexDirection: "column",

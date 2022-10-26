@@ -40,6 +40,9 @@ const theme = createTheme({
     ml: 12.5,
     l: 16,
     xl: 24,
+    xxl: 30,
+    xxxl: 40,
+    v: 48,
   },
   breakpoints: {
     phone: 0,
@@ -94,7 +97,7 @@ const theme = createTheme({
     title2: {
       // fontFamily
       fontSize: 16,
-      fontWeight: "light",
+      fontWeight: "300",
       color: "white",
       textTransform: "capitalize",
     },
