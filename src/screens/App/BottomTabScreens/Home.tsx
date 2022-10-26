@@ -41,7 +41,11 @@ const Home = ({ navigation }) => {
   };
   return (
     <ScrollView
-      contentContainerStyle={{ alignContent: "center", marginTop: 15 }}
+      contentContainerStyle={{
+        alignContent: "center",
+        marginTop: 15,
+        paddingBottom: 80,
+      }}
       showsHorizontalScrollIndicator={false}
       nestedScrollEnabled
     >
@@ -108,9 +112,9 @@ const Home = ({ navigation }) => {
               <FollowCard />
             </ScrollView>
           )}
-          ListFooterComponentStyle={{marginBottom:10}}
+          ListFooterComponentStyle={{ marginBottom: 10 }}
         />
-        
+
         {/* <Post data={PostImage} onPress={handleNavigation} type={"main"} />
         <Post
           data={PostMixedContent}

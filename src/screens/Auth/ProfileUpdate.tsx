@@ -18,7 +18,51 @@ import { LinearGradient } from "expo-linear-gradient";
 const { width, height } = Dimensions.get("screen");
 const ProfileUpdate = () => {
   const [active, setActive] = useState(0);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt7UYSAEM0LVHCoCpMyLNYVjtgUkkpA4bZRA&usqp=CAU"
+  );
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [genre, setGenre] = useState("Sexe");
+  const [bio, setBio] = useState("");
+  const [language, setLanguage] = useState("");
+  const [country, setCountry] = useState("");
+  const [privacy1, setPrivacy1] = useState("");
+  const [privacy2, setPrivacy2] = useState("");
+  const [privacy3, setPrivacy3] = useState("");
+
+  const onNameChange = (text) => {
+    setName(text);
+  };
+
+  const onSurnameChange = (text) => {
+    setSurname(text);
+  };
+
+  const onGenreChange = (text) => {
+    setGenre(text);
+  };
+
+  const onBioChange = (text) => {
+    setBio(text);
+  };
+
+  const onCountryChange = (text) => {
+    setName(text);
+  };
+  const onLanguageChange = (text) => {
+    setName(text);
+  };
+
+  const onPrivacy1Change = (text) => {
+    setPrivacy1(text);
+  };
+  const onPrivacy2Change = (text) => {
+    setPrivacy2(text);
+  };
+  const onPrivacy3Change = (text) => {
+    setPrivacy3(text);
+  };
 
   const handleNext = () => {
     setActive(active + 1);
@@ -37,10 +81,51 @@ const ProfileUpdate = () => {
       subtitle: "Ajouter une image de profil",
       component: <Step1 image={image} onPress={handleImagechange} />,
     },
-    { subtitle: "Information Personelle", component: <Step2 /> },
-    { subtitle: "A propos de vous", component: <Step3 /> },
-    { subtitle: "Localisation", component: <Step4 /> },
-    { subtitle: "Confidentialité", component: <Step5 /> },
+    {
+      subtitle: "Information Personelle",
+      component: (
+        <Step2
+          image={image}
+          onNameChange={onNameChange}
+          onSurnameChange={onSurnameChange}
+          genre={genre}
+          onGenreChange={onGenreChange}
+          name={name}
+          surname={surname}
+          genres={["Sexe", "Masculin", "Feminin"]}
+        />
+      ),
+    },
+    {
+      subtitle: "A propos de vous",
+      component: <Step3 bio={bio} onBioChange={onBioChange} image={image} />,
+    },
+    {
+      subtitle: "Localisation",
+      component: (
+        <Step4
+          image={image}
+          language={language}
+          onLanguageChange={onLanguageChange}
+          country={country}
+          onCountryChange={onCountryChange}
+        />
+      ),
+    },
+    {
+      subtitle: "Confidentialité",
+      component: (
+        <Step5
+          image={image}
+          privacy1={privacy1}
+          privacy2={privacy2}
+          privacy3={privacy3}
+          onPrivacy1Change={onPrivacy1Change}
+          onPrivacy2Change={onPrivacy2Change}
+          onPrivacy3Change={onPrivacy3Change}
+        />
+      ),
+    },
   ];
   return (
     <LinearGradient

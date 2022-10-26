@@ -5,25 +5,37 @@ import { ScrollView } from "react-native";
 
 import SearchFilter from "../../../data/searchFiltre";
 import { PostImage, PostMultipleImages } from "../../../data/post";
-const Search = ({navigation}) => {
-  const handleNavigation=()=>{
-    return(
-      navigation.navigate("HomeStack",{screen:'Publication'})
-    )
-  }
+const Search = ({ navigation }) => {
+  const handleNavigation = () => {
+    return navigation.navigate("HomeStack", { screen: "Publication" });
+  };
   return (
     <Box flex={1} mt={"xl"} pt={"m"}>
       <Searchbar placeholder="Recherche" />
       <SearchFilters data={SearchFilter} onPress={() => {}} />
-      <ScrollView contentContainerStyle={{flexGrow:1,padding:10}}>
-        <Post data={PostImage} onPress={handleNavigation}/>
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
-        <Post data={PostImage} onPress={handleNavigation} />
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, padding: 10, paddingBottom: 80 }}
+      >
+        <Post type="main" data={PostImage} onPress={handleNavigation} />
+        <Post
+          type="main"
+          data={PostMultipleImages}
+          onPress={handleNavigation}
+        />
+        <Post type="main" data={PostImage} onPress={handleNavigation} />
 
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
-        <Post data={PostImage} onPress={handleNavigation} />
+        <Post
+          type="main"
+          data={PostMultipleImages}
+          onPress={handleNavigation}
+        />
+        <Post type="main" data={PostImage} onPress={handleNavigation} />
 
-        <Post data={PostMultipleImages} onPress={handleNavigation} />
+        <Post
+          type="main"
+          data={PostMultipleImages}
+          onPress={handleNavigation}
+        />
       </ScrollView>
     </Box>
   );

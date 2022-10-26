@@ -18,7 +18,7 @@ type InputProps = {
   placeholder?: string;
   value: string;
   dropdownValues?: string[];
-  onChange: () => void;
+  onChange: (param: any) => void;
 } & Partial<BoxProps<Theme>>;
 
 const Input: React.FC<InputProps> = ({
@@ -26,7 +26,7 @@ const Input: React.FC<InputProps> = ({
   icon,
   value,
   onChange,
-  type,
+  type = "text",
   dropdownValues,
   ...props
 }) => {
@@ -42,15 +42,23 @@ const Input: React.FC<InputProps> = ({
       height={50}
       {...props}
     >
-      {type == "text" ? (
+      {type == "text" && (
         <TextInput
+          multiline={true}
           onChangeText={onChange}
           value={value}
           placeholder={placeholder}
           style={{ width: "100%", height: "100%" }}
         />
-      ) : (
-        <Picker selectedValue={value} onValueChange={onChange}>
+      )}
+      {type == "dropdown" && (
+        <Picker
+          style={{ width: "100%", height: "100%" }}
+          mode={"dropdown"}
+          placeholder={placeholder}
+          selectedValue={value}
+          onValueChange={onChange}
+        >
           {dropdownValues?.map((item, index) => (
             <Picker.Item key={index} label={item} value={item} />
           ))}

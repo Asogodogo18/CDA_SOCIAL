@@ -1,17 +1,50 @@
-import React from 'react'
+import React from "react";
 import { BoxProps } from "@shopify/restyle";
 import { Theme } from "../../theme";
 import Box from "../shared/Box";
 import Text from "../shared/Text";
+import { string } from "prop-types";
+import Avatar from "../shared/Avatar";
+import Input from "../shared/TextInput";
+import Line from "../shared/Line";
 
-type ThirdStepProps = {} & Partial<BoxProps<Theme>>;
+type ThirdStepProps = {
+  bio: string;
+  onBioChange: (param: string) => void;
+  image: string;
+} & Partial<BoxProps<Theme>>;
 
-const ThirdStep :React.FC<ThirdStepProps> = ({ ...props }) => {
+const ThirdStep: React.FC<ThirdStepProps> = ({
+  bio,
+  onBioChange,
+  image,
+  ...props
+}) => {
   return (
-    <Box backgroundColor={'fadingWhite'} flex={1} justifyContent={"center"} alignItems={"center"} {...props}>
-      <Text variant={'body2'} >TEXT</Text>
+    <Box flex={1} justifyContent={"center"} alignItems={"center"} {...props}>
+      <Box
+        elevation={4}
+        zIndex={100}
+        alignSelf={"flex-start"}
+        left={0}
+        bottom={-40}
+      >
+        <Avatar type="pinned" source={{ uri: image }} />
+      </Box>
+      <Box ml={'xxxl'} zIndex={100} alignSelf={"flex-start"} left={0} bottom={-40}>
+        <Text variant={"titleBold"}>Bio</Text>
+        <Line alignSelf={'center'} backgroundColor={"black"} width={230} />
+      </Box>
+      <Input
+        placeholder="Veuillez entrer une brève description de vous-même avec un maximum de 140 caractères"
+        value={bio}
+        onChange={onBioChange}
+        height={220}
+        px={"xl"}
+        borderRadius={10}
+      />
     </Box>
-  )
-}
+  );
+};
 
-export default ThirdStep
+export default ThirdStep;
