@@ -23,9 +23,8 @@ export default function App() {
         <SafeAreaProvider>
           {/* <Navigation colorScheme={colorScheme} /> */}
           <NavigationContainer>
-
-          <StatusBar />
-          <RootStack />
+            <StatusBar />
+            <RootStack />
           </NavigationContainer>
         </SafeAreaProvider>
       </ThemeProvider>

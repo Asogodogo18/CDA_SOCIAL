@@ -35,3 +35,13 @@ export { default as Notify } from "./Params/Notify";
 export { default as Verify } from "./Params/Verify";
 export { default as Language } from "./Params/Language";
 export { default as Country } from "./Params/Country";
+
+export { default as Banner } from "./Auth/Banner";
+
+//StepsIndicator
+export { default as StepsIndicator } from "./Auth/Steps";
+export { default as Step1 } from "./Auth/FirstStep";
+export { default as Step2 } from "./Auth/SecondStep";
+export { default as Step3 } from "./Auth/ThirdStep";
+export { default as Step4 } from "./Auth/FourthStep";
+export { default as Step5 } from "./Auth/FifthStep";

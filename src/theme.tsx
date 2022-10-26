@@ -15,12 +15,12 @@ const palette = {
   whitishGray: "#F7F7F7",
   gray: "#A1A1A1",
   grayDark: "#848383",
-  danger:"red",
+  danger: "red",
 
   //backgrounds
   nobg: "transparent",
   fadingWhite: "rgba(249,249,249,0.44)",
-  overlay:'rgba(5,57,26,0.67)',
+  overlay: "rgba(5,57,26,0.67)",
 
   black: "#0B0B0B",
   white: "#FFFF",
@@ -38,10 +38,12 @@ const theme = createTheme({
     xs: 2,
     s: 4,
     m: 8,
-    ml:12.5,
+    ml: 12.5,
     l: 16,
     xl: 24,
-    
+    xxl: 30,
+    xxxl: 40,
+    v: 48,
   },
   breakpoints: {
     phone: 0,
@@ -62,7 +64,7 @@ const theme = createTheme({
       fontSize: 20,
       lineHeight: 36,
       color: "black",
-      letterSpacing:1.5
+      letterSpacing: 1.5,
     },
     title: {
       // fontFamily
@@ -76,7 +78,15 @@ const theme = createTheme({
       fontSize: 18,
       fontWeight: "bold",
       color: "black",
-      letterSpacing:1.5
+      letterSpacing: 1.5,
+    },
+    titleBold1: {
+      // fontFamily
+      fontSize: 20,
+      fontWeight: "bold",
+      color: "white",
+      letterSpacing: 1.5,
+      textTransform: "capitalize",
     },
     title1: {
       // fontFamily
@@ -85,6 +95,13 @@ const theme = createTheme({
       color: "black",
       textTransform: "uppercase",
       letterSpacing: 1.4,
+    },
+    title2: {
+      // fontFamily
+      fontSize: 16,
+      fontWeight: "300",
+      color: "white",
+      textTransform: "capitalize",
     },
     subtitle: {
       // fontFamily
@@ -166,6 +183,18 @@ const theme = createTheme({
       fontWeight: "600",
       textTransform: "uppercase",
       color: "black",
+    },
+    tabText: {
+      // fontFamily
+      fontSize: 9,
+      color: "black",
+      fontWeight: "300",
+    },
+    tabTextActive: {
+      // fontFamily
+      fontSize: 10,
+      color: "black",
+      fontWeight: "500",
     },
   },
 });

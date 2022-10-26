@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Platform, View } from "react-native";
+import {
+  StyleSheet,
+  Platform,
+  View,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -8,9 +14,9 @@ import {
 } from "@react-navigation/drawer";
 
 import { LinearGradient } from "expo-linear-gradient";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
-import { CustomDrawerContent } from "../components";
+import { Box, CustomDrawerContent, Text } from "../components";
 import Layout from "../screens/Layout";
 //Details Screens
 import PostDetails from "../screens/App/Details/PostDetails";
@@ -30,6 +36,11 @@ import {
 } from "../screens";
 // Parametre Screens
 import { InnerParams } from "../screens";
+
+import HOME_ICON from "../../assets/icons/Home.svg";
+import SEARCH_ICON from "../../assets/icons/Search.svg";
+import MSG_ICON from "../../assets/icons/Msg.svg";
+import BELL_ICON from "../../assets/icons/Notif.svg";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -125,25 +136,120 @@ export default AppStack;
 
 const BottomTab = createBottomTabNavigator();
 
+const CustomTabBarButton = ({ children, onPress }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        top: -30,
+        elevation: 4,
+        borderRadius: 50,
+        height: 60,
+        width: 60,
+      }}
+      onPress={() => Alert.alert("Add Pressed")}
+    >
+      <LinearGradient
+        style={{
+          flex: 1,
+          borderRadius: 50,
+
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        colors={["#26FFCB", "#1F9354"]}
+      >
+        {children}
+      </LinearGradient>
+    </TouchableOpacity>
+  );
+};
+
 function BottomTabNavigator() {
   return (
     <Layout>
       <BottomTab.Navigator
         initialRouteName="HomeStack"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: "#FFFF",
+            height: 60,
+          },
+        }}
       >
         <BottomTab.Screen
           name="HomeStack"
           component={StackApp}
-          options={{ tabBarLabel: "Home" }}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Box justifyContent={"center"} alignItems={"center"}>
+                <HOME_ICON style={{ color: focused ? "#0ABD1C" : "#D6DBDE" }} />
+                <Text variant={focused ? "tabTextActive" : "tabText"}>
+                  Accueil
+                </Text>
+              </Box>
+            ),
+          }}
         />
-        <BottomTab.Screen name="Search" component={Search} />
+        <BottomTab.Screen
+          name="Search"
+          component={Search}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Box justifyContent={"center"} alignItems={"center"}>
+                <SEARCH_ICON
+                  style={{ color: focused ? "#0ABD1C" : "#D6DBDE" }}
+                />
+                <Text variant={focused ? "tabTextActive" : "tabText"}>
+                  Recherche
+                </Text>
+              </Box>
+            ),
+          }}
+        />
+        <BottomTab.Screen
+          name="Add"
+          component={Search}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Ionicons name="add" size={36} color="white" />
+            ),
+            tabBarButton: (props) => <CustomTabBarButton {...props} />,
+          }}
+        />
         <BottomTab.Screen
           name="StackChats"
           component={StackChats}
-          options={{ tabBarLabel: "Messages" }}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Box justifyContent={"center"} alignItems={"center"}>
+                <MSG_ICON style={{ color: focused ? "#0ABD1C" : "#D6DBDE" }} />
+                <Text variant={focused ? "tabTextActive" : "tabText"}>
+                  Messagerie
+                </Text>
+              </Box>
+            ),
+          }}
         />
-        <BottomTab.Screen name="Notifications" component={Notifications} />
+        <BottomTab.Screen
+          name="Notifications"
+          component={Notifications}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Box justifyContent={"center"} alignItems={"center"}>
+                <BELL_ICON style={{ color: focused ? "#0ABD1C" : "#D6DBDE" }} />
+                <Text variant={focused ? "tabTextActive" : "tabText"}>
+                  Notifications
+                </Text>
+              </Box>
+            ),
+          }}
+        />
       </BottomTab.Navigator>
     </Layout>
   );
