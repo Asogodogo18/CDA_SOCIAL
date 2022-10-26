@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   StyleSheet,
   Platform,
@@ -12,11 +12,12 @@ import {
   useDrawerProgress,
   createDrawerNavigator,
 } from "@react-navigation/drawer";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
-import { Box, CustomDrawerContent, Text } from "../components";
+import { Box, CustomDrawerContent, PosteScreens, Text } from "../components";
 import Layout from "../screens/Layout";
 //Details Screens
 import PostDetails from "../screens/App/Details/PostDetails";
@@ -67,7 +68,7 @@ const StackChats = () => {
 };
 const ParametreStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown:false}}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Parametre" component={Parametre} />
 
       <Stack.Screen name="InnerParams" component={InnerParams} />
@@ -124,7 +125,7 @@ const AppStack = () => {
         />
         <Drawer.Screen
           name="Parametre"
-          options={{ headerShown: false,title:'Parametre' }}
+          options={{ headerShown: false, title: "Parametre" }}
           component={ParametreStack}
         />
       </Drawer.Navigator>
@@ -146,7 +147,8 @@ const CustomTabBarButton = ({ children, onPress }) => {
         height: 60,
         width: 60,
       }}
-      onPress={() => Alert.alert("Add Pressed")}
+      // onPress={() => Alert.alert("Poste Screns")}
+      onPress={onPress}
     >
       <LinearGradient
         style={{
@@ -164,7 +166,7 @@ const CustomTabBarButton = ({ children, onPress }) => {
   );
 };
 
-function BottomTabNavigator() {
+const BottomTabNavigator = () => {
   return (
     <Layout>
       <BottomTab.Navigator
@@ -214,12 +216,14 @@ function BottomTabNavigator() {
         />
         <BottomTab.Screen
           name="Add"
-          component={Search}
+          component={PosteScreens}
           options={{
             tabBarIcon: ({ focused }) => (
               <Ionicons name="add" size={36} color="white" />
             ),
-            tabBarButton: (props) => <CustomTabBarButton {...props} />,
+            tabBarButton: (props) => (
+              <CustomTabBarButton onPress={()=>{}} {...props} />
+            ),
           }}
         />
         <BottomTab.Screen
@@ -253,7 +257,7 @@ function BottomTabNavigator() {
       </BottomTab.Navigator>
     </Layout>
   );
-}
+};
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/

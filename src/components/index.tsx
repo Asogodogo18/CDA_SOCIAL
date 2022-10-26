@@ -8,6 +8,8 @@ export { default as FeedFilters } from "./shared/FeedFilters/FeedFilters";
 export { default as SingleStory } from "./shared/Stories/Story";
 export { default as Stories } from "./shared/Stories/Stories";
 export { default as Post } from "./shared/Post/Post";
+export { default as PosteScreens } from "./shared/Post/PosteScreens";
+
 export { default as FollowCard } from "./shared/FollowCard/FollowCard";
 export { default as ReplyField } from "./shared/ReplyField";
 export { default as Searchbar } from "./search/Searchbar";
