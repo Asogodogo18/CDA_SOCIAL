@@ -5,6 +5,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import Box from "./Box";
 import Text from "./Text";
+import SectionIcon, { Icons, Icon } from "./SectionIcon";
 
 type ReplyFieldProps = {
   placeholder: string;
@@ -21,7 +22,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints =  ["60%","60%"] ;
+  const snapPoints = ["60%", "60%"];
 
   // callbacks
   // const handleSheetChanges = useCallback((index: number) => {
@@ -37,37 +38,47 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
           // onChange={handleSheetChanges}
           style={{}}
         >
-          <Box style={{ padding: 20 }}>
-            <TouchableOpacity
-              style={{ flexDirection: "row", height: 50, alignItems: "center" }}
-            >
-              <EvilIcons name="camera" size={40} color="black" />
-              <Text variant={'subheader'} marginLeft={'ml'}>Caméra</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ flexDirection: "row", height: 50, alignItems: "center" }}
-            >
-              <Ionicons name="ios-library-outline" size={40} color="black" />
-              <Text variant={'subheader'} marginLeft={'ml'}>Bibilothéque Photo et Vidéo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ flexDirection: "row", height: 50, alignItems: "center" }}
-            >
-              <Ionicons name="document-text-outline" size={40} color="black" />
-              <Text variant={'subheader'} marginLeft={'ml'}>Document</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ flexDirection: "row", height: 50, alignItems: "center" }}
-            >
-              <Ionicons name="md-location-outline" size={40} color="black" />
-              <Text variant={'subheader'} marginLeft={'ml'}>Localisation</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ flexDirection: "row", height: 50, alignItems: "center" }}
-            >
-              <AntDesign name="contacts" size={40} color="black" />
-              <Text variant={'subheader'} marginLeft={'ml'}>Contact</Text>
-            </TouchableOpacity>
+          <Box style={{ padding: 5 }}>
+            <SectionIcon
+              color="black"
+              iconName="camera"
+              placeholder="Caméra"
+              size={40}
+              type={Icons.EvilIcons}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="ios-library-outline"
+              placeholder="Bibilothéque Photo et Vidéo"
+              size={40}
+              type={Icons.Ionicons}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="document-text-outline"
+              placeholder="Document"
+              size={40}
+              type={Icons.Ionicons}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="md-location-outline"
+              placeholder="Localisation"
+              size={40}
+              type={Icons.Ionicons}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="contacts"
+              placeholder="Contact"
+              size={40}
+              type={Icons.AntDesign}
+              onPress={() => {}}
+            />
           </Box>
         </BottomSheet>
       )}
