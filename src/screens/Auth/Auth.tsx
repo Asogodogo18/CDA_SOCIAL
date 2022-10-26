@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 const { height, width } = Dimensions.get("screen");
-const Auth = ({navigation}) => {
+const Auth = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
   return (
@@ -48,7 +48,12 @@ const Auth = ({navigation}) => {
             CLUSTERDIGITALAFRICA
           </Text>
         </Box>
-        <Box alignItems={"center"} justifyContent={"space-around"} flex={5.5} width={"100%"}>
+        <Box
+          alignItems={"center"}
+          justifyContent={"space-around"}
+          flex={5.5}
+          width={"100%"}
+        >
           <TextInput
             mb={"m"}
             value={userName}
@@ -61,8 +66,16 @@ const Auth = ({navigation}) => {
             onChange={setPassWord}
             placeholder={"Mot de Passe"}
           />
-          <Button primary title="Se Connecter" onPress={() => navigation.navigate('AppStack')} />
-          <Button primary={false} title="S'inscrire" onPress={() => {}} />
+          <Button
+            primary
+            title="Se Connecter"
+            onPress={() => navigation.navigate("AppStack")}
+          />
+          <Button
+            primary={false}
+            title="S'inscrire"
+            onPress={() => navigation.navigate("ProfileUpdate")}
+          />
           <AuthSectionDivider />
           <SocialIconGroup onPress={() => {}} />
         </Box>
@@ -74,7 +87,7 @@ const Auth = ({navigation}) => {
           alignItems={"center"}
           width={"100%"}
         >
-          <TouchableOpacity onPress={()=>navigation.navigate('Mpo')}>
+          <TouchableOpacity onPress={() => navigation.navigate("Mpo")}>
             <Text variant={"body"} color="white">
               Mot de Passe Oublié ?
             </Text>

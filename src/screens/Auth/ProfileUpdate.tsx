@@ -18,9 +18,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const { width, height } = Dimensions.get("screen");
 const ProfileUpdate = () => {
   const [active, setActive] = useState(0);
-  const [image, setImage] = useState(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt7UYSAEM0LVHCoCpMyLNYVjtgUkkpA4bZRA&usqp=CAU"
-  );
+  const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [genre, setGenre] = useState("Sexe");
