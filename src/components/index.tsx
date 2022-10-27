@@ -8,7 +8,6 @@ export { default as FeedFilters } from "./shared/FeedFilters/FeedFilters";
 export { default as SingleStory } from "./shared/Stories/Story";
 export { default as Stories } from "./shared/Stories/Stories";
 export { default as Post } from "./shared/Post/Post";
-export { default as PosteScreens } from "./shared/Post/PosteScreens";
 
 export { default as FollowCard } from "./shared/FollowCard/FollowCard";
 export { default as ReplyField } from "./shared/ReplyField";
@@ -26,6 +25,8 @@ export { default as CustomDrawerContent } from "./drawer/CustomDrawer";
 export { default as MessageHeader } from "./Messages/MessageHeader";
 export { default as Message } from "./Messages/Message";
 export { default as Line } from "./shared/Line";
+export { default as TabBarButton } from "./shared/TabBarButtonCustom";
+
 export { default as SectionHeader } from "./shared/SectionHeader";
 export { default as SectionItems } from "./Settings/SectionsItems";
 export { default as SectionInput } from "./Settings/SectionInput";

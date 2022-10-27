@@ -17,7 +17,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
   return (
     <Box
       width={"100%"}
-      height={30}
+      height={40}
       flexDirection={"row"}
       px={"m"}
       py={"s"}
@@ -26,7 +26,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
       borderBottomColor={"borderColor1"}
     >
       <SearchbarIcon/>
-      <TextInput style={{marginLeft:4}} value={value} placeholder={placeholder} onChangeText={onChange} />
+      <TextInput style={{marginLeft:4,fontSize:15}} value={value} placeholder={placeholder} onChangeText={onChange} />
     </Box>
   );
 };

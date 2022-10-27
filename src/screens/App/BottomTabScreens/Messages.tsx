@@ -26,7 +26,7 @@ const Messages = () => {
           justifyContent={"space-between"}
           mt={"ml"}
           mb={"ml"}
-          p={"m"}
+          p={"m"} 
         >
           <Text variant={"header"}>Messages</Text>
           <TouchableOpacity>

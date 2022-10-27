@@ -20,7 +20,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ label, onPress }) => {
         }}
         onPress={onPress}
       >
-        <Text variant={"title1"}>{label}</Text>
+        <Text variant={"title"}>{label}</Text>
       </TouchableOpacity>
     </Box>
   );

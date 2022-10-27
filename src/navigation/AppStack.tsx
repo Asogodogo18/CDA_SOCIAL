@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Platform,
   View,
   TouchableOpacity,
   Alert,
+  Animated
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -17,7 +18,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
-import { Box, CustomDrawerContent, PosteScreens, Text } from "../components";
+import { Box, CustomDrawerContent, TabBarButton, Text } from "../components";
 import Layout from "../screens/Layout";
 //Details Screens
 import PostDetails from "../screens/App/Details/PostDetails";
@@ -34,9 +35,11 @@ import {
   Tools,
   Topics,
   Parametre,
+  InnerParams,
+  PosteScreens
+  
 } from "../screens";
-// Parametre Screens
-import { InnerParams } from "../screens";
+
 
 import HOME_ICON from "../../assets/icons/Home.svg";
 import SEARCH_ICON from "../../assets/icons/Search.svg";
@@ -45,6 +48,7 @@ import BELL_ICON from "../../assets/icons/Notif.svg";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator();
 
 const StackApp = () => {
   return (
@@ -59,10 +63,11 @@ const StackApp = () => {
   );
 };
 const StackChats = () => {
+ 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Messages" component={Messages} />
-      <Stack.Screen name="Chats" component={Chats} />
+      <Stack.Screen name="Chats" component={Chats}   />
     </Stack.Navigator>
   );
 };
@@ -72,6 +77,13 @@ const ParametreStack = () => {
       <Stack.Screen name="Parametre" component={Parametre} />
 
       <Stack.Screen name="InnerParams" component={InnerParams} />
+    </Stack.Navigator>
+  );
+};
+const PosteStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="PosteScreens" component={PosteScreens} />
     </Stack.Navigator>
   );
 };
@@ -133,11 +145,10 @@ const AppStack = () => {
   );
 };
 
-export default AppStack;
 
-const BottomTab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({ children, onPress }) => {
+
   return (
     <TouchableOpacity
       style={{
@@ -167,10 +178,39 @@ const CustomTabBarButton = ({ children, onPress }) => {
 };
 
 const BottomTabNavigator = () => {
+  const PosteScreens = ({ isActive }: any) => {
+    const bottomSheetRef = useRef<BottomSheet>(null);
+
+    // variables
+    const snapPoints = ["25%", "50%"];
+    return (
+      <Box flex={1} position={"relative"}>
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={1}
+          snapPoints={snapPoints}
+          // onChange={handleSheetChanges}
+        >
+          <Box
+            style={{
+              padding: 5,
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+            }}
+          >
+            <Text variant={"header"}>PosteScreens</Text>
+          </Box>
+        </BottomSheet>
+      </Box>
+    );
+  };
+
   return (
     <Layout>
       <BottomTab.Navigator
         initialRouteName="HomeStack"
+        
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
@@ -182,6 +222,7 @@ const BottomTabNavigator = () => {
             backgroundColor: "#FFFF",
             height: 60,
           },
+          
         }}
       >
         <BottomTab.Screen
@@ -216,13 +257,14 @@ const BottomTabNavigator = () => {
         />
         <BottomTab.Screen
           name="Add"
-          component={PosteScreens}
+          component={PosteStack}
           options={{
-            tabBarIcon: ({ focused }) => (
-              <Ionicons name="add" size={36} color="white" />
-            ),
+            // tabBarIcon: ({ focused }) => (
+            //   <Ionicons name="add" size={36} color="white" />
+            // ),
             tabBarButton: (props) => (
-              <CustomTabBarButton onPress={()=>{}} {...props} />
+              // <CustomTabBarButton onPress={PosteScreens} {...props} />
+              <TabBarButton/>
             ),
           }}
         />
@@ -238,6 +280,7 @@ const BottomTabNavigator = () => {
                 </Text>
               </Box>
             ),
+          //  tabBarStyle: { display: "none" }
           }}
         />
         <BottomTab.Screen
@@ -334,3 +377,5 @@ const styles = StyleSheet.create({
   },
   drawerStyles: { flex: 1, width: "80%", backgroundColor: "transparent" },
 });
+
+export default AppStack;

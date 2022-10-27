@@ -18,10 +18,13 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ data, onPress }) => {
   return (
     <ScrollView
     horizontal
+    showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        height:30,
+        height:50,
         flexGrow: 1,
         backgroundColor: theme.colors.whitishGray,
+        alignItems:'center'
+        
       }}
     >
       {data.map((item, index) => (
