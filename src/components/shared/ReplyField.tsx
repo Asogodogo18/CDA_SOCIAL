@@ -28,60 +28,65 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
   // const handleSheetChanges = useCallback((index: number) => {
   //   console.log("handleSheetChanges", index);
   // }, []);
+  const BottomSheets = () => {
+    return (
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        // onChange={handleSheetChanges}
+        style={{}}
+        bottomInset={46}
+        // set `detached` to true
+        detached={true}
+      >
+        <Box style={{ padding: 5 }}>
+          <SectionIcon
+            color="black"
+            iconName="camera"
+            placeholder="Caméra"
+            size={40}
+            type={Icons.EvilIcons}
+            onPress={() => {}}
+          />
+          <SectionIcon
+            color="black"
+            iconName="ios-library-outline"
+            placeholder="Bibilothéque Photo et Vidéo"
+            size={40}
+            type={Icons.Ionicons}
+            onPress={() => {}}
+          />
+          <SectionIcon
+            color="black"
+            iconName="document-text-outline"
+            placeholder="Document"
+            size={40}
+            type={Icons.Ionicons}
+            onPress={() => {}}
+          />
+          <SectionIcon
+            color="black"
+            iconName="md-location-outline"
+            placeholder="Localisation"
+            size={40}
+            type={Icons.Ionicons}
+            onPress={() => {}}
+          />
+          <SectionIcon
+            color="black"
+            iconName="contacts"
+            placeholder="Contact"
+            size={40}
+            type={Icons.AntDesign}
+            onPress={() => {}}
+          />
+        </Box>
+      </BottomSheet>
+    );
+  };
   return (
     <>
-      {visibleBottom && (
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={1}
-          snapPoints={snapPoints}
-          // onChange={handleSheetChanges}
-          style={{}}
-        >
-          <Box style={{ padding: 5 }}>
-            <SectionIcon
-              color="black"
-              iconName="camera"
-              placeholder="Caméra"
-              size={40}
-              type={Icons.EvilIcons}
-              onPress={() => {}}
-            />
-            <SectionIcon
-              color="black"
-              iconName="ios-library-outline"
-              placeholder="Bibilothéque Photo et Vidéo"
-              size={40}
-              type={Icons.Ionicons}
-              onPress={() => {}}
-            />
-            <SectionIcon
-              color="black"
-              iconName="document-text-outline"
-              placeholder="Document"
-              size={40}
-              type={Icons.Ionicons}
-              onPress={() => {}}
-            />
-            <SectionIcon
-              color="black"
-              iconName="md-location-outline"
-              placeholder="Localisation"
-              size={40}
-              type={Icons.Ionicons}
-              onPress={() => {}}
-            />
-            <SectionIcon
-              color="black"
-              iconName="contacts"
-              placeholder="Contact"
-              size={40}
-              type={Icons.AntDesign}
-              onPress={() => {}}
-            />
-          </Box>
-        </BottomSheet>
-      )}
       <Box
         height={60}
         width={"100%"}
@@ -107,7 +112,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
             alignItems={"center"}
             backgroundColor={"lightgreen"}
           >
-            <TouchableOpacity onPress={() => setVisibleBottom(!visibleBottom)}>
+            <TouchableOpacity onPress={BottomSheets}>
               <Ionicons name="add" size={28} color="white" />
             </TouchableOpacity>
           </Box>

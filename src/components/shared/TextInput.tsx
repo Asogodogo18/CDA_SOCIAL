@@ -19,6 +19,7 @@ type InputProps = {
   value: string;
   dropdownValues?: string[];
   onChange: (param: any) => void;
+  inputRef:React.MutableRefObject<TextInput> 
 } & Partial<BoxProps<Theme>>;
 
 const Input: React.FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   onChange,
   type = "text",
   dropdownValues,
+  inputRef,
   ...props
 }) => {
   return (
@@ -44,6 +46,7 @@ const Input: React.FC<InputProps> = ({
     >
       {type == "text" && (
         <TextInput
+        ref={inputRef}
           multiline={true}
           onChangeText={onChange}
           value={value}

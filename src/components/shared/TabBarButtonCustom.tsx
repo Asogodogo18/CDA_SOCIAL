@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Animated, TouchableOpacity, View } from "react-native";
+import { Alert, Animated, TouchableOpacity, View } from "react-native";
 import Icon from "@expo/vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import Box from "./Box";
@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const SIZE = 60;
 const AddButton = () => {
+  const [isCheck, setIsCheck] = useState(false);
   const navigation = useNavigation();
   const AnimatedTouch = Animated.createAnimatedComponent(TouchableOpacity);
   const AnimatedBox = Animated.createAnimatedComponent(Box);
@@ -55,31 +56,34 @@ const AddButton = () => {
   });
   const width = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [30, -10],
+    outputRange: [65, 40],
   });
   const height = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [30, -10],
+    outputRange: [65, 40],
   });
   return (
     <AnimatedBox
-      style={{
-        position: "relative",
-        alignItems: "center",
-        top: -25,
+      style={[
+        {
+          position: "relative",
+          alignItems: "center",
+          top: -25,
 
-        borderRadius: 65,
-        borderColor: "white",
-        elevation: 5,
-        shadowColor: "#000",
-        shadowOffset: {
-          height: 5,
-          width: 5,
+          borderRadius: 65,
+          borderColor: "white",
+          elevation: 5,
+          shadowColor: "#000",
+          shadowOffset: {
+            height: 5,
+            width: 5,
+          },
         },
-
-        // height:height,
-        // width:width
-      }}
+        {
+          // height: height,
+          // width:  width,
+        },
+      ]}
     >
       <Animated.View
         style={{
@@ -101,7 +105,7 @@ const AddButton = () => {
           }}
           colors={["#26FFCB", "#1F9354"]}
         >
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => Alert.alert("Bientôt disponible")}>
             <Text variant={"title"} color={"white"}>
               Live
             </Text>
@@ -129,9 +133,10 @@ const AddButton = () => {
           colors={["#26FFCB", "#1F9354"]}
         >
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Add", { screen: "PosteScreens" })
-            }
+            onPress={() => {
+              navigation.navigate("Add", { screen: "PosteScreens" }),
+                setIsCheck(true);
+            }}
           >
             <Text variant={"title"} color={"white"}>
               Poste
