@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
       contentContainerStyle={{
         alignContent: "center",
         marginTop: 15,
-        paddingBottom: 80,
+        paddingBottom: 20,
       }}
       showsHorizontalScrollIndicator={false}
       nestedScrollEnabled
@@ -95,11 +95,11 @@ const Home = ({ navigation }) => {
           renderItem={({ item }) => (
             <Post
               data={item}
-              type={`${item.type}`}
+              type={"main"}
               onPress={handleNavigation}
             />
           )}
-          keyExtractor={(item) => item.id}
+          // keyExtractor={(item) => item.id}
           ListFooterComponent={() => (
             <ScrollView
               horizontal

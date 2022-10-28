@@ -17,9 +17,12 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ data, onPress }) => {
   const { width } = useWindowDimensions();
   return (
     <ScrollView
-    horizontal
+      horizontal
+      showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        height:30,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 40,
         flexGrow: 1,
         backgroundColor: theme.colors.whitishGray,
       }}

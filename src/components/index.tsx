@@ -9,6 +9,7 @@ export { default as SingleStory } from "./shared/Stories/Story";
 export { default as Stories } from "./shared/Stories/Stories";
 export { default as Post } from "./shared/Post/Post";
 export { default as PosteScreens } from "./shared/Post/PosteScreens";
+export { default as MainHeader } from "./shared/MainHeader";
 
 export { default as FollowCard } from "./shared/FollowCard/FollowCard";
 export { default as ReplyField } from "./shared/ReplyField";
@@ -47,3 +48,6 @@ export { default as Step2 } from "./Auth/SecondStep";
 export { default as Step3 } from "./Auth/ThirdStep";
 export { default as Step4 } from "./Auth/FourthStep";
 export { default as Step5 } from "./Auth/FifthStep";
+
+export { default as CoverScroll } from "./CoverScroll";
+export { default as PopUp } from "./AnimatedPopUp";

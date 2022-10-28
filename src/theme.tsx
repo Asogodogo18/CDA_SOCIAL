@@ -21,6 +21,8 @@ const palette = {
   nobg: "transparent",
   fadingWhite: "rgba(249,249,249,0.44)",
   overlay: "rgba(5,57,26,0.67)",
+  overlay2: "rgba(0,0,0,0.35)",
+
 
   black: "#0B0B0B",
   white: "#FFFF",
@@ -90,7 +92,7 @@ const theme = createTheme({
     },
     title1: {
       // fontFamily
-      fontSize: 10,
+      fontSize: 11,
       fontWeight: "500",
       color: "black",
       textTransform: "uppercase",

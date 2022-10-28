@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollView } from "react-native";
 import {
   Box,
   Text,
@@ -6,17 +7,26 @@ import {
   Searchbar,
   SearchFilters,
   MessageListing,
+  MainHeader,
 } from "../../../components";
 import Notify from "../../../data/notify";
 
 const Notifications = () => {
   return (
-    <Box flex={1} backgroundColor={"white"}>
-      <Text variant={'titleBold'} style={{marginTop:30,margin:5,padding:5}}>Noticification</Text>
-      <Box style={{paddingBottom:80}}>
+    <ScrollView
+      bounces
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: "#F3F3F3",
+        paddingTop: 20,
+        paddingBottom: 50,
+      }}
+    >
+      <MainHeader title="Notifications" />
+      <Box style={{ paddingBottom: 10 }}>
         <MessageListing data={Notify} />
       </Box>
-    </Box>
+    </ScrollView>
   );
 };
 

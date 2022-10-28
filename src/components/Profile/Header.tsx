@@ -57,7 +57,7 @@ const Navbar: React.FC<ProfileNavProps> = ({ name, username,onPress }) => {
           elevation: 4,
         }}
       >
-        <AntDesign name="left" size={24} color="white" />
+        <AntDesign name="left" size={28} color="white" />
       </TouchableOpacity>
       <Box position={"absolute"} left={0} right={0} alignItems={"center"}>
         <Text color={"white"} variant={"body"}>
@@ -74,24 +74,24 @@ const Banner = () => {
     <Box
       position={"absolute"}
       left={0}
-      right={20}
+      right={5}
       bottom={0}
       backgroundColor={"nobg"}
       flexDirection={"row"}
-      minHeight={110}
-      maxHeight={115}
+      minHeight={120}
+      maxHeight={130}
       alignItems={"center"}
     >
       <Box flex={3} justifyContent={"center"} alignItems={"center"}>
         <Avatar
-          type="profile"
+          type="floating"
           source={{
             uri:
               "https://images.ctfassets.net/hrltx12pl8hq/3j5RylRv1ZdswxcBaMi0y7/b84fa97296bd2350db6ea194c0dce7db/Music_Icon.jpg",
           }}
         />
       </Box>
-      <Box alignItems={"center"} flex={7} justifyContent={"space-around"}>
+      <Box alignItems={"flex-start"} flex={7} justifyContent={"space-around"}>
         <Box
           width={"98%"}
           height={30}
@@ -104,7 +104,7 @@ const Banner = () => {
           <Action count="1500" title="Abonnés" />
           <Action count="3265" title="Abonnemet" />
         </Box>
-        <Text textAlign={"left"} mb={"s"} variant={"body6"}>
+        <Text textAlign={"left"} mb={"s"} variant={"subtitleLightWhite"}>
           Nullam quis imperdiet augue. Vestibulum auctor ornare .augue.
           Vestibulum auctor ornare
         </Text>
@@ -115,28 +115,28 @@ const Banner = () => {
           justifyContent={"space-between"}
         >
           <UserInfoContainer>
-            <SimpleLineIcons name="user-follow" size={10} color="green" />
+            <SimpleLineIcons name="user-follow" size={18} color="green" />
             <Box width={1} height={12} backgroundColor={"gray"} />
-            <AntDesign name="message1" size={10} color="green" />
+            <AntDesign name="message1" size={18} color="green" />
           </UserInfoContainer>
           <UserInfoContainer>
-            <Entypo name="location" size={10} color="green" />
+            <Entypo name="location" size={18} color="green" />
             <Box ml={"s"}>
-              <Text variant={"caption"} fontSize={6}>
+              <Text variant={"caption"} fontSize={8}>
                 Bamako
               </Text>
-              <Text variant={"btnTextInactive"} fontSize={8} fontWeight={"500"}>
+              <Text variant={"btnTextInactive"} fontSize={9} fontWeight={"500"}>
                 Mali
               </Text>
             </Box>
           </UserInfoContainer>
           <UserInfoContainer>
-            <AntDesign name="calendar" size={10} color="green" />
-            <Box ml={"s"}>
-              <Text variant={"caption"} fontSize={6}>
+            <AntDesign name="calendar" size={18} color="green" />
+            <Box ml={"s"} px={'s'}>
+              <Text variant={"caption"} fontSize={8}>
                 Membre Depuis
               </Text>
-              <Text variant={"btnTextInactive"} fontSize={7} fontWeight={"500"}>
+              <Text variant={"btnTextInactive"} fontSize={9} fontWeight={"500"}>
                 Novembre 2020
               </Text>
             </Box>
@@ -175,14 +175,14 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
 const UserInfoContainer = (props) => {
   return (
     <Box
-      height={22}
-      minWidth={55}
-      maxWidth={95}
+      height={30}
+      minWidth={70}
+      maxWidth={120}
       px={"s"}
       py={"s"}
       backgroundColor={"white"}
       flexDirection={"row"}
-      borderRadius={10}
+      borderRadius={20}
       alignItems={"center"}
       justifyContent={"space-evenly"}
     >

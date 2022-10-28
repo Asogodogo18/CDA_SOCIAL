@@ -20,6 +20,7 @@ const MessageListing: React.FC<MessageListingProps> = ({ data }) => {
 
   return (
     <FlatList
+      bounces
       data={data}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
