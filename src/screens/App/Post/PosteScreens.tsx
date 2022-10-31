@@ -173,54 +173,52 @@ const PosteScreens = ({ isActive }: any) => {
         {/* 
       <Button primary title="Press" onPress={() => inputRef.focus()} /> */}
 
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={1}
-          snapPoints={snapPoints}
-          // onChange={handleSheetChanges}
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        // onChange={handleSheetChanges}
+      >
+        <Box
+          style={{
+            padding: 10,
+            flex: 1,
+          }}
         >
-          <Box
-            style={{
-              padding: 10,
-              flex: 1,
-            }}
-          >
-            <SectionIcon
-              color="black"
-              iconName="camera"
-              placeholder="Caméra"
-              size={40}
-              type={Icons.EvilIcons}
-              onPress={() => {}}
-            />
-            <SectionIcon
-              color="black"
-              iconName="ios-library-outline"
-              placeholder="Bibilothéque Photo et Vidéo"
-              size={40}
-              type={Icons.Ionicons}
-              onPress={pickImageVideo}
-            />
-            <SectionIcon
-              color="black"
-              iconName="emoji-happy"
-              placeholder="Emoji"
-              size={40}
-              type={Icons.Entypo}
-              onPress={() => {}}
-            />
-            <SectionIcon
-              color="black"
-              iconName="document-text-outline"
-              placeholder="Gif"
-              size={40}
-              type={Icons.Ionicons}
-              onPress={() => {}}
-            />
-          </Box>
-        </BottomSheet>
-      </Box>
-    </SafeAreaView>
+          <SectionIcon
+            color="black"
+            iconName="camera"
+            placeholder="Caméra"
+            size={24}
+            onPress={() => {}}
+          />
+          <SectionIcon
+            color="black"
+            iconName="picture"
+            placeholder="Bibilothéque Photo et Vidéo"
+            size={24}
+
+            onPress={pickImageVideo}
+          />
+          <SectionIcon
+            color="black"
+            iconName="smileo"
+            placeholder="Emoji"
+            size={24}
+       
+            onPress={() => {}}
+          />
+          <SectionIcon
+            color="black"
+            iconName="gift"
+            placeholder="Gif"
+            size={24}
+        
+            onPress={() => {}}
+          />
+        </Box>
+      </BottomSheet>
+    </Box>
   );
 };
 

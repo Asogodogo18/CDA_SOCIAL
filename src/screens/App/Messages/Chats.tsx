@@ -20,9 +20,9 @@ const Chats = ({ navigation }) => {
         <Message self={true} message={singleMessage} />
         <Message self={true} message={singleMessageWithMedia} />
       </ScrollView>
-      <Box position={'absolute'}  bottom={0} width={'100%'}>
+      <Box position={'absolute'}  bottom={0} width={'100%'} flex={1} >
 
-      <ReplyField placeholder="Votre Message..."  />
+      <ReplyField placeholder="Votre Message..."   />
       </Box>
    
     </Box>
