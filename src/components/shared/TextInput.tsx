@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
 import { EvilIcons } from "@expo/vector-icons";
-import { TextInput } from "react-native";
+import { StyleProp, TextInput, TextStyle } from "react-native";
 
 import { Picker } from "@react-native-picker/picker";
 import { Theme } from "../../theme";
@@ -18,8 +18,9 @@ type InputProps = {
   placeholder?: string;
   value: string;
   dropdownValues?: string[];
+  inputStyle?: StyleProp<TextStyle>;
   onChange: (param: any) => void;
-  inputRef:React.MutableRefObject<TextInput> 
+  inputRef?: React.MutableRefObject<TextInput>;
 } & Partial<BoxProps<Theme>>;
 
 const Input: React.FC<InputProps> = ({
@@ -30,6 +31,7 @@ const Input: React.FC<InputProps> = ({
   type = "text",
   dropdownValues,
   inputRef,
+  inputStyle,
   ...props
 }) => {
   return (
@@ -46,12 +48,12 @@ const Input: React.FC<InputProps> = ({
     >
       {type == "text" && (
         <TextInput
-        ref={inputRef}
+          ref={inputRef}
           multiline={true}
           onChangeText={onChange}
           value={value}
           placeholder={placeholder}
-          style={{ width: "100%", height: "100%" }}
+          style={[{ width: "100%", height: "100%" }, inputStyle]}
         />
       )}
       {type == "dropdown" && (
@@ -63,7 +65,7 @@ const Input: React.FC<InputProps> = ({
           onValueChange={onChange}
         >
           {dropdownValues?.map((item, index) => (
-            <Picker.Item key={index} label={item} value={item} />
+            <Picker.Item style={inputStyle} key={index} label={item} value={item} />
           ))}
         </Picker>
       )}

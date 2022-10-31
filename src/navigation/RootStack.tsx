@@ -8,7 +8,6 @@ const rootStack = createNativeStackNavigator();
 const RootStack = () => {
   return (
     <rootStack.Navigator
-      initialRouteName="AppStack"
       screenOptions={{ headerShown: false }}
     >
       <rootStack.Screen name="AuthNavigation" component={AuthNavigation} />

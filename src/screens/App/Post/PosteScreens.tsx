@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Entypo, EvilIcons } from "@expo/vector-icons";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const PosteScreens = ({ isActive }: any) => {
   const inputRef = useRef<LegacyInput>();
@@ -19,14 +20,13 @@ const PosteScreens = ({ isActive }: any) => {
   const [image, setImage] = useState([]);
 
   // variables
-  const snapPoints = ["15%", "50%"];
+  const snapPoints = ["10%", "40%"];
   const navigation = useNavigation();
   const pickImageVideo = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [10, 13],
       quality: 1,
       base64: true,
     });
@@ -44,186 +44,183 @@ const PosteScreens = ({ isActive }: any) => {
   };
 
   return (
-    <Box flex={1} backgroundColor={"lightgreen"} pt={"xxl"}>
-      <Box
-        height={50}
-        width={"100%"}
-        elevation={2}
-        backgroundColor={"white"}
-        justifyContent={"space-around"}
-        alignItems={"center"}
-        flexDirection={"row"}
-      >
-        <TouchableOpacity style={{}} onPress={() => navigation.goBack()}>
-          <EvilIcons name="close" size={30} color="black" />
-        </TouchableOpacity>
-        <Text variant={"titleBold"}>Commence le poste</Text>
-        {txtPoste && (
-          <TouchableOpacity>
-            <Text variant={"titleBold"} color={"greenDark"}>
-              Publier
-            </Text>
-          </TouchableOpacity>
-        )}
-      </Box>
-      <Box
-        flexDirection={"row"}
-        alignItems={"center"}
-        p={"xl"}
-        justifyContent={"space-around"}
-        bg={"danger"}
-        height={120}
-      >
-        <Avatar
-          type={"menu"}
-          source={{
-            uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPnozsb1QEhjyjE7p-bGl9hQOkJh0brsUKoA&usqp=CAU",
-          }}
-          elevation={5}
-        />
-        <Box flexDirection={"column"} mt={"l"}>
-          <Text
-            variant={"titleBold"}
-            m={"m"}
-            style={{ position: "relative", width: 200 }}
-          >
-            john Doe
-          </Text>
-
-          <TextInput
-            mb={"xl"}
-            type="dropdown"
-            width={"75%"}
-            height={"55%"}
-            value={showPoste}
-            dropdownValues={[
-              "Qui peut voir mon profil?",
-              "Toutes Les Personnes",
-              "Mes Followers",
-              "Personne",
-            ]}
-            onChange={setShowPoste}
-          />
+    <SafeAreaView style={{ flex: 1 }}>
+      <Box flex={1} backgroundColor={"white"}>
+        <Box
+          height={50}
+          width={"100%"}
+          elevation={2}
+          backgroundColor={"white"}
+          alignItems={"center"}
+          flexDirection={"row"}
+        >
+          <Box flex={1} pl={"l"}>
+            <TouchableOpacity style={{}} onPress={() => navigation.goBack()}>
+              <EvilIcons name="close" size={30} color="black" />
+            </TouchableOpacity>
+          </Box>
+          <Box flex={3}>
+            <Text variant={"titleBold"}>Nouvelle Publication</Text>
+          </Box>
+          <Box flex={1}>
+            {txtPoste && (
+              <TouchableOpacity>
+                <Text variant={"titleBold"} color={"greenDark"}>
+                  Publier
+                </Text>
+              </TouchableOpacity>
+            )}
+          </Box>
         </Box>
-      </Box>
-
-      <Box
-        minHeight={150}
-        maxHeight={350}
-        backgroundColor={"lightgreen"}
-        alignItems={"center"}
-        p={"ml"}
-      >
-        <TextInput
-          // inputRef={inputRef}
-          onChange={setTxtPoste}
-          value={txtPoste}
-          minHeight={120}
-          maxHeight={300}
-          width={"90%"}
-          borderRadius={5}
-          alignSelf={"center"}
-          placeholder={"Quoi de neuf................"}
-        />
-        {image.map((image, index) => {
-          return (
-            <Box
-              style={{
-                width: 180,
-                height: 180,
-
-                marginTop: 10,
-                elevation: 0,
-                borderRadius: 10,
-                //overflow: "hidden",
-                //alignContent: "center",
-
-                // marginLeft: 5,
-                margin: 5,
-                justifyContent: "center",
-                alignItems: "center",
+        <Box
+          flexDirection={"row"}
+          alignItems={"center"}
+          // bg={"danger"}
+          height={120}
+        >
+          <Box flex={2} justifyContent={"space-around"} alignItems={"center"}>
+            <Avatar
+              type={"floating"}
+              source={{
+                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPnozsb1QEhjyjE7p-bGl9hQOkJh0brsUKoA&usqp=CAU",
               }}
-              key={index}
-            >
-              <TouchableOpacity
-                onPress={() => onRemove(index)}
+              elevation={5}
+            />
+          </Box>
+          <Box flex={4.5} justifyContent={"center"} >
+            <Text variant={"titleBold"}>John Doe</Text>
+
+            <TextInput
+              inputStyle={{fontSize:10,width:'100%'}}
+              borderRadius={5}
+              type="dropdown"
+              value={showPoste}
+              height={30}
+              minWidth={'40%'}
+              maxWidth={'50%'}
+              py={'s'}
+              px={'s'}
+              dropdownValues={[
+                "Public",
+                "Toutes Les Personnes",
+                "Mes Followers",
+                "Personne",
+              ]}
+              onChange={setShowPoste}
+            />
+          </Box>
+        </Box>
+
+        <Box minHeight={150} backgroundColor={"fadingWhite"}>
+          <TextInput
+            // inputRef={inputRef}
+            onChange={setTxtPoste}
+            value={txtPoste}
+            width={"100%"}
+            borderRadius={5}
+            alignSelf={"center"}
+            placeholder={"Quoi de neuf................"}
+          />
+          {image.map((image, index) => {
+            return (
+              <Box
                 style={{
-                  position: "absolute",
-                  top: 5,
-                  elevation: 5,
-                  right: 5,
-                  bottom: 0,
-                  zIndex: 100,
-                  backgroundColor: "white",
-                  height: 30,
-                  width: 30,
+                  width: 180,
+                  height: 180,
+
+                  marginTop: 10,
+                  elevation: 0,
+                  borderRadius: 10,
+                  //overflow: "hidden",
+                  //alignContent: "center",
+
+                  // marginLeft: 5,
+                  margin: 5,
                   justifyContent: "center",
                   alignItems: "center",
-                  borderRadius: 20,
                 }}
-              >
-                <Entypo name="circle-with-cross" size={27} color="red" />
-              </TouchableOpacity>
-              <Image
-                source={{ uri: image.uri }}
-                style={{ height: "100%", width: "100%" }}
-                resizeMode="cover"
                 key={index}
-              />
-            </Box>
-          );
-        })}
-      </Box>
-      {/* 
+              >
+                <TouchableOpacity
+                  onPress={() => onRemove(index)}
+                  style={{
+                    position: "absolute",
+                    top: 5,
+                    elevation: 5,
+                    right: 5,
+                    bottom: 0,
+                    zIndex: 100,
+                    backgroundColor: "white",
+                    height: 30,
+                    width: 30,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 20,
+                  }}
+                >
+                  <Entypo name="circle-with-cross" size={27} color="red" />
+                </TouchableOpacity>
+                <Image
+                  source={{ uri: image.uri }}
+                  style={{ height: "100%", width: "100%" }}
+                  resizeMode="cover"
+                  key={index}
+                />
+              </Box>
+            );
+          })}
+        </Box>
+        {/* 
       <Button primary title="Press" onPress={() => inputRef.focus()} /> */}
 
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        // onChange={handleSheetChanges}
-      >
-        <Box
-          style={{
-            padding: 10,
-            flex: 1,
-          }}
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={1}
+          snapPoints={snapPoints}
+          // onChange={handleSheetChanges}
         >
-          <SectionIcon
-            color="black"
-            iconName="camera"
-            placeholder="Caméra"
-            size={40}
-            type={Icons.EvilIcons}
-            onPress={() => {}}
-          />
-          <SectionIcon
-            color="black"
-            iconName="ios-library-outline"
-            placeholder="Bibilothéque Photo et Vidéo"
-            size={40}
-            type={Icons.Ionicons}
-            onPress={pickImageVideo}
-          />
-          <SectionIcon
-            color="black"
-            iconName="emoji-happy"
-            placeholder="Emoji"
-            size={40}
-            type={Icons.Entypo}
-            onPress={() => {}}
-          />
-          <SectionIcon
-            color="black"
-            iconName="document-text-outline"
-            placeholder="Gif"
-            size={40}
-            type={Icons.Ionicons}
-            onPress={() => {}}
-          />
-        </Box>
-      </BottomSheet>
-    </Box>
+          <Box
+            style={{
+              padding: 10,
+              flex: 1,
+            }}
+          >
+            <SectionIcon
+              color="black"
+              iconName="camera"
+              placeholder="Caméra"
+              size={40}
+              type={Icons.EvilIcons}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="ios-library-outline"
+              placeholder="Bibilothéque Photo et Vidéo"
+              size={40}
+              type={Icons.Ionicons}
+              onPress={pickImageVideo}
+            />
+            <SectionIcon
+              color="black"
+              iconName="emoji-happy"
+              placeholder="Emoji"
+              size={40}
+              type={Icons.Entypo}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="document-text-outline"
+              placeholder="Gif"
+              size={40}
+              type={Icons.Ionicons}
+              onPress={() => {}}
+            />
+          </Box>
+        </BottomSheet>
+      </Box>
+    </SafeAreaView>
   );
 };
 
