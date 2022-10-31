@@ -16,7 +16,6 @@ type FeedFiltersProps = {
 
 const FeedFilters: React.FC<FeedFiltersProps> = ({ data, onPress }) => {
   return (
-    <SafeAreaView>
       <FlatList
         horizontal
         data={data}
@@ -26,7 +25,6 @@ const FeedFilters: React.FC<FeedFiltersProps> = ({ data, onPress }) => {
           <FeedFilter key={item.id} {...item} onPress={onPress} />
         )}
       />
-    </SafeAreaView>
   );
 };
 

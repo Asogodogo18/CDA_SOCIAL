@@ -9,6 +9,7 @@ import {
   Post,
   FollowCard,
   SectionHeader,
+  MainHeader,
 } from "../../../components";
 
 import React from "react";
@@ -43,7 +44,6 @@ const Home = ({ navigation }) => {
     <ScrollView
       contentContainerStyle={{
         alignContent: "center",
-        marginTop: 15,
         paddingBottom: 20,
         paddingHorizontal: 10,
       }}
@@ -52,7 +52,7 @@ const Home = ({ navigation }) => {
     >
       <StatusBar backgroundColor="white" barStyle={"dark-content"} />
 
-      <Box
+      {/* <Box
         flexDirection={"row"}
         // justifyContent={"center"}
         alignItems={"center"}
@@ -78,8 +78,8 @@ const Home = ({ navigation }) => {
         >
           Accueil
         </Text>
-      </Box>
-
+      </Box> */}
+      <MainHeader title="Accueil" />
       <FeedFilters data={defaultFilters} onPress={() => console.log("Press")} />
 
       <SectionHeader title={"Now"} more={true} link={() => {}} />
