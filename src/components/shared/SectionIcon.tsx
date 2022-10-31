@@ -31,7 +31,6 @@ export const Icons = {
 };
 
 type SectionIconProps = {
-  type: string;
   iconName: string;
   color: string;
   size: number;
@@ -40,7 +39,6 @@ type SectionIconProps = {
 };
 
 const SectionIcon: React.FunctionComponent<SectionIconProps> = ({
-  type,
   iconName,
   color,
   size,
@@ -48,9 +46,9 @@ const SectionIcon: React.FunctionComponent<SectionIconProps> = ({
   onPress,
 }) => {
   const fontSize = 24;
-  const Tag = type;
+  // const Tag = type;
   const Default = "gray";
-  const condition = type && iconName;
+  const condition = iconName;
 
   // console.log(type);
   return (
@@ -59,13 +57,13 @@ const SectionIcon: React.FunctionComponent<SectionIconProps> = ({
         onPress={onPress}
         style={{ flexDirection: "row", height: 60, alignItems: "center" }}
       >
-        {condition && (
-          <Tag
+        {condition &&
+          <AntDesign
             name={iconName}
             size={size || fontSize}
-            color={color | Default}
+            color={color || Default}
           />
-        )}
+        }
         <Text variant={"subheader"} marginLeft={"ml"}>
           {placeholder}
         </Text>

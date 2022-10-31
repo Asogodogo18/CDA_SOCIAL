@@ -36,53 +36,55 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
   return (
     <>
       {visibleBottom && (
-        
-       
-        <Box style={{ padding: 5,borderTopRightRadius:50,borderTopLeftRadius:50,zIndex:1000 }} bg={'white'} elevation={5}>
+        <Box
+          style={{
+            padding: 15,
+            borderTopRightRadius: 50,
+            borderTopLeftRadius: 50,
+            zIndex: 1000,
+          }}
+          bg={"white"}
+          elevation={5}
+        >
           <SectionIcon
             color="black"
-            iconName="camera"
+            iconName="camerao"
             placeholder="Caméra"
-            size={40}
-            type={Icons.EvilIcons}
+            size={24}
+            
             onPress={() => {}}
           />
           <SectionIcon
             color="black"
-            iconName="ios-library-outline"
+            iconName="picture"
             placeholder="Bibilothéque Photo et Vidéo"
-            size={40}
-            type={Icons.Ionicons}
+            size={24}
             onPress={() => {}}
           />
           <SectionIcon
             color="black"
-            iconName="document-text-outline"
+            iconName="book"
             placeholder="Document"
-            size={40}
-            type={Icons.Ionicons}
+            size={24}
             onPress={() => {}}
           />
           <SectionIcon
             color="black"
-            iconName="md-location-outline"
+            iconName="enviromento"
             placeholder="Localisation"
-            size={40}
-            type={Icons.Ionicons}
+            size={24}
             onPress={() => {}}
           />
           <SectionIcon
             color="black"
             iconName="contacts"
             placeholder="Contact"
-            size={40}
-            type={Icons.AntDesign}
+            size={24}
+
             onPress={() => {}}
           />
         </Box>
-
-  
-  )}
+      )}
       <Box
         height={60}
         width={"100%"}
@@ -91,28 +93,29 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
         alignItems={"center"}
       >
         <Box
-          height={40}
+          height={24}
           width={"100%"}
           flexDirection={"row"}
           flex={7.5}
           borderColor={"borderColor1"}
           borderWidth={1}
-          borderRadius={40}
+          borderRadius={24}
           backgroundColor={"fadingWhite"}
         >
           <Box
-            height={40}
+            height={24}
             width={60}
-            borderRadius={40}
+            borderRadius={24}
             justifyContent={"center"}
             alignItems={"center"}
             backgroundColor={"lightgreen"}
           >
             <TouchableOpacity onPress={() => setVisibleBottom(!visibleBottom)}>
-              {
-                visibleBottom ? <EvilIcons name="close" size={24} color="white" />:<Ionicons name="add" size={28} color="white" />
-
-              }
+              {visibleBottom ? (
+                <EvilIcons name="close" size={24} color="white" />
+              ) : (
+                <Ionicons name="add" size={28} color="white" />
+              )}
             </TouchableOpacity>
           </Box>
           <TextInput
@@ -134,16 +137,15 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
               width={36}
               alignItems={"center"}
               justifyContent={"center"}
-              borderRadius={40}
+              borderRadius={24}
               backgroundColor={"greenPrimary"}
             >
               <Ionicons name="md-send-sharp" size={18} color="white" />
             </Box>
           </TouchableOpacity>
-          <Entypo name="emoji-happy" size={40} color="gray" />
+          <Entypo name="emoji-happy" size={24} color="gray" />
         </Box>
       </Box>
-    
     </>
   );
 };

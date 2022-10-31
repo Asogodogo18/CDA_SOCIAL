@@ -193,32 +193,31 @@ const PosteScreens = ({ isActive }: any) => {
             color="black"
             iconName="camera"
             placeholder="Caméra"
-            size={40}
-            type={Icons.EvilIcons}
+            size={24}
             onPress={() => {}}
           />
           <SectionIcon
             color="black"
-            iconName="ios-library-outline"
+            iconName="picture"
             placeholder="Bibilothéque Photo et Vidéo"
-            size={40}
-            type={Icons.Ionicons}
+            size={24}
+
             onPress={pickImageVideo}
           />
           <SectionIcon
             color="black"
-            iconName="emoji-happy"
+            iconName="smileo"
             placeholder="Emoji"
-            size={40}
-            type={Icons.Entypo}
+            size={24}
+       
             onPress={() => {}}
           />
           <SectionIcon
             color="black"
-            iconName="document-text-outline"
+            iconName="gift"
             placeholder="Gif"
-            size={40}
-            type={Icons.Ionicons}
+            size={24}
+        
             onPress={() => {}}
           />
         </Box>
