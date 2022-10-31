@@ -25,6 +25,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ data, onPress }) => {
         height: 40,
         flexGrow: 1,
         backgroundColor: theme.colors.whitishGray,
+        alignItems:'center'
+        
       }}
     >
       {data.map((item, index) => (

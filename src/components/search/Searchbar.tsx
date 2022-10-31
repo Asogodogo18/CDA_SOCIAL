@@ -17,7 +17,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
   return (
     <Box
       width={"100%"}
-      height={30}
+      height={40}
       flexDirection={"row"}
       px={"m"}
       py={"s"}

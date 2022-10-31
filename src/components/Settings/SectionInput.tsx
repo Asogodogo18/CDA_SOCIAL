@@ -3,6 +3,7 @@ import { TouchableOpacity, TextInput } from "react-native";
 import Box from "../shared/Box";
 import Text from "../shared/Text";
 
+
 type SectionItemProps = {
   label: string;
   value: string;

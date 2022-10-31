@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { useState } from "react";
 import Box from "../shared/Box";
 import Text from "../shared/Text";
-import { SectionInput, Line } from "../";
+import { SectionInput, Line, TextInput } from "../";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -14,7 +14,7 @@ const Infos = () => {
   const [email, setEmail] = useState("John_Doe@exemple.com");
   const [urlSite, setUrlSite] = useState("https://www.johndoe.com");
   const [bio, setBio] = useState("Dramatically leverage existing ");
-  const [sexe, setSexe] = useState("Masculin");
+  const [sexe, setSexe] = useState("");
 const navigation = useNavigation()
   const user = [
     {
@@ -55,13 +55,7 @@ const navigation = useNavigation()
       onChange: (text) => setBio(text),
     },
   ];
-  const sex = [
-    {
-      label: "Votre Sexe",
-      value: sexe,
-      onChange: (text) => setSexe(text),
-    },
-  ];
+
   return (
     <Box flex={1}>
       <Box
@@ -111,7 +105,19 @@ const navigation = useNavigation()
         alignSelf={"center"}
         backgroundColor={"lightgreen"}
       />
-      <SectionInput data={sex} title="Votre Sexe" />
+         <TextInput
+            m={"xl"}
+            type="dropdown"
+            // width={"75%"}
+            // height={"55%"}
+            value={sexe}
+            dropdownValues={[
+              "Votre Sexe?",
+              "Masculin",
+              "Feminin",
+            ]}
+            onChange={setSexe}
+          />
     </Box>
   );
 };

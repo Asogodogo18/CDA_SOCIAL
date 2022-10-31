@@ -52,20 +52,7 @@ const Settings = ({ navigation }) => {
             </>
           );
         })}
-        <Box
-          position={"absolute"}
-          bottom={0}
-          backgroundColor={"red"}
-          height={50}
-          width={"100%"}
-          justifyContent={"center"}
-        >
-          <TouchableOpacity>
-            <Text variant={"titleBold"} color={"white"} marginLeft={"xl"}>
-              Supprimer le Profil
-            </Text>
-          </TouchableOpacity>
-        </Box>
+    
       </Box>
     </Layout>
   );
