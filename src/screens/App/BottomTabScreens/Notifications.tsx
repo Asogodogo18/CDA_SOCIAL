@@ -8,6 +8,7 @@ import {
   SearchFilters,
   MessageListing,
   MainHeader,
+  NotificationListing,
 } from "../../../components";
 import Notify from "../../../data/notify";
 
@@ -24,7 +25,7 @@ const Notifications = () => {
     >
       <MainHeader title="Notifications" />
       <Box style={{ paddingBottom: 10 }}>
-        <MessageListing data={Notify} />
+        <NotificationListing data={Notify} />
       </Box>
     </ScrollView>
   );

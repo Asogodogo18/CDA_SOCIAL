@@ -227,14 +227,18 @@ const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
       minWidth={300}
       {...props}
     >
-      <TouchableOpacity style={{ width: "100%" }} onPress={onPress}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={{ width: "100%" }}
+        onPress={onPress}
+      >
         <PostHeader type={type} {...userDetails} />
         <PostContent
           type={type}
           media={media}
-          toggleModal={(data: any) => setData(data)}
           body={text}
           timestamp={userDetails.timestamp}
+          toggleModal={(data: any) => setData(data)}
           setCurrentMedia={setCurrentMedia}
         />
         <PostFooter {...footer} />
@@ -258,12 +262,19 @@ function ModalView({ layoutData, close, currentMedia }) {
   const { x, y, _width, _height } = layoutData;
   const animtion = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const [expanded, setExpanded] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       LayoutAnimation.easeInEaseOut();
       setExpanded(true);
     }, 10);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsPopupVisible(false);
+    }, 2000);
   }, []);
   const onRequestClose = () => {
     LayoutAnimation.configureNext(
@@ -324,6 +335,7 @@ function ModalView({ layoutData, close, currentMedia }) {
                   height: "100%",
                   width: "100%",
                   alignItems: "center",
+                  justifyContent: "center",
                 }
               : {
                   height: _height,
@@ -333,20 +345,33 @@ function ModalView({ layoutData, close, currentMedia }) {
                   position: "absolute",
                 },
             {
-              backgroundColor: "#ccc",
+              backgroundColor: "#000",
               overflow: "hidden",
               transform: animtion.getTranslateTransform(),
+              alignItems: "center",
+              justifyContent: "center",
             },
           ]}
         >
           <Media single={true} media={currentMedia} expanded={true} />
           {expanded && (
             <View style={styles.close}>
-              <Button title="close" onPress={onRequestClose} />
+              <Button title="Fermer" onPress={onRequestClose} />
             </View>
           )}
-          {expanded && (
-            <Text style={styles.label}>Swipe up or down to dismiss</Text>
+          {isPopupVisible && (
+            <Text
+              style={[
+                styles.label,
+                {
+                  textAlign: "center",
+                  position: "absolute",
+                  bottom: height / 6,
+                },
+              ]}
+            >
+              Glisser vers le haut ou le bas pour fermer
+            </Text>
           )}
         </Animated.View>
       </View>

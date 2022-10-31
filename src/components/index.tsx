@@ -19,6 +19,7 @@ export { default as SearchFilters } from "./search/SearchFilters";
 export { default as SwitchControl } from "./Messages/SwitchControl";
 export { default as SingleMessagePreview } from "./Messages/SingleMessagePreview";
 export { default as MessageListing } from "./Messages/MessageListing";
+export { default as NotificationListing } from "./Notification/NotificationListing";
 export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
 export { default as AuthSectionDivider } from "./Auth/Divider";

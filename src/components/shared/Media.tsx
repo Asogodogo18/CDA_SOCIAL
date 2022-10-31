@@ -58,8 +58,7 @@ const Media: React.FC<MediaProps> = ({
   if (media.type === "video") {
     return (
       <TouchableOpacity
-        onPress={onPress}
-        disabled={expanded}
+        onPress={expanded ? () => {} : onPress}
         style={[
           {
             margin: 2,
@@ -69,26 +68,28 @@ const Media: React.FC<MediaProps> = ({
             : null,
         ]}
       >
-        <Box
-          flex={1}
-          zIndex={100}
-          position={"absolute"}
-          left={0}
-          right={0}
-          top={0}
-          bottom={0}
-          alignItems={"center"}
-          justifyContent={"center"}
-          backgroundColor={"overlay2"}
-          borderRadius={8}
-        >
-          <AntDesign name="playcircleo" size={48} color="white" />
-        </Box>
+        {!expanded ? (
+          <Box
+            flex={1}
+            zIndex={100}
+            position={"absolute"}
+            left={0}
+            right={0}
+            top={0}
+            bottom={0}
+            alignItems={"center"}
+            justifyContent={"center"}
+            backgroundColor={"overlay2"}
+            borderRadius={8}
+          >
+            <AntDesign name="playcircleo" size={48} color="white" />
+          </Box>
+        ) : null}
         {expanded ? (
           <Video
             ref={mediaRef}
-            style={{ margin: 5, width: 300, height: 150 }}
-            resizeMode={ResizeMode.CONTAIN}
+            style={{ margin: 5, width: 300, height: 150, zIndex: 10 }}
+            resizeMode={ResizeMode.COVER}
             source={{
               uri: media.url,
             }}
@@ -128,6 +129,7 @@ const Media: React.FC<MediaProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={expanded}
       style={[
         {
           margin: 2,
@@ -142,7 +144,7 @@ const Media: React.FC<MediaProps> = ({
         source={{ uri: media.url }}
         resizeMode="contain"
         style={
-          !single || !expanded
+          !single
             ? {
                 width: mediaWidth,
                 height: mediaHeight,

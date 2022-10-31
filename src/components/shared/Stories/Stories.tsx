@@ -16,12 +16,9 @@ const stories: React.FC<StoryListProps> = ({ data }) => {
       contentContainerStyle={{
         flexGrow: 1,
         height: 60,
-        justifyContent: "center",
         alignItems: "center",
-        paddingLeft: 5,
       }}
     >
-      <SingleStory user={emptyUser} isOnline={false} primary={true} marginRight={'l'} />
       {data.map((story, index) => (
         <SingleStory key={index} {...story} />
       ))}
