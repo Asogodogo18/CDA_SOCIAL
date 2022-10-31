@@ -93,7 +93,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
         alignItems={"center"}
       >
         <Box
-          height={24}
+          height={40}
           width={"100%"}
           flexDirection={"row"}
           flex={7.5}
@@ -103,7 +103,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
           backgroundColor={"fadingWhite"}
         >
           <Box
-            height={24}
+            height={40}
             width={60}
             borderRadius={24}
             justifyContent={"center"}
@@ -126,7 +126,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
           />
         </Box>
         <Box
-          flex={2.5}
+          flex={1.5}
           flexDirection={"row"}
           alignItems={"center"}
           justifyContent={"space-around"}
@@ -143,7 +143,6 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
               <Ionicons name="md-send-sharp" size={18} color="white" />
             </Box>
           </TouchableOpacity>
-          <Entypo name="emoji-happy" size={24} color="gray" />
         </Box>
       </Box>
     </>

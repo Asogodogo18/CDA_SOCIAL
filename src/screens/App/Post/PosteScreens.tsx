@@ -20,13 +20,26 @@ const PosteScreens = ({ isActive }: any) => {
   const [image, setImage] = useState([]);
 
   // variables
-  const snapPoints = ["10%", "40%"];
+  const snapPoints = ["40%", "10%", ];
   const navigation = useNavigation();
   const pickImageVideo = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.cancelled) {
+      setImage([...image, { ...result }]);
+      console.log("image", image);
+    }
+  };
+
+  const launcnCamera = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
       base64: true,
     });
@@ -87,19 +100,19 @@ const PosteScreens = ({ isActive }: any) => {
               elevation={5}
             />
           </Box>
-          <Box flex={4.5} justifyContent={"center"} >
+          <Box flex={4.5} justifyContent={"center"}>
             <Text variant={"titleBold"}>John Doe</Text>
 
             <TextInput
-              inputStyle={{fontSize:10,width:'100%'}}
+              inputStyle={{ fontSize: 10, width: "100%" }}
               borderRadius={5}
               type="dropdown"
               value={showPoste}
               height={30}
-              minWidth={'40%'}
-              maxWidth={'50%'}
-              py={'s'}
-              px={'s'}
+              minWidth={"40%"}
+              maxWidth={"50%"}
+              py={"s"}
+              px={"s"}
               dropdownValues={[
                 "Public",
                 "Toutes Les Personnes",
@@ -121,104 +134,104 @@ const PosteScreens = ({ isActive }: any) => {
             alignSelf={"center"}
             placeholder={"Quoi de neuf................"}
           />
-          {image.map((image, index) => {
-            return (
-              <Box
-                style={{
-                  width: 180,
-                  height: 180,
-
-                  marginTop: 10,
-                  elevation: 0,
-                  borderRadius: 10,
-                  //overflow: "hidden",
-                  //alignContent: "center",
-
-                  // marginLeft: 5,
-                  margin: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                key={index}
-              >
-                <TouchableOpacity
-                  onPress={() => onRemove(index)}
+          <Box flexDirection={"row"} flexWrap={"wrap"}>
+            {image.map((image, index) => {
+              return (
+                <Box
                   style={{
-                    position: "absolute",
-                    top: 5,
-                    elevation: 5,
-                    right: 5,
-                    bottom: 0,
-                    zIndex: 100,
-                    backgroundColor: "white",
-                    height: 30,
-                    width: 30,
+                    width: 180,
+                    height: 180,
+
+                    marginTop: 10,
+                    elevation: 0,
+                    borderRadius: 10,
+                    //overflow: "hidden",
+                    //alignContent: "center",
+
+                    // marginLeft: 5,
+                    margin: 5,
                     justifyContent: "center",
                     alignItems: "center",
-                    borderRadius: 20,
                   }}
-                >
-                  <Entypo name="circle-with-cross" size={27} color="red" />
-                </TouchableOpacity>
-                <Image
-                  source={{ uri: image.uri }}
-                  style={{ height: "100%", width: "100%" }}
-                  resizeMode="cover"
                   key={index}
-                />
-              </Box>
-            );
-          })}
+                >
+                  <TouchableOpacity
+                    onPress={() => onRemove(index)}
+                    style={{
+                      position: "absolute",
+                      top: 5,
+                      elevation: 5,
+                      right: 5,
+                      bottom: 0,
+                      zIndex: 100,
+                      backgroundColor: "white",
+                      height: 30,
+                      width: 30,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <Entypo name="circle-with-cross" size={27} color="red" />
+                  </TouchableOpacity>
+                  <Image
+                    source={{ uri: image.uri }}
+                    style={{ height: "100%", width: "100%" }}
+                    resizeMode="cover"
+                    key={index}
+                  />
+                </Box>
+              );
+            })}
+          </Box>
         </Box>
         {/* 
       <Button primary title="Press" onPress={() => inputRef.focus()} /> */}
 
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        // onChange={handleSheetChanges}
-      >
-        <Box
-          style={{
-            padding: 10,
-            flex: 1,
-          }}
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={1}
+          snapPoints={snapPoints}
+          // onChange={handleSheetChanges}
         >
-          <SectionIcon
-            color="black"
-            iconName="camera"
-            placeholder="Caméra"
-            size={24}
-            onPress={() => {}}
-          />
-          <SectionIcon
-            color="black"
-            iconName="picture"
-            placeholder="Bibilothéque Photo et Vidéo"
-            size={24}
-
-            onPress={pickImageVideo}
-          />
-          <SectionIcon
-            color="black"
-            iconName="smileo"
-            placeholder="Emoji"
-            size={24}
-       
-            onPress={() => {}}
-          />
-          <SectionIcon
-            color="black"
-            iconName="gift"
-            placeholder="Gif"
-            size={24}
-        
-            onPress={() => {}}
-          />
-        </Box>
-      </BottomSheet>
-    </Box>
+          <Box
+            style={{
+              padding: 10,
+              flex: 1,
+            }}
+          >
+            <SectionIcon
+              color="black"
+              iconName="camera"
+              placeholder="Caméra"
+              size={24}
+              onPress={launcnCamera}
+            />
+            <SectionIcon
+              color="black"
+              iconName="picture"
+              placeholder="Bibilothéque Photo et Vidéo"
+              size={24}
+              onPress={pickImageVideo}
+            />
+            <SectionIcon
+              color="black"
+              iconName="smileo"
+              placeholder="Emoji"
+              size={24}
+              onPress={() => {}}
+            />
+            <SectionIcon
+              color="black"
+              iconName="gift"
+              placeholder="Gif"
+              size={24}
+              onPress={() => {}}
+            />
+          </Box>
+        </BottomSheet>
+      </Box>
+    </SafeAreaView>
   );
 };
 

@@ -7,6 +7,9 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const AnimatedSafeArea = Animated.createAnimatedComponent(SafeAreaView);
 
 const Layout = (props) => {
   const progress = useDrawerProgress();
@@ -23,9 +26,9 @@ const Layout = (props) => {
   });
 
   return (
-    <Animated.View style={[styles.stack, screenStyle]}>
+    <AnimatedSafeArea style={[styles.stack, screenStyle]}>
       {props.children}
-    </Animated.View>
+    </AnimatedSafeArea>
   );
 };
 
@@ -35,7 +38,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: Platform.OS === "ios" ? "center" : null,
-   
   },
   tabBar: {
     height: 70,
