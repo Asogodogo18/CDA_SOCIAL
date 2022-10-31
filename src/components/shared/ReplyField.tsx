@@ -28,19 +28,17 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
   // const handleSheetChanges = useCallback((index: number) => {
   //   console.log("handleSheetChanges", index);
   // }, []);
-  const BottomSheets = () => {
-    return (
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        // onChange={handleSheetChanges}
-        style={{}}
-        bottomInset={46}
-        // set `detached` to true
-        detached={true}
-      >
-        <Box style={{ padding: 5 }}>
+  // const BottomSheets = () => {
+  //   return (
+
+  //   );
+  // };
+  return (
+    <>
+      {visibleBottom && (
+        
+       
+        <Box style={{ padding: 5,borderTopRightRadius:50,borderTopLeftRadius:50,zIndex:1000 }} bg={'white'} elevation={5}>
           <SectionIcon
             color="black"
             iconName="camera"
@@ -82,11 +80,9 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
             onPress={() => {}}
           />
         </Box>
-      </BottomSheet>
-    );
-  };
-  return (
-    <>
+
+  
+  )}
       <Box
         height={60}
         width={"100%"}
@@ -112,8 +108,11 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
             alignItems={"center"}
             backgroundColor={"lightgreen"}
           >
-            <TouchableOpacity onPress={BottomSheets}>
-              <Ionicons name="add" size={28} color="white" />
+            <TouchableOpacity onPress={() => setVisibleBottom(!visibleBottom)}>
+              {
+                visibleBottom ? <EvilIcons name="close" size={24} color="white" />:<Ionicons name="add" size={28} color="white" />
+
+              }
             </TouchableOpacity>
           </Box>
           <TextInput
@@ -144,6 +143,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
           <Entypo name="emoji-happy" size={40} color="gray" />
         </Box>
       </Box>
+    
     </>
   );
 };

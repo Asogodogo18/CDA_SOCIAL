@@ -134,7 +134,7 @@ const AddButton = () => {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Add", { screen: "PosteScreens" }),
+              navigation.navigate("Accueil", { screen: "PosteScreens" }),
                 setIsCheck(true);
             }}
           >

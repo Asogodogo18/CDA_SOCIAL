@@ -21,7 +21,7 @@ const PosteScreens = ({ isActive }: any) => {
   // variables
   const snapPoints = ["15%", "50%"];
   const navigation = useNavigation();
-  const pickImage = async () => {
+  const pickImageVideo = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -203,7 +203,7 @@ const PosteScreens = ({ isActive }: any) => {
             placeholder="Bibilothéque Photo et Vidéo"
             size={40}
             type={Icons.Ionicons}
-            onPress={pickImage}
+            onPress={pickImageVideo}
           />
           <SectionIcon
             color="black"

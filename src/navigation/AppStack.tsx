@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  Animated
+  Animated,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -36,10 +36,8 @@ import {
   Topics,
   Parametre,
   InnerParams,
-  PosteScreens
-  
+  PosteScreens,
 } from "../screens";
-
 
 import HOME_ICON from "../../assets/icons/Home.svg";
 import SEARCH_ICON from "../../assets/icons/Search.svg";
@@ -53,24 +51,27 @@ const BottomTab = createBottomTabNavigator();
 const StackApp = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen
         name="Publication"
         component={PostDetails}
         options={{ headerShown: true }}
       />
+      <Stack.Screen name="Chats" component={Chats} />
+      <Stack.Screen name="PosteScreens" component={PosteScreens} />
+
     </Stack.Navigator>
   );
 };
-const StackChats = () => {
- 
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Messages" component={Messages} />
-      <Stack.Screen name="Chats" component={Chats}   />
-    </Stack.Navigator>
-  );
-};
+// const StackChats = () => {
+
+//   return (
+//     <Stack.Navigator screenOptions={{ headerShown: false }}>
+//       <Stack.Screen name="Messages" component={Messages} />
+
+//     </Stack.Navigator>
+//   );
+// };
 const ParametreStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -83,7 +84,6 @@ const ParametreStack = () => {
 const PosteStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="PosteScreens" component={PosteScreens} />
     </Stack.Navigator>
   );
 };
@@ -107,7 +107,7 @@ const AppStack = () => {
         <Drawer.Screen
           name="Accueil"
           options={{ headerShown: false }}
-          component={BottomTabNavigator}
+          component={StackApp}
         />
 
         <Drawer.Screen
@@ -145,10 +145,7 @@ const AppStack = () => {
   );
 };
 
-
-
 const CustomTabBarButton = ({ children, onPress }) => {
-
   return (
     <TouchableOpacity
       style={{
@@ -178,39 +175,10 @@ const CustomTabBarButton = ({ children, onPress }) => {
 };
 
 const BottomTabNavigator = () => {
-  const PosteScreens = ({ isActive }: any) => {
-    const bottomSheetRef = useRef<BottomSheet>(null);
-
-    // variables
-    const snapPoints = ["25%", "50%"];
-    return (
-      <Box flex={1} position={"relative"}>
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={1}
-          snapPoints={snapPoints}
-          // onChange={handleSheetChanges}
-        >
-          <Box
-            style={{
-              padding: 5,
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-            }}
-          >
-            <Text variant={"header"}>PosteScreens</Text>
-          </Box>
-        </BottomSheet>
-      </Box>
-    );
-  };
-
   return (
     <Layout>
       <BottomTab.Navigator
         initialRouteName="HomeStack"
-        
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
@@ -222,12 +190,11 @@ const BottomTabNavigator = () => {
             backgroundColor: "#FFFF",
             height: 60,
           },
-          
         }}
       >
         <BottomTab.Screen
           name="HomeStack"
-          component={StackApp}
+          component={Home}
           options={{
             tabBarIcon: ({ focused }) => (
               <Box justifyContent={"center"} alignItems={"center"}>
@@ -257,20 +224,20 @@ const BottomTabNavigator = () => {
         />
         <BottomTab.Screen
           name="Add"
-          component={PosteStack}
+          component={""}
           options={{
             // tabBarIcon: ({ focused }) => (
             //   <Ionicons name="add" size={36} color="white" />
             // ),
             tabBarButton: (props) => (
               // <CustomTabBarButton onPress={PosteScreens} {...props} />
-              <TabBarButton/>
+              <TabBarButton />
             ),
           }}
         />
         <BottomTab.Screen
-          name="StackChats"
-          component={StackChats}
+          name="Messages"
+          component={Messages}
           options={{
             tabBarIcon: ({ focused }) => (
               <Box justifyContent={"center"} alignItems={"center"}>
@@ -280,7 +247,6 @@ const BottomTabNavigator = () => {
                 </Text>
               </Box>
             ),
-          //  tabBarStyle: { display: "none" }
           }}
         />
         <BottomTab.Screen

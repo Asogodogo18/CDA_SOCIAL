@@ -17,7 +17,7 @@ const Messages = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      nestedScrollEnabled
+      nestedScrollEnabled={true}
       contentContainerStyle={{ paddingBottom: 90, flexGrow: 1 }}
     >
       <Box flex={1} mt={"m"} pt={"m"}>

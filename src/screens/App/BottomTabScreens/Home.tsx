@@ -35,7 +35,7 @@ const { width, height } = Dimensions.get("screen");
 
 const Home = ({ navigation }) => {
   const handleNavigation = () => {
-    navigation.navigate("HomeStack", {
+    navigation.navigate("Accueil", {
       screen: "Publication",
     });
   };
