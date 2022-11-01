@@ -18,6 +18,6 @@ export { default as Messages } from "./App/BottomTabScreens/Messages";
 export { default as Search } from "./App/BottomTabScreens/Search";
 export { default as Notifications } from "./App/BottomTabScreens/Notifications";
 //POSTE SCREENS
-export { default as PosteScreens } from "./App/Post/PosteScreens";
+export { default as PosteScreens } from "./App/Details/PosteScreens";
 
 

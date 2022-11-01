@@ -120,6 +120,7 @@ const PosteScreens = ({ isActive }: any) => {
                 "Personne",
               ]}
               onChange={setShowPoste}
+              backgroundColor={'white'}
             />
           </Box>
         </Box>
@@ -133,8 +134,12 @@ const PosteScreens = ({ isActive }: any) => {
             borderRadius={5}
             alignSelf={"center"}
             placeholder={"Quoi de neuf................"}
+            backgroundColor={'white'}
+
           />
-          <Box flexDirection={"row"} flexWrap={"wrap"}>
+          <Box flexDirection={"row"} flexWrap={"wrap"} 
+            backgroundColor={'white'}
+            >
             {image.map((image, index) => {
               return (
                 <Box
@@ -152,6 +157,8 @@ const PosteScreens = ({ isActive }: any) => {
                     margin: 5,
                     justifyContent: "center",
                     alignItems: "center",
+          
+
                   }}
                   key={index}
                 >

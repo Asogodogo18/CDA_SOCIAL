@@ -79,7 +79,7 @@ const Home = ({ navigation }) => {
           Accueil
         </Text>
       </Box> */}
-      <MainHeader title="Accueil" />
+      <MainHeader title="Accueil"  />
       <FeedFilters data={defaultFilters} onPress={() => console.log("Press")} />
 
       <SectionHeader title={"Now"} more={true} link={() => {}} />

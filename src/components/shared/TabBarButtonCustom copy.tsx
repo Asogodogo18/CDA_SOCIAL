@@ -15,13 +15,11 @@ const AddButton = () => {
 
   let mode = new Animated.Value(0);
   const toggleView = () => {
-    // Animated.timing(mode, {
-    //   toValue: mode._value === 0 ? 1.5 : 0,
-    //   duration: 300,
-    //   useNativeDriver: false,
-    // }).start();
-    navigation.navigate("Accueil", { screen: "PosteScreens" }),
-    setIsCheck(true);
+    Animated.timing(mode, {
+      toValue: mode._value === 0 ? 1.5 : 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
   };
 
   const firstX = mode.interpolate({
@@ -87,7 +85,7 @@ const AddButton = () => {
         },
       ]}
     >
-      {/* <Animated.View
+      <Animated.View
         style={{
           position: "absolute",
           left: firstX,
@@ -172,7 +170,7 @@ const AddButton = () => {
             </Text>
           </TouchableOpacity>
         </LinearGradient>
-      </Animated.View> */}
+      </Animated.View>
 
       <AnimatedTouch
         onPress={toggleView}
