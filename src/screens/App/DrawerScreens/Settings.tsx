@@ -19,7 +19,7 @@ const Settings = ({ navigation }) => {
  
   return (
     <Layout>
-      <Box backgroundColor={"messageInBg"} flex={1} style={{ paddingTop: 20 }}>
+      <Box backgroundColor={"messageInBg"} flex={1}>
         <Box
           flexDirection={"row"}
           alignItems={"center"}

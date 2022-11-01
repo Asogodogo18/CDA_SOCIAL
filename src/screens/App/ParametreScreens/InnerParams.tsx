@@ -12,6 +12,7 @@ import {
 
 const InnerParams = ({ route }) => {
   const { id } = route.params;
+console.log(id);
 
   switch (id) {
     case 1:
@@ -21,13 +22,13 @@ const InnerParams = ({ route }) => {
       return <Securite />;
       break;
 
-    case 3:
+    case 4:
       return <Verify />;
       break;
-    case 4:
+    case 5:
       return <Language />;
       break;
-    case 5:
+    case 6:
       return <Country />;
     default:
       null;
