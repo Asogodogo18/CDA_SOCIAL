@@ -14,13 +14,23 @@ import {
   Text,
 } from "../../components";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAuthController } from "../../viewController";
 
 const { width, height } = Dimensions.get("screen");
+
 const ProfileUpdate = () => {
+  const {
+    name,
+    surname,
+    username,
+    onChangeName,
+    onChangeSurname,
+    onChangeUsername,
+    onClickSignUp,
+  } = useAuthController();
+
   const [active, setActive] = useState(0);
   const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
   const [genre, setGenre] = useState("Sexe");
   const [bio, setBio] = useState("");
   const [language, setLanguage] = useState("");
@@ -28,14 +38,6 @@ const ProfileUpdate = () => {
   const [privacy1, setPrivacy1] = useState("");
   const [privacy2, setPrivacy2] = useState("");
   const [privacy3, setPrivacy3] = useState("");
-
-  const onNameChange = (text) => {
-    setName(text);
-  };
-
-  const onSurnameChange = (text) => {
-    setSurname(text);
-  };
 
   const onGenreChange = (text) => {
     setGenre(text);
@@ -46,10 +48,10 @@ const ProfileUpdate = () => {
   };
 
   const onCountryChange = (text) => {
-    setName(text);
+    setCountry(text);
   };
   const onLanguageChange = (text) => {
-    setName(text);
+    setLanguage(text);
   };
 
   const onPrivacy1Change = (text) => {
@@ -63,6 +65,9 @@ const ProfileUpdate = () => {
   };
 
   const handleNext = () => {
+    if (active === 1) {
+      onClickSignUp();
+    }
     setActive(active + 1);
   };
 
@@ -84,12 +89,14 @@ const ProfileUpdate = () => {
       component: (
         <Step2
           image={image}
-          onNameChange={onNameChange}
-          onSurnameChange={onSurnameChange}
+          onNameChange={onChangeName}
+          onSurnameChange={onChangeSurname}
           genre={genre}
           onGenreChange={onGenreChange}
           name={name}
           surname={surname}
+          username={username}
+          onChangeUsername={onChangeUsername}
           genres={["Sexe", "Masculin", "Feminin"]}
         />
       ),

@@ -12,19 +12,23 @@ type SecondFirstStepProps = {
   image: string;
   name: string;
   surname: string;
+  username: string;
   genre: string;
   genres: string[];
   onGenreChange: (param: string) => void;
   onNameChange: (param: string) => void;
   onSurnameChange: (param: string) => void;
+  onChangeUsername: (param: string) => void;
 } & Partial<BoxProps<Theme>>;
 
 const SecondStep: React.FC<SecondFirstStepProps> = ({
   image,
   name,
   surname,
+  username,
   onNameChange,
   onSurnameChange,
+  onChangeUsername,
   genre,
   genres,
   onGenreChange,
@@ -47,6 +51,13 @@ const SecondStep: React.FC<SecondFirstStepProps> = ({
         type="text"
         value={surname}
         onChange={onSurnameChange}
+      />
+      <Input
+        placeholder="Nom d'utilisateur"
+        my={"m"}
+        type="text"
+        value={username}
+        onChange={onChangeUsername}
       />
       <Input
         placeholder="Sexe"

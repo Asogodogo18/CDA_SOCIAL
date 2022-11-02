@@ -44,13 +44,15 @@ const useAuthController = () => {
       username,
     };
     SignUp(payload)
-      .then((res) => res.json())
       .then((json) => {
         setRes(json);
-        console.log("Login: ", json);
-        navigation.navigate("ProfileUpdate");
+        console.log("signUp: ", json);
       })
-      .catch((e) => setError(e));
+      .catch((e) => {
+        console.log("error sign up:", e );
+
+        setError(e);
+      });
   };
 
   const onClickLogin = () => {
