@@ -1,1 +1,1 @@
-export { default as useLoginController } from "./Auth/LoginController";
+export { default as useAuthController } from "./Auth/AuthController";

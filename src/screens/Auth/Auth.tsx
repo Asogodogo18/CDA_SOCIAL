@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { useLoginController } from "../../viewController";
+import { useAuthController } from "../../viewController";
 const { height, width } = Dimensions.get("screen");
 
 const Auth = ({ navigation }) => {
@@ -24,8 +24,9 @@ const Auth = ({ navigation }) => {
     error,
     onChangeEmail,
     onChangePassword,
-    onClickSubmit,
-  } = useLoginController();
+    onClickLogin,
+    onClickSignUp,
+  } = useAuthController();
   return (
     <ImageBackground
       source={require("../../../assets/Auth/bg2.png")}
@@ -74,7 +75,7 @@ const Auth = ({ navigation }) => {
             onChange={onChangePassword}
             placeholder={"Mot de Passe"}
           />
-          <Button primary title="Se Connecter" onPress={onClickSubmit} />
+          <Button primary title="Se Connecter" onPress={onClickLogin} />
           <Button
             primary={false}
             title="S'inscrire"
