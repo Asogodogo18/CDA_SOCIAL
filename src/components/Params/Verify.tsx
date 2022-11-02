@@ -50,7 +50,6 @@ const Verify = () => {
   const condition = fullName && msgReviseur && image;
   return (
     <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Box
           flexDirection={"row"}
           backgroundColor={"white"}
@@ -69,6 +68,7 @@ const Verify = () => {
             Verification du Compte
           </Text>
         </Box>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Box>
           <Box>
             <Text variant={"subheader"} textAlign={"center"} p={"xl"}>
