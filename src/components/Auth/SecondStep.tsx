@@ -7,6 +7,7 @@ import Text from "../shared/Text";
 import Avatar from "../shared/Avatar";
 import { TextInput } from "react-native-gesture-handler";
 import Input from "../shared/TextInput";
+import { useAuth } from "../../Context/";
 
 type SecondFirstStepProps = {
   image: string;

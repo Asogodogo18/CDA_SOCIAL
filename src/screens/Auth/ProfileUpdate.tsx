@@ -1,4 +1,4 @@
-import { Button, TouchableOpacity, Dimensions } from "react-native";
+import { Button, TouchableOpacity, Dimensions, Alert } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -14,7 +14,10 @@ import {
   Text,
 } from "../../components";
 import { LinearGradient } from "expo-linear-gradient";
+
 import { useAuthController } from "../../viewController";
+import { useAuth } from "../../Context";
+import { AVATAR_URL } from "../../constants/general-constatnts";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -28,9 +31,10 @@ const ProfileUpdate = () => {
     onChangeUsername,
     onClickSignUp,
   } = useAuthController();
+  const { updateUsername, updateName, updateSurname } = useAuth();
 
   const [active, setActive] = useState(0);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(AVATAR_URL);
   const [genre, setGenre] = useState("Sexe");
   const [bio, setBio] = useState("");
   const [language, setLanguage] = useState("");
@@ -66,6 +70,13 @@ const ProfileUpdate = () => {
 
   const handleNext = () => {
     if (active === 1) {
+      if (name === "" || surname === "" || username === "") {
+        Alert.alert("Les champs sont vides!!!");
+        return;
+      }
+      updateName(name);
+      updateSurname(surname);
+      updateUsername(username);
       onClickSignUp();
     }
     setActive(active + 1);
@@ -150,7 +161,7 @@ const ProfileUpdate = () => {
         {STEPS[active].component}
       </Box>
       <Box width={"100%"} flex={0.25} flexDirection={"row"}>
-        {!active <= 0 && (
+        {!(active <= 0) && (
           <TouchableOpacity
             onPress={handlePrev}
             style={{ position: "absolute", left: 10, alignSelf: "center" }}

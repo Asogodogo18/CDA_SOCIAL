@@ -1,6 +1,5 @@
 import {
   Box,
-  Avatar,
   Text,
   TextInput,
   Button,
@@ -18,10 +17,12 @@ import {
 import React, { useState } from "react";
 import { useAuthController } from "../../viewController";
 import { useNavigation } from "@react-navigation/native";
+import useAuth from "../../Context/AuthContext";
 const { height, width } = Dimensions.get("screen");
 
 const Auth = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { updateEmail, updatePassword } = useAuth();
   const {
     email,
     password,
@@ -33,6 +34,16 @@ const Auth = ({ navigation }) => {
 
   const toggleModal = () => setModalVisible(!modalVisible);
 
+  const handleSignUp = () => {
+    if (email === "" || password === "") {
+      Alert.alert("Les Champs sont vides");
+      return;
+    }
+    updatePassword(password);
+    updateEmail(email);
+    toggleModal();
+  };
+
   return (
     <ImageBackground
       source={require("../../../assets/Auth/bg2.png")}
@@ -40,8 +51,6 @@ const Auth = ({ navigation }) => {
       resizeMode="cover"
     >
       <Box
-        // height={40}
-        // width={"100%"}
         justifyContent={"center"}
         alignItems={"center"}
         flex={1}
@@ -82,7 +91,7 @@ const Auth = ({ navigation }) => {
             placeholder={"Mot de Passe"}
           />
           <Button primary title="Se Connecter" onPress={onClickLogin} />
-          <Button primary={false} title="S'inscrire" onPress={toggleModal} />
+          <Button primary={false} title="S'inscrire" onPress={handleSignUp} />
           <AuthSectionDivider />
           <SocialIconGroup onPress={() => {}} />
         </Box>
@@ -108,6 +117,7 @@ const Auth = ({ navigation }) => {
       </Box>
       {modalVisible && (
         <ConfirmationModal
+          // password={password}
           modalVisible={modalVisible}
           ToggleModal={toggleModal}
         />
@@ -118,13 +128,17 @@ const Auth = ({ navigation }) => {
 
 function ConfirmationModal({ modalVisible, ToggleModal }) {
   const navigation = useNavigation();
-  const { password1, password, onChangePassword1 } = useAuthController();
+  const {password, password1, onChangePassword1 } = useAuthController();
+
+  console.log("modal 1:", password);
+  console.log("modal 2:", password1);
 
   const handleValidate = () => {
     if (password !== password1) {
       Alert.alert("Les mots de passe ne sont pas identiques");
       return;
     }
+    navigation.navigate("ProfileUpdate");
   };
   return (
     <Modal
@@ -137,25 +151,25 @@ function ConfirmationModal({ modalVisible, ToggleModal }) {
     >
       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
         <Box
-          padding={"m"}
+          minHeight={250}
+          borderRadius={10}
+          padding={"ml"}
           backgroundColor={"white"}
           justifyContent="space-around"
           alignItems={"center"}
         >
-          <Text variant={"title2"} textAlign={"center"}>
-            Veuilez Confirmer le Mot de passe:
+          <Text variant={"title"} fontSize={18} textAlign={"center"}>
+            Veuillez Confirmer le{"\n"} Mot de passe
           </Text>
           <TextInput
             my={"m"}
+            borderWidth={1}
+            borderColor={"gray"}
             value={password1}
             onChange={onChangePassword1}
             placeholder={"Mot de Passe"}
           />
-          <Button
-            primary={true}
-            title="Valider"
-            onPress={() => navigation.navigate("ProfileUpdate")}
-          />
+          <Button primary={true} title="Valider" onPress={handleValidate} />
         </Box>
       </Box>
     </Modal>
