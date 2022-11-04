@@ -2,7 +2,6 @@ import { AuthContextType } from "../../types/global";
 
 export const initialState :AuthContextType = {
   signedIn: false,
-  user: {},
   authInfo: {
     name: "",
     surname: "",

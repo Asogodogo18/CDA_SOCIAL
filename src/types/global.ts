@@ -33,7 +33,6 @@ export type SingleNotifPreviewProps = {
 
 export type AuthContextType = {
   signedIn: boolean;
-  user?: {};
   authInfo: {
     name: string;
     surname: string;
@@ -48,4 +47,14 @@ export type AuthContextType = {
   updateEmail: (text: string) => void;
   updatePassword: (text: string) => void;
   updateConfirmPassword: (text: string) => void;
+};
+
+export type UserContextType = {
+  signedIn: boolean;
+  isLoading: boolean;
+  user: any;
+  auth: {
+    authToken: string;
+    authTokenExpiry: number;
+  };
 };

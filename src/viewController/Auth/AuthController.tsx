@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useAuthModel from "../../viewModel/AuthModel";
 import useAuth from "../../Context/AuthContext";
+import { USER_KEY } from "../../constants/general-constatnts";
+import { storeDataObject } from "../../services/storage";
 
 const useAuthController = () => {
   const navigation = useNavigation();
@@ -10,7 +12,7 @@ const useAuthController = () => {
 
   const [name, setName] = useState(authInfo.name);
   const [error, setError] = useState<string>();
-  const [res, setRes] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string>(authInfo.email);
   const [password, setPassword] = useState<string>(authInfo.password);
 
@@ -29,6 +31,7 @@ const useAuthController = () => {
   const onChangePassword = (text: string) => setPassword(text);
 
   const onClickSignUp = () => {
+    setIsLoading(true);
     let payload = {
       email,
       password,
@@ -40,13 +43,19 @@ const useAuthController = () => {
 
     SignUp(payload)
       .then((json) => {
-        setRes(json);
         console.log("signUp: ", json);
+        if (json.code !== 200) {
+          console.log("login error: ", json);
+          setError(`${json.message}: ${json.err_code}`);
+          return;
+        }
+        storeDataObject(USER_KEY, json);
       })
       .catch((e) => {
         console.log("error sign up:", e);
         setError(e);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const onClickLogin = () => {
@@ -54,24 +63,22 @@ const useAuthController = () => {
       email,
       password,
     };
-
     console.log("login payload: ", payload);
 
     Login(payload)
       .then((json) => {
         console.log("login: ", json);
 
-        setRes(json);
         if (json.code !== 200) {
           console.log("login error: ", json);
-
           setError(`${json.message}: ${json.err_code}`);
           return;
         }
         console.log("login: ", json);
-        navigation.navigate("AppStack");
+        storeDataObject(USER_KEY, json);
       })
-      .catch((e) => setError(e));
+      .catch((e) => setError(e))
+      .finally(() => setIsLoading(false));
   };
 
   return {
@@ -82,7 +89,7 @@ const useAuthController = () => {
     surname,
     username,
     error,
-    res,
+    isLoading,
     onChangeEmail,
     onChangePassword,
     onChangePassword1,

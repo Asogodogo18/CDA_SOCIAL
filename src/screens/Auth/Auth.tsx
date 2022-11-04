@@ -39,9 +39,9 @@ const Auth = ({ navigation }) => {
       Alert.alert("Les Champs sont vides");
       return;
     }
+    toggleModal();
     updatePassword(password);
     updateEmail(email);
-    toggleModal();
   };
 
   return (
@@ -128,7 +128,7 @@ const Auth = ({ navigation }) => {
 
 function ConfirmationModal({ modalVisible, ToggleModal }) {
   const navigation = useNavigation();
-  const {password, password1, onChangePassword1 } = useAuthController();
+  const { password, password1, onChangePassword1 } = useAuthController();
 
   console.log("modal 1:", password);
   console.log("modal 2:", password1);
