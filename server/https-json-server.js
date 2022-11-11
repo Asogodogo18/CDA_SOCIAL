@@ -36,6 +36,7 @@ server.use(router);
 const keyFile = path.join(__dirname, "server.key");
 const certFile = path.join(__dirname, "server.cert");
 
+const port = process.env.PORT || 4000;
 // https
 //   .createServer(
 //     {
@@ -44,6 +45,6 @@ const certFile = path.join(__dirname, "server.cert");
 //     },
 //     server
 //   )
-  server.listen(3001, () => {
-    console.log("Go to http://localhost:3001/");
+  server.listen(port, () => {
+    console.log("server started");
   });
