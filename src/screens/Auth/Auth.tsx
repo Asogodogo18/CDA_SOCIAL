@@ -1,6 +1,5 @@
 import {
   Box,
-  Avatar,
   Text,
   TextInput,
   Button,
@@ -12,12 +11,40 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  Modal,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
+import { useAuthController } from "../../viewController";
+import { useNavigation } from "@react-navigation/native";
+import useAuth from "../../Context/AuthContext";
 const { height, width } = Dimensions.get("screen");
+
 const Auth = ({ navigation }) => {
-  const [userName, setUserName] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const { updateEmail, updatePassword } = useAuth();
+  const {
+    email,
+    password,
+    error,
+    onChangeEmail,
+    onChangePassword,
+    onClickLogin,
+    isLoading
+  } = useAuthController();
+
+  const toggleModal = () => setModalVisible(!modalVisible);
+
+  const handleSignUp = () => {
+    if (email === "" || password === "") {
+      Alert.alert("Les Champs sont vides");
+      return;
+    }
+    toggleModal();
+    updatePassword(password);
+    updateEmail(email);
+  };
+
   return (
     <ImageBackground
       source={require("../../../assets/Auth/bg2.png")}
@@ -25,8 +52,6 @@ const Auth = ({ navigation }) => {
       resizeMode="cover"
     >
       <Box
-        // height={40}
-        // width={"100%"}
         justifyContent={"center"}
         alignItems={"center"}
         flex={1}
@@ -56,26 +81,18 @@ const Auth = ({ navigation }) => {
         >
           <TextInput
             mb={"m"}
-            value={userName}
-            onChange={setUserName}
-            placeholder={"Nom D'utilisateur"}
+            value={email}
+            onChange={onChangeEmail}
+            placeholder={"Adresse Mail"}
           />
           <TextInput
             mb={"m"}
-            value={passWord}
-            onChange={setPassWord}
+            value={password}
+            onChange={onChangePassword}
             placeholder={"Mot de Passe"}
           />
-          <Button
-            primary
-            title="Se Connecter"
-            onPress={() => navigation.navigate("AppStack")}
-          />
-          <Button
-            primary={false}
-            title="S'inscrire"
-            onPress={() => navigation.navigate("ProfileUpdate")}
-          />
+          <Button primary loading={isLoading} title="Se Connecter" onPress={onClickLogin} />
+          <Button primary={false} title="S'inscrire" onPress={handleSignUp} />
           <AuthSectionDivider />
           <SocialIconGroup onPress={() => {}} />
         </Box>
@@ -99,8 +116,64 @@ const Auth = ({ navigation }) => {
           </TouchableOpacity>
         </Box>
       </Box>
+      {modalVisible && (
+        <ConfirmationModal
+          // password={password}
+          modalVisible={modalVisible}
+          ToggleModal={toggleModal}
+        />
+      )}
     </ImageBackground>
   );
 };
 
+function ConfirmationModal({ modalVisible, ToggleModal }) {
+  const navigation = useNavigation();
+  const { password, password1, onChangePassword1 } = useAuthController();
+
+  console.log("modal 1:", password);
+  console.log("modal 2:", password1);
+
+  const handleValidate = () => {
+    if (password !== password1) {
+      Alert.alert("Les mots de passe ne sont pas identiques");
+      return;
+    }
+    navigation.navigate("ProfileUpdate");
+  };
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        ToggleModal();
+      }}
+    >
+      <Box flex={1} justifyContent={"center"} alignItems={"center"}>
+        <Box
+          minHeight={250}
+          borderRadius={10}
+          padding={"ml"}
+          backgroundColor={"white"}
+          justifyContent="space-around"
+          alignItems={"center"}
+        >
+          <Text variant={"title"} fontSize={18} textAlign={"center"}>
+            Veuillez Confirmer le{"\n"} Mot de passe
+          </Text>
+          <TextInput
+            my={"m"}
+            borderWidth={1}
+            borderColor={"gray"}
+            value={password1}
+            onChange={onChangePassword1}
+            placeholder={"Mot de Passe"}
+          />
+          <Button primary={true} title="Valider" onPress={handleValidate} />
+        </Box>
+      </Box>
+    </Modal>
+  );
+}
 export default Auth;

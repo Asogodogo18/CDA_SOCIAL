@@ -10,6 +10,7 @@ import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
 import { RootStack } from "./src/navigation";
 import { NavigationContainer } from "@react-navigation/native";
+import { UserProvider } from "./src/Context";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -24,7 +25,9 @@ export default function App() {
           {/* <Navigation colorScheme={colorScheme} /> */}
           <NavigationContainer>
             <StatusBar />
-            <RootStack />
+            <UserProvider>
+              <RootStack />
+            </UserProvider>
           </NavigationContainer>
         </SafeAreaProvider>
       </ThemeProvider>
