@@ -3,12 +3,13 @@ import { useNavigation } from "@react-navigation/native";
 import useAuthModel from "../../viewModel/AuthModel";
 import useAuth from "../../Context/AuthContext";
 import { USER_KEY } from "../../constants/general-constatnts";
-import { storeDataObject } from "../../services/storage";
+import { removeData, storeDataObject } from "../../services/storage";
+import { useUserContext } from "../../Context";
 
 const useAuthController = () => {
-  const navigation = useNavigation();
   const { Login, SignUp } = useAuthModel();
   const { authInfo } = useAuth();
+  const { onSignInSuccess, onLogOut } = useUserContext();
 
   const [name, setName] = useState(authInfo.name);
   const [error, setError] = useState<string>();
@@ -64,7 +65,7 @@ const useAuthController = () => {
       password,
     };
     console.log("login payload: ", payload);
-
+    setIsLoading(true);
     Login(payload)
       .then((json) => {
         console.log("login: ", json);
@@ -75,10 +76,21 @@ const useAuthController = () => {
           return;
         }
         console.log("login: ", json);
-        storeDataObject(USER_KEY, json);
+        const user = json;
+        console.log("user: ", user);
+
+        storeDataObject(USER_KEY, user.data);
+        storeDataObject("auth", user.auth);
+
+        onSignInSuccess({ user: user.data, auth: user.auth });
       })
       .catch((e) => setError(e))
       .finally(() => setIsLoading(false));
+  };
+
+  const onClickLogout = () => {
+    removeData(USER_KEY);
+    onLogOut();
   };
 
   return {
@@ -98,6 +110,7 @@ const useAuthController = () => {
     onChangeUsername,
     onClickLogin,
     onClickSignUp,
+    onClickLogout,
   };
 };
 

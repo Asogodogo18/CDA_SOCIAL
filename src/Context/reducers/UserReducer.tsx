@@ -7,7 +7,7 @@ export const initialState: UserContextType = {
   auth: { authToken: "", authTokenExpiry: 0 },
 };
 
-const userReducer = (state: any, action: { type: any; payload: any; }) => {
+const userReducer = (state: any, action: { type: any; payload: any }) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -22,11 +22,14 @@ const userReducer = (state: any, action: { type: any; payload: any; }) => {
         isLoading: true,
       };
     case "SIGN_IN_SUCCESS":
+      console.log("payload signIn success: ", payload);
+
       return {
         ...state,
         isLoading: false,
         user: payload.user,
         auth: payload.auth,
+        signedIn: true,
       };
     case "SIGN_IN_FAIL":
       return {

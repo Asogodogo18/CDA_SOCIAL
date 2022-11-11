@@ -4,7 +4,7 @@ import {
   ON_SIGN_IN,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAIL,
-} from "./actions/UserActionTypes";
+} from "./actions/userActionTypes.ts";
 import { createContext, useReducer, useContext } from "react";
 import UserReducer, { initialState } from "./reducers/UserReducer";
 import React from "react";
@@ -26,6 +26,7 @@ export const UserProvider = ({ children }) => {
     });
   };
   const onSignInSuccess = (payload) => {
+    console.log('dispatched');
     dispatch({
       type: SIGN_IN_SUCCESS,
       payload,

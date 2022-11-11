@@ -31,6 +31,8 @@ import {
   PostMultipleImages,
   PostVideo,
 } from "../../../data/post";
+import { SafeAreaView } from "react-native-safe-area-context";
+import useFeedController from "../../../viewController/Feed/FeedController";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -40,53 +42,27 @@ const Home = ({ navigation }) => {
       screen: "Publication",
     });
   };
+
+  const { isLoading, posts } = useFeedController();
+
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignContent: "center",
-        paddingBottom: 20,
-        paddingHorizontal: 10,
-      }}
-      showsHorizontalScrollIndicator={false}
-      nestedScrollEnabled
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <StatusBar backgroundColor="white" barStyle={"dark-content"} />
-
-      {/* <Box
-        flexDirection={"row"}
-        // justifyContent={"center"}
-        alignItems={"center"}
-        padding={"m"}
-        margin={"s"}
-        style={{ marginTop: 5 }}
-      >
-        <Avatar
-          type={"header"}
-          source={{
-            uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPnozsb1QEhjyjE7p-bGl9hQOkJh0brsUKoA&usqp=CAU",
-          }}
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-          position={"absolute"}
-          left={150}
-          elevation={3}
-        />
-
-        <Text
-          variant={"title"}
-          textAlign={"center"}
-          style={{ fontSize: 24, marginLeft: 90, fontWeight: "bold" }}
-        >
-          Accueil
-        </Text>
-      </Box> */}
-      <MainHeader title="Accueil"  />
-      <FeedFilters data={defaultFilters} onPress={() => console.log("Press")} />
-
-      <SectionHeader title={"Now"} more={true} link={() => {}} />
-
-      <Stories data={FollowingList} />
+      {/* <StatusBar backgroundColor="white" barStyle={"dark-content"} /> */}
 
       <FlatList
+        ListHeaderComponent={() => (
+          <>
+            <MainHeader title="Accueil" />
+            <FeedFilters
+              data={defaultFilters}
+              onPress={() => console.log("Press")}
+            />
+            <SectionHeader title={"Now"} more={true} link={() => {}} />
+            <Stories data={FollowingList} />
+          </>
+        )}
         data={Poste}
         renderItem={({ item }) => (
           <Post data={item} type={"main"} onPress={handleNavigation} />
@@ -106,48 +82,7 @@ const Home = ({ navigation }) => {
         )}
         ListFooterComponentStyle={{ marginBottom: 10 }}
       />
-
-      {/* <Post data={PostImage} onPress={handleNavigation} type={"main"} />
-        <Post
-          data={PostMixedContent}
-          onPress={handleNavigation}
-          type={"main"}
-        />
-        <Post
-          data={PostMultipleImages}
-          onPress={handleNavigation}
-          type={"main"}
-        />
-
-        <ScrollView
-          horizontal
-          contentContainerStyle={{ padding: 10 }}
-          showsHorizontalScrollIndicator={false}
-        >
-          <FollowCard />
-          <FollowCard />
-          <FollowCard />
-          <FollowCard />
-        </ScrollView>
-        <Post
-          data={PostMultipleImages}
-          onPress={handleNavigation}
-          type={"main"}
-        />
-        <Post data={PostVideo} onPress={handleNavigation} type={"main"} />
-
-        <ScrollView horizontal contentContainerStyle={{ padding: 10 }}>
-          <FollowCard />
-          <FollowCard />
-          <FollowCard />
-        </ScrollView>
-        <Post
-          data={PostMultipleImages}
-          onPress={handleNavigation}
-          type={"main"}
-        />
-        <Post data={PostVideo} onPress={handleNavigation} type={"main"} /> */}
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 

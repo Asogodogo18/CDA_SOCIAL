@@ -30,6 +30,7 @@ const Auth = ({ navigation }) => {
     onChangeEmail,
     onChangePassword,
     onClickLogin,
+    isLoading
   } = useAuthController();
 
   const toggleModal = () => setModalVisible(!modalVisible);
@@ -90,7 +91,7 @@ const Auth = ({ navigation }) => {
             onChange={onChangePassword}
             placeholder={"Mot de Passe"}
           />
-          <Button primary title="Se Connecter" onPress={onClickLogin} />
+          <Button primary loading={isLoading} title="Se Connecter" onPress={onClickLogin} />
           <Button primary={false} title="S'inscrire" onPress={handleSignUp} />
           <AuthSectionDivider />
           <SocialIconGroup onPress={() => {}} />
