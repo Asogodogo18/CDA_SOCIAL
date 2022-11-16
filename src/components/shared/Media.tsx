@@ -91,7 +91,7 @@ const Media: React.FC<MediaProps> = ({
             style={{ margin: 5, width: 300, height: 150, zIndex: 10 }}
             resizeMode={ResizeMode.COVER}
             source={{
-              uri: media.url,
+              uri: media.uri,
             }}
             useNativeControls
             onPlaybackStatusUpdate={(status) => setStatus(() => status)}
@@ -141,7 +141,7 @@ const Media: React.FC<MediaProps> = ({
     >
       <Image
         ref={mediaRef}
-        source={{ uri: media.url }}
+        source={{ uri: media.uri }}
         resizeMode="contain"
         style={
           !single

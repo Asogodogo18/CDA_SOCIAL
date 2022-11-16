@@ -14,7 +14,7 @@ const RootStack = () => {
       screenOptions={{ headerShown: false }}
       initialRouteName="AuthNavigation"
     >
-      {!signedIn ? (
+      {signedIn ? (
         <rootStack.Screen name="AuthNavigation" component={AuthNavigation} />
       ) : (
         <rootStack.Screen name="AppStack" component={AppStack} />

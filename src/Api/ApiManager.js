@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOCAL_SERVER_URL } from "../constants/api-constants";
+import { LOCAL_SERVER_URL, MOCK_SERVER_URL } from "../constants/api-constants";
 
 const instance = axios.create({
   headers: { "Content-Type": "Application/json" },
@@ -8,7 +8,9 @@ const instance = axios.create({
 function kebabCaseToCamel(str) {
   return str.replace(/(\-\w)/g, (matches) => matches[1].toUpperCase());
 }
-
+let config = {
+  headers: { "Content-Type": "Application/json" },
+};
 class API {
   constructor({ url }) {
     this.url = url;
@@ -45,17 +47,11 @@ class API {
 
     endpoints.getAll = (config = {}) => {
       // console.log("url :", resourceURL);
-      return fetch('http://localhost:3000/posts', {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
+      return axios.get(resourceURL, config);
     };
 
-    endpoints.getOne = ({ id }, config = {}) =>
-      instance.get(`${resourceURL}/${id}`);
+    endpoints.getOne = ( id ) =>
+      axios.get(`${resourceURL}/${id}`, config);
 
     endpoints.create = (toCreate, config = {}) =>
       instance.post(resourceURL, toCreate);
@@ -75,4 +71,4 @@ class API {
 
 export default API;
 
-export const APP_API = new API({ url: LOCAL_SERVER_URL });
+export const APP_API = new API({ url: MOCK_SERVER_URL });

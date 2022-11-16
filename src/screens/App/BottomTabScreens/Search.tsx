@@ -34,7 +34,7 @@ const Search = ({ navigation }) => {
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, padding: 10, paddingBottom: 80 }}
       >
-        <Post type="main" data={PostImage} onPress={handleNavigation} />
+        {/* <Post type="main" data={PostImage} onPress={handleNavigation} />
         <Post
           type="main"
           data={PostMultipleImages}
@@ -53,7 +53,7 @@ const Search = ({ navigation }) => {
           type="main"
           data={PostMultipleImages}
           onPress={handleNavigation}
-        />
+        /> */}
       </ScrollView>
     </Box>
   );
