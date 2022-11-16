@@ -9,6 +9,7 @@ import {
   MaterialIcons,
   Ionicons,
 } from "@expo/vector-icons";
+import { useAuthController } from "../../viewController";
 
 import Box from "../shared/Box";
 import Avatar from "../shared/Avatar";
@@ -16,14 +17,10 @@ import Text from "../shared/Text";
 import Button from "../shared/Button";
 import { backgroundColor } from "@shopify/restyle";
 
-const iconStore = {
-  Accueil: "test",
-};
-
 const CustomDrawer = (props) => {
   const { state, progress, navigation } = props;
   const { index, routes } = state;
-
+  const { onClickLogout } = useAuthController();
   const isFocused = (name: string) => {
     return index === routes.findIndex((e) => e.name === name);
   };
@@ -271,13 +268,13 @@ const CustomDrawer = (props) => {
             { paddingLeft: 25 },
           ]}
           onPress={() => navigation.navigate("Parametre")}
-          focused={isFocused('Parametre')}
+          focused={isFocused("Parametre")}
         />
       </DrawerContentScrollView>
       <Button
         title="se déconnecter"
         primary={false}
-        onPress={() => {}}
+        onPress={onClickLogout}
         textProps={{ fontSize: 12, color: "black" }}
         borderColor={"danger"}
         marginLeft={"xl"}

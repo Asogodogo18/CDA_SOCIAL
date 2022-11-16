@@ -1,4 +1,4 @@
-import { Button, TouchableOpacity, Dimensions } from "react-native";
+import { Button, TouchableOpacity, Dimensions, Alert } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -15,12 +15,26 @@ import {
 } from "../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
+import { useAuthController } from "../../viewController";
+import { useAuth } from "../../Context";
+import { AVATAR_URL } from "../../constants/general-constatnts";
+
 const { width, height } = Dimensions.get("screen");
+
 const ProfileUpdate = () => {
+  const {
+    name,
+    surname,
+    username,
+    onChangeName,
+    onChangeSurname,
+    onChangeUsername,
+    onClickSignUp,
+  } = useAuthController();
+  const { updateUsername, updateName, updateSurname } = useAuth();
+
   const [active, setActive] = useState(0);
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [image, setImage] = useState(AVATAR_URL);
   const [genre, setGenre] = useState("Sexe");
   const [bio, setBio] = useState("");
   const [language, setLanguage] = useState("");
@@ -28,14 +42,6 @@ const ProfileUpdate = () => {
   const [privacy1, setPrivacy1] = useState("");
   const [privacy2, setPrivacy2] = useState("");
   const [privacy3, setPrivacy3] = useState("");
-
-  const onNameChange = (text) => {
-    setName(text);
-  };
-
-  const onSurnameChange = (text) => {
-    setSurname(text);
-  };
 
   const onGenreChange = (text) => {
     setGenre(text);
@@ -46,10 +52,10 @@ const ProfileUpdate = () => {
   };
 
   const onCountryChange = (text) => {
-    setName(text);
+    setCountry(text);
   };
   const onLanguageChange = (text) => {
-    setName(text);
+    setLanguage(text);
   };
 
   const onPrivacy1Change = (text) => {
@@ -63,6 +69,16 @@ const ProfileUpdate = () => {
   };
 
   const handleNext = () => {
+    if (active === 1) {
+      if (name === "" || surname === "" || username === "") {
+        Alert.alert("Les champs sont vides!!!");
+        return;
+      }
+      updateName(name);
+      updateSurname(surname);
+      updateUsername(username);
+      onClickSignUp();
+    }
     setActive(active + 1);
   };
 
@@ -84,12 +100,14 @@ const ProfileUpdate = () => {
       component: (
         <Step2
           image={image}
-          onNameChange={onNameChange}
-          onSurnameChange={onSurnameChange}
+          onNameChange={onChangeName}
+          onSurnameChange={onChangeSurname}
           genre={genre}
           onGenreChange={onGenreChange}
           name={name}
           surname={surname}
+          username={username}
+          onChangeUsername={onChangeUsername}
           genres={["Sexe", "Masculin", "Feminin"]}
         />
       ),
@@ -143,7 +161,7 @@ const ProfileUpdate = () => {
         {STEPS[active].component}
       </Box>
       <Box width={"100%"} flex={0.25} flexDirection={"row"}>
-        {!active <= 0 && (
+        {!(active <= 0) && (
           <TouchableOpacity
             onPress={handlePrev}
             style={{ position: "absolute", left: 10, alignSelf: "center" }}

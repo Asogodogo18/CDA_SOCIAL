@@ -1,0 +1,16 @@
+{
+  "name": "server-cdasocial",
+  "version": "1.0.0",
+  "description": "backend for mock cda-social data",
+  "main": "https-json-server.js",
+  "scripts": {
+    "start":"node https-json-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect-pause": "^0.1.0",
+    "json-server": "^0.17.1"
+  }
+}
