@@ -23,7 +23,7 @@ import Layout from "../screens/Layout";
 //Details Screens
 import PostDetails from "../screens/App/Details/PostDetails";
 //Chats Screens
-import Chats from "../screens/App/Messages/Chats";
+import { Chats, NewMessage } from "../screens";
 import {
   Education,
   Favorite,
@@ -59,7 +59,7 @@ const StackApp = () => {
       />
       <Stack.Screen name="Chats" component={Chats} />
       <Stack.Screen name="PosteScreens" component={PosteScreens} />
-
+      <Stack.Screen name="NewMessage" component={NewMessage} />
     </Stack.Navigator>
   );
 };
@@ -83,8 +83,7 @@ const ParametreStack = () => {
 };
 const PosteStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-    </Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}></Stack.Navigator>
   );
 };
 const AppStack = () => {
