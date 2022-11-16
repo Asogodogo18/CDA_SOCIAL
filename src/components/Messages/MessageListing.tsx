@@ -11,7 +11,7 @@ type MessageListingProps = {
 const MessageListing: React.FC<MessageListingProps> = ({ data }) => {
   const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate("Accueil", { screen: "Chats" });
+    navigation.navigate("Accueil", { screen: "NewMessage" });
   };
 
   const renderItem = ({ item }) => (

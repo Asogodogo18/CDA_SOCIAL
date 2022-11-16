@@ -19,5 +19,11 @@ export { default as Search } from "./App/BottomTabScreens/Search";
 export { default as Notifications } from "./App/BottomTabScreens/Notifications";
 //POSTE SCREENS
 export { default as PosteScreens } from "./App/Details/PosteScreens";
+//Message Screens
+export { default as NewMessage } from "./App/Messages/NewMessage";
+export { default as Chats } from "./App/Messages/Chats";
+
+
+
 
 
