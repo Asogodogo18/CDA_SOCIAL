@@ -12,6 +12,10 @@ import { ScrollView } from "react-native";
 
 import SearchFilter from "../../../data/searchFiltre";
 import { PostImage, PostMultipleImages } from "../../../data/post";
+import Animated from "react-native-reanimated";
+
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+
 const Search = ({ navigation }) => {
   const [search, setSearch] = useState("");
 
@@ -31,7 +35,7 @@ const Search = ({ navigation }) => {
         placeholder="Recherche"
       />
       <SearchFilters data={SearchFilter} onPress={() => {}} />
-      <ScrollView
+      <Animated.ScrollView 
         contentContainerStyle={{ flexGrow: 1, padding: 10, paddingBottom: 80 }}
       >
         {/* <Post type="main" data={PostImage} onPress={handleNavigation} />
@@ -54,7 +58,7 @@ const Search = ({ navigation }) => {
           data={PostMultipleImages}
           onPress={handleNavigation}
         /> */}
-      </ScrollView>
+      </Animated.ScrollView>
     </Box>
   );
 };

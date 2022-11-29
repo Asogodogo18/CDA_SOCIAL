@@ -4,12 +4,15 @@ import Icon from "@expo/vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import Box from "./Box";
 import Text from "./Text";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const SIZE = 60;
 const AddButton = () => {
-  const [isCheck, setIsCheck] = useState(false);
   const navigation = useNavigation();
+  const navState = navigation.getState();
+  console.log("nav state: ", navState);
+
+  const [isCheck, setIsCheck] = useState(false);
   const AnimatedTouch = Animated.createAnimatedComponent(TouchableOpacity);
   const AnimatedBox = Animated.createAnimatedComponent(Box);
 
@@ -20,8 +23,14 @@ const AddButton = () => {
     //   duration: 300,
     //   useNativeDriver: false,
     // }).start();
+
+    if (navState.index === 3) {
+      navigation.navigate("Accueil", { screen: "NewMessage" }),
+        setIsCheck(true);
+      return;
+    }
     navigation.navigate("Accueil", { screen: "PosteScreens" }),
-    setIsCheck(true);
+      setIsCheck(true);
   };
 
   const firstX = mode.interpolate({

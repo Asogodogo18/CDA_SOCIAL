@@ -230,7 +230,7 @@ const BottomTabNavigator = () => {
             // ),
             tabBarButton: (props) => (
               // <CustomTabBarButton onPress={PosteScreens} {...props} />
-              <TabBarButton />
+              <TabBarButton {...props} />
             ),
           }}
         />
