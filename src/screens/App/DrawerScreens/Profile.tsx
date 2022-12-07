@@ -16,7 +16,7 @@ import usePostController from "../../../viewController/Post/usePostController";
 import { UserApi } from "../../../Api";
 
 const Profile = ({ navigation, route }) => {
-  console.log("profile params :", route.params);
+  //console.log("profile params :", route.params);
   const [userProfile, setUserProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ const Profile = ({ navigation, route }) => {
     error: postError,
   } = usePostController();
 
-  // console.log("profile user ", user);
+  // //console.log("profile user ", user);
 
   const handleNavigation = () => {
     return navigation.navigate("HomeStack", { screen: "PostDetails" });
@@ -36,11 +36,11 @@ const Profile = ({ navigation, route }) => {
     setIsLoading(true);
     UserApi.getOne(route.params.userID)
       .then((result) => {
-        console.log("result user info : ", result.data);
+        //console.log("result user info : ", result.data);
         setUserProfile(result.data);
       })
       .catch((err) => {
-        console.log("error user: ", err);
+        //console.log("error user: ", err);
         setError(error);
       })
       .finally(() => setIsLoading(false));

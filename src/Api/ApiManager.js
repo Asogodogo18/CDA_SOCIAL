@@ -46,7 +46,7 @@ class API {
     const resourceURL = `${this.url}/${name}`;
 
     endpoints.getAll = (config = {}) => {
-      // console.log("url :", resourceURL);
+      // //console.log("url :", resourceURL);
       return axios.get(resourceURL, config);
     };
 

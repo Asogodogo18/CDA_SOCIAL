@@ -38,7 +38,7 @@ const Verify = () => {
 
     if (!result.cancelled) {
       setImage([...image, { ...result }]);
-      console.log("image", image);
+      //console.log("image", image);
     }
   };
   const onRemove = (index) => {

@@ -3,20 +3,20 @@ import React, { useState } from "react";
 import Box from "../shared/Box";
 import Text from "../shared/Text";
 
-type SwitchControlProps = {};
+type SwitchControlProps = {
+  activeIndex: Number;
+  onSwitch: () => void;
+};
 
 type ControlProps = {
-  isActive: boolean;
+  activeIndex: boolean;
   label: string;
   handleSwicth: () => void;
 };
-const SwitchControl: React.FC<SwitchControlProps> = () => {
-  const [isActive, setisActive] = useState(0);
-
-  const onSwitch = () => {
-    setisActive(isActive == 1 ? 0 : 1);
-  };
-
+const SwitchControl: React.FC<SwitchControlProps> = ({
+  activeIndex,
+  onSwitch,
+}) => {
   return (
     <Box
       height={40}
@@ -31,24 +31,28 @@ const SwitchControl: React.FC<SwitchControlProps> = () => {
     >
       <Control
         label={"Conversations"}
-        isActive={isActive === 0 ? true : false}
+        activeIndex={activeIndex === 0 ? true : false}
         handleSwicth={onSwitch}
       />
       <Control
         label={"Groupes"}
-        isActive={isActive === 1 ? true : false}
+        activeIndex={activeIndex === 1 ? true : false}
         handleSwicth={onSwitch}
       />
     </Box>
   );
 };
 
-const Control: React.FC<ControlProps> = ({ isActive, label, handleSwicth }) => (
+const Control: React.FC<ControlProps> = ({
+  activeIndex,
+  label,
+  handleSwicth,
+}) => (
   <Box
     height={25}
-    backgroundColor={isActive ? "borderColor1" : "nobg"}
+    backgroundColor={activeIndex ? "borderColor1" : "nobg"}
     borderRadius={5}
-    px={'m'}
+    px={"m"}
   >
     <TouchableOpacity
       style={{
@@ -59,7 +63,7 @@ const Control: React.FC<ControlProps> = ({ isActive, label, handleSwicth }) => (
       }}
       onPress={handleSwicth}
     >
-      <Text variant={isActive ? "btnTextActive" : "btnTextInactive"}>
+      <Text variant={activeIndex ? "btnTextActive" : "btnTextInactive"}>
         {label}
       </Text>
     </TouchableOpacity>

@@ -12,7 +12,7 @@ import {
 
 const InnerParams = ({ route }) => {
   const { id } = route.params;
-console.log(id);
+//console.log(id);
 
   switch (id) {
     case 1:

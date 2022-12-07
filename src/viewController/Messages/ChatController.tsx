@@ -1,29 +1,111 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
 
+import {
+  useGetChatsByUserQuery,
+  useCreateChatMutation,
+  useDeleteChatMutation,
+  // useGetChatByIdMutation,
+  useGetChatByIdQuery,
+} from "../../Api/ChatsApi";
+
 const useChatController = () => {
-  const [message, setMessage] = useState("");
-  const [isSending, setIsSending] = useState(false);
-  const [status, setStatus] = useState<
-    "inactive" | "sending" | "sent" | "failed"
-  >("inactive");
+  // const
+  //   { isError, isLoading, isSuccess, isUninitialized, data: userChatsList },
+  // =
 
-  const onChangeMessage = (text) => {
-    setMessage(message);
+  const [
+    createChatMutation,
+    {
+      isError: isCreationError,
+      isLoading: isCreationLoading,
+      isSuccess: isCreationSuccess,
+      isUninitialized: isCreationUninitialized,
+      data: createChatData,
+    },
+  ] = useCreateChatMutation();
+
+  // const [
+  //   getChatById,
+  //   {
+  //     isError: isChatError,
+  //     isLoading: isChatLoading,
+  //     isSuccess: isChatSuccess,
+  //     isUninitialized: isChatUninitialized,
+  //     data: singleChatData,
+  //   },
+  // ] = useGetChatByIdMutation();
+
+  const [
+    deleteChat,
+    {
+      isError: isDeletionError,
+      isLoading: isDeletionLoading,
+      isSuccess: isDeletionSuccess,
+      isUninitialized: isDeletionUninitialized,
+      data: chatDeleteResponse,
+    },
+  ] = useDeleteChatMutation();
+
+  // const [isSending, setIsSending] = useState(false);
+  // const [status, setStatus] = useState<
+  //   "inactive" | "sending" | "sent" | "failed"
+  // >("inactive");
+
+  const getUserChats = (userId: string) => {
+    const payload = new FormData();
+    payload.append("userid", userId);
+    return useGetChatsByUserQuery(payload);
   };
 
-  const onDeleteMessage = () => {
-    //TODO Transaction delete chat message
-  };
-  const onSubmitMessage = () => {
-    setStatus("sending");
-    //TODO Transactions to send chat message
+  // const getSingleChat = (chatId: string) => {
+  //   const payload = new FormData();
+  //   payload.append("chatid", chatId);
+  //   return getChatById(payload);
+  // };
 
-    //last
-    setMessage("");
+  const getSingleChatById = (chatId: string) => {
+    const payload = new FormData();
+    payload.append("chatid", chatId);
+    return useGetChatByIdQuery(payload);
   };
 
-  return { message, status, onChangeMessage, onSubmitMessage, onDeleteMessage };
+  const onDeleteChat = (payload: { userId: string; chatId: string }) => {
+    const formData = new FormData();
+    formData.append("userid", payload.userId);
+    formData.append("chatid", payload.chatId);
+
+    return deleteChat(formData);
+  };
+  const createChat = (payload: { sender_id: string; receiver_id: string }) => {
+    const formData = new FormData();
+    formData.append("sender_id", payload.sender_id);
+    formData.append("receiver_id", payload.receiver_id);
+    return createChatMutation(formData);
+  };
+
+  return {
+    getUserChats,
+    createChat,
+    onDeleteChat,
+    // getSingleChat,
+    // isChatError,
+    // isChatLoading,
+    // isChatSuccess,
+    // isChatUninitialized,
+    // singleChatData,
+    isCreationError,
+    isCreationLoading,
+    isCreationSuccess,
+    createChatData,
+    isCreationUninitialized,
+    isDeletionError,
+    isDeletionLoading,
+    isDeletionSuccess,
+    isDeletionUninitialized,
+    chatDeleteResponse,
+    getSingleChatById,
+  };
 };
 
 export default useChatController;

@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
-import { Ionicons, EvilIcons } from "@expo/vector-icons";
+import { Ionicons, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 
 import { joinReplys } from "../../../utils";
 import theme, { Theme } from "../../../theme";
@@ -21,12 +21,22 @@ import {
   Modal,
   StyleSheet,
   ActivityIndicator,
+  Alert,
 } from "react-native";
+import Menu, {
+  MenuProvider,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 
 import Media from "../Media";
 import { MediaType } from "../../../types/global";
 import useUserController from "../../../viewController/Users/UserController";
+import usePostController from "../../../viewController/Post/usePostController";
 import { useNavigation } from "@react-navigation/native";
+import { useUserContext } from "../../../Context";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -47,8 +57,11 @@ type PostHeaderProps = {
   name: string;
   username: string;
   timestamp: string;
+  isOwner: boolean;
   onAvatarPress: () => void;
   type: keyof typeof PostTypes;
+  onPostDelete: () => void;
+  onPostSave: () => void;
 };
 
 type PostFooterProps = {
@@ -75,47 +88,90 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   timestamp,
   type,
   onAvatarPress,
+  isOwner,
+  onPostDelete,
+  onPostSave,
 }) => {
-  return (
-    <Box
-      py={"m"}
-      px={"l"}
-      alignItems={"center"}
-      flexDirection={"row"}
-      height={60}
-    >
-      <Avatar
-        onPress={onAvatarPress}
-        type="header"
-        source={{ uri: avatarSrc }}
-      />
-      <Box marginLeft={"l"} alignItems={"flex-start"}>
-        <Box
-          flexDirection={"row"}
-          justifyContent={"center"}
-          alignItems={"flex-start"}
-        >
-          <Text variant={"title"}>{name}</Text>
-          <Text ml={"s"} variant={"subtitle"}>
-            @{username}
-          </Text>
-        </Box>
+  const [openMenu, setOpenMenu] = useState(false);
 
-        {type !== "details" && (
-          <Box flexDirection={"row"} alignItems={"center"}>
-            <Box
-              width={4}
-              height={4}
-              borderRadius={4}
-              backgroundColor={"grayDark"}
-            />
-            <Text marginLeft={"s"} variant={"caption"}>
-              {timestamp}
+  const onMenuPress = () => {
+    setOpenMenu(!openMenu);
+  };
+
+  const onBackdropPress = () => {
+    setOpenMenu(false);
+  };
+
+  return (
+    <>
+      <Box
+        py={"m"}
+        px={"l"}
+        alignItems={"center"}
+        flexDirection={"row"}
+        height={60}
+      >
+        <Avatar
+          onPress={onAvatarPress}
+          type="header"
+          source={{ uri: avatarSrc }}
+        />
+        <Box marginLeft={"l"} alignItems={"flex-start"}>
+          <Box
+            flexDirection={"row"}
+            justifyContent={"center"}
+            alignItems={"flex-start"}
+          >
+            <Text variant={"title"}>{name}</Text>
+            <Text ml={"s"} variant={"subtitle"}>
+              @{username}
             </Text>
           </Box>
-        )}
+
+          {type !== "details" && (
+            <Box flexDirection={"row"} alignItems={"center"}>
+              <Box
+                width={4}
+                height={4}
+                borderRadius={4}
+                backgroundColor={"grayDark"}
+              />
+              <Text marginLeft={"s"} variant={"caption"}>
+                {timestamp}
+              </Text>
+            </Box>
+          )}
+        </Box>
+        <TouchableOpacity
+          onPress={onMenuPress}
+          style={{
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "absolute",
+            right: 10,
+          }}
+        >
+          <SimpleLineIcons name="options-vertical" size={18} color="gray" />
+        </TouchableOpacity>
+        <Menu
+          opened={openMenu}
+          // renderer={renderers.Popover}
+          // rendererProps={{ preferredPlacement: "right" }}
+          onBackdropPress={onBackdropPress}
+        >
+          <MenuTrigger />
+
+          <MenuOptions>
+            <MenuOption onSelect={onPostSave} text="Enregistrer" />
+            {isOwner ? (
+              <MenuOption onSelect={onPostDelete} text="Supprimer" />
+            ) : null}
+            <MenuOption onSelect={() => {}} text="Signaler un Abus" />
+          </MenuOptions>
+        </Menu>
       </Box>
-    </Box>
+    </>
   );
 };
 
@@ -228,18 +284,47 @@ if (Platform.OS === "android") {
 }
 
 const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
-  const { id, user_id, media, text, replys_count, likes_count, reposts_count } =
-    data;
-  const { isLoading, user, getPostUser, error } = useUserController();
+  const { id } = data;
+  const { getUserById } = useUserController();
   const [layoutData, setData] = useState(null);
+  const { user } = useUserContext();
+  const {
+    deletePostMutation,
+    isDeletePostError,
+    postDeleteData,
+    likePost,
+    isLiking,
+    likingError,
+    errorLike,
+    isLikingSuccess,
+    likeData,
+    savePost,
+    isBooking,
+    bookingData,
+  } = usePostController();
+
+  const {
+    data: userData,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = getUserById(data.user_id);
+
   const [currentMedia, setCurrentMedia] = useState(null);
 
+  // //console.log("post delete : ", postDeleteData);
+  // //console.log("post delete error : ", isDeletePostError);
+
   const navigation = useNavigation();
-  // console.log('Post data : ',data);
 
-  // console.log("media : ", media);
+  console.log("booking : ", bookingData);
 
-  // console.log('post user : ',user_id);
+  // //console.log('Post data : ',data);
+
+  // //console.log("error : ", userData);
+
+  // //console.log('post user : ',data.user_id);
 
   const handleNavigation = (id) => {
     navigation.navigate("Accueil", {
@@ -248,22 +333,29 @@ const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
     });
   };
 
+  const onDeletePost = () => {
+    deletePostMutation({ userID: data.user_id, postID: data.id });
+  };
+  const onSavePost = () => {
+    savePost({ userID: data.user_id, postID: data.id });
+  };
+
+  const onLikePost = () => {
+    likePost({ userID: data.user_id, postID: data.id });
+  };
+
   const onAvatarPress = () => {
     navigation.navigate("Profile", { userID: user_id, self: false });
   };
-  useEffect(() => {
-    getPostUser(user_id);
-    return () => {};
-  }, []);
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
         <ActivityIndicator size={"large"} color="green" />
       </Box>
     );
   }
-  if (error) {
+  if (isError || userData.code !== 200) {
     return (
       <Box
         my={"s"}
@@ -275,7 +367,7 @@ const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
         {...props}
       >
         <Text color={"danger"} variant={"body2"}>
-          {error}
+          {error?.error?.toString() || userData.message}
         </Text>
       </Box>
     );
@@ -297,26 +389,41 @@ const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
         onPress={() => handleNavigation(id)}
       >
         <PostHeader
+          isOwner={data.user_id === user.id}
           type={type}
           onAvatarPress={onAvatarPress}
-          avatarSrc={user.avatar}
-          name={`${user.firstName} ${user.lastName}`}
-          username={user.username}
+          avatarSrc={data?.reply_to?.avatar}
+          name={`${userData?.data?.first_name} ${userData?.data?.last_name}`}
+          username={userData?.data?.user_name}
           timestamp={data.time}
+          onPostDelete={onDeletePost}
+          onPostSave={onSavePost}
         />
-        <PostContent
-          type={type}
-          media={media}
-          replyTo={type == "reply" ? data.reply_to : null}
-          body={text}
-          timestamp={data.time}
-          toggleModal={(data: any) => setData(data)}
-          setCurrentMedia={setCurrentMedia}
-        />
+        {data.type === "text" ? (
+          <PostContent
+            type={type}
+            media={[]}
+            replyTo={type == "reply" ? data.reply_to : null}
+            body={data.text}
+            timestamp={data.time}
+            toggleModal={(data: any) => setData(data)}
+            setCurrentMedia={setCurrentMedia}
+          />
+        ) : (
+          <PostContent
+            type={type}
+            media={data.image}
+            replyTo={type == "reply" ? data.reply_to : null}
+            body={data.text}
+            timestamp={data.time}
+            toggleModal={(data: any) => setData(data)}
+            setCurrentMedia={setCurrentMedia}
+          />
+        )}
         <PostFooter
-          likes_count={likes_count}
-          repost_count={reposts_count}
-          replys_count={replys_count}
+          likes_count={data.likes_count ? data.likes_count : "0"}
+          repost_count={data.reposts_count}
+          replys_count={data.replys_count ? data.replys_count.length : "0"}
         />
       </TouchableOpacity>
 

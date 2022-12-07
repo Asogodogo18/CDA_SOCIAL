@@ -3,12 +3,12 @@ import { API_URL } from "./../constants/api-constants";
 let Auth = {};
 const Login = async (payload: { email: string; password: string }) => {
   const queryPayload = new FormData();
-  console.log("query out: ", payload);
+  //console.log("query out: ", payload);
 
   queryPayload.append("email", payload.email);
   queryPayload.append("password", payload.password);
 
-  let response = await fetch(`${API_URL}/login`, {
+  let response = await fetch(`${API_URL}/user/login`, {
     method: "POST",
     body: queryPayload,
   });
@@ -24,7 +24,7 @@ const SignUp = async (payload: {
   password: string;
 }) => {
   const queryPayload = new FormData();
-  console.log("query out: ", payload);
+  //console.log("query out: ", payload);
 
   queryPayload.append("first_name", payload.name);
   queryPayload.append("last_name", payload.surname);
@@ -32,7 +32,7 @@ const SignUp = async (payload: {
   queryPayload.append("email", payload.email);
   queryPayload.append("password", payload.password);
 
-  let response = await fetch(`${API_URL}/signup`, {
+  let response = await fetch(`${API_URL}/user/create`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",

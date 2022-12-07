@@ -9,6 +9,7 @@ export { default as SingleStory } from "./shared/Stories/Story";
 export { default as Stories } from "./shared/Stories/Stories";
 export { default as Post } from "./shared/Post/Post";
 export { default as MainHeader } from "./shared/MainHeader";
+export { default as Loader } from "./shared/Loader";
 
 export { default as FollowCard } from "./shared/FollowCard/FollowCard";
 export { default as ReplyField } from "./shared/ReplyField";
@@ -16,9 +17,9 @@ export { default as Searchbar } from "./search/Searchbar";
 export { default as SearchFilter } from "./search/SearchFilter";
 export { default as SearchFilters } from "./search/SearchFilters";
 export { default as SwitchControl } from "./Messages/SwitchControl";
-export { default as SingleMessagePreview } from "./Messages/SingleMessagePreview";
+// export { default as SingleMessagePreview } from "./Messages/SingleChat";
 export { default as MessageListing } from "./Messages/MessageListing";
-export { default as NewMessages } from "./Messages/NewMessages";
+export { default as ContactSuggestion } from "./Messages/NewMessages";
 
 export { default as NotificationListing } from "./Notification/NotificationListing";
 export { default as ProfileHeader } from "./Profile/Header";
@@ -55,3 +56,7 @@ export { default as Step5 } from "./Auth/FifthStep";
 
 export { default as CoverScroll } from "./CoverScroll";
 export { default as PopUp } from "./AnimatedPopUp";
+
+export { default as ErrorDisplayView } from "./shared/ErrorDisplayView";
+
+export { default as EmptySearchComponent } from "./shared/EmptyComponents/EmptySearch";

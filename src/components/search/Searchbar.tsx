@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, ActivityIndicator } from "react-native";
 import React from "react";
 
 import SearchbarIcon from "../../../assets/icons/search_icon.svg";
@@ -7,12 +7,14 @@ import Box from "../shared/Box";
 type SearchbarProps = {
   placeholder: string;
   value: string;
-  onChange: (param: string) => void;
+  loader: boolean;
+  onChange: (param: string) => void | Function;
 };
 const Searchbar: React.FC<SearchbarProps> = ({
   onChange,
   placeholder = "Recherche",
   value,
+  loader = false,
 }) => {
   return (
     <Box
@@ -32,6 +34,13 @@ const Searchbar: React.FC<SearchbarProps> = ({
         placeholder={placeholder}
         onChangeText={onChange}
       />
+      {loader ? (
+        <ActivityIndicator
+          style={{ alignSelf: "flex-end" }}
+          size={"small"}
+          color="green"
+        />
+      ) : null}
     </Box>
   );
 };

@@ -6,6 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { MediaType } from "../../types/global";
 import Box from "./Box";
+import { MEDIA_URL } from "../../constants/api-constants";
 
 type MediaProps = {
   media: MediaType;
@@ -91,7 +92,7 @@ const Media: React.FC<MediaProps> = ({
             style={{ margin: 5, width: 300, height: 150, zIndex: 10 }}
             resizeMode={ResizeMode.COVER}
             source={{
-              uri: media.uri,
+              uri: MEDIA_URL + media.src,
             }}
             useNativeControls
             onPlaybackStatusUpdate={(status) => setStatus(() => status)}
@@ -141,7 +142,7 @@ const Media: React.FC<MediaProps> = ({
     >
       <Image
         ref={mediaRef}
-        source={{ uri: media.uri }}
+        source={{ uri: MEDIA_URL + media.src }}
         resizeMode="contain"
         style={
           !single

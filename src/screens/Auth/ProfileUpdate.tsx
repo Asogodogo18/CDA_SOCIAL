@@ -17,7 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { useAuthController } from "../../viewController";
 import { useAuth } from "../../Context";
-import { AVATAR_URL } from "../../constants/general-constatnts";
+import { AVATAR_URL } from "../../constants/general-constants";
 
 const { width, height } = Dimensions.get("screen");
 

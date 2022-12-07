@@ -10,13 +10,15 @@ import SectionIcon, { Icons, Icon } from "./SectionIcon";
 type ReplyFieldProps = {
   placeholder: string;
   value: string;
-  onChange: () => void;
+  onChange: (text: string) => void;
+  onSubmit: () => void;
 };
 
 const ReplyField: React.FC<ReplyFieldProps> = ({
   placeholder,
   value,
   onChange,
+  onSubmit,
 }) => {
   const [visibleBottom, setVisibleBottom] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -26,7 +28,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
 
   // callbacks
   // const handleSheetChanges = useCallback((index: number) => {
-  //   console.log("handleSheetChanges", index);
+  //   ////console.log("handleSheetChanges", index);
   // }, []);
   // const BottomSheets = () => {
   //   return (
@@ -51,7 +53,6 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
             iconName="camerao"
             placeholder="Caméra"
             size={24}
-            
             onPress={() => {}}
           />
           <SectionIcon
@@ -80,7 +81,6 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
             iconName="contacts"
             placeholder="Contact"
             size={24}
-
             onPress={() => {}}
           />
         </Box>
@@ -131,7 +131,7 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
           alignItems={"center"}
           justifyContent={"space-around"}
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onSubmit}>
             <Box
               height={36}
               width={36}

@@ -5,14 +5,22 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_FAIL,
 } from "./actions/userActionTypes.ts";
-import { createContext, useReducer, useContext } from "react";
+import {
+  createContext,
+  useReducer,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import UserReducer, { initialState } from "./reducers/UserReducer";
 import React from "react";
+import { getDataObject } from "../services/storage";
+import { USER_KEY } from "../constants/general-constants";
 const UserContext = createContext(initialState);
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
-
+  
   const onInit = (payload) => {
     dispatch({
       type: ON_INIT,
@@ -26,7 +34,7 @@ export const UserProvider = ({ children }) => {
     });
   };
   const onSignInSuccess = (payload) => {
-    console.log('dispatched');
+    //console.log("dispatched");
     dispatch({
       type: SIGN_IN_SUCCESS,
       payload,
@@ -48,7 +56,7 @@ export const UserProvider = ({ children }) => {
     signedIn: state.signedIn,
     isLoading: state.isLoading,
     user: state.user,
-    auth: state.auth,
+    auth:  state.auth,
 
     onInit,
     onSignIn,

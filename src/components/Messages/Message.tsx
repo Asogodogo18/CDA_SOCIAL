@@ -49,7 +49,7 @@ const Message: React.FC<MessageProps> = ({ message, self }) => {
         maxWidth={200}
         padding={"m"}
       >
-        {message?.media.length === 0 ? null : message?.media.length <= 1 ? (
+        {message?.media == undefined ? null : message?.media.length <= 1 ? (
           <Media
             toggleModal={(data: any) => setData(data)}
             setCurrentMedia={setCurrentMedia}

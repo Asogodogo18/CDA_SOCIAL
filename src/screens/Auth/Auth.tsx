@@ -13,15 +13,18 @@ import {
   TouchableOpacity,
   Modal,
   Alert,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuthController } from "../../viewController";
 import { useNavigation } from "@react-navigation/native";
 import useAuth from "../../Context/AuthContext";
+import { getDataObject } from "../../services/storage";
+import { useUserContext } from "../../Context";
+import { USER_KEY } from "../../constants/general-constants";
 const { height, width } = Dimensions.get("screen");
 
 const Auth = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
   const { updateEmail, updatePassword } = useAuth();
   const {
     email,
@@ -30,8 +33,12 @@ const Auth = ({ navigation }) => {
     onChangeEmail,
     onChangePassword,
     onClickLogin,
-    isLoading
+    isLoading,
   } = useAuthController();
+  const { signedIn, onSignInSuccess } = useUserContext();
+
+  const [sessionCheck, setSessionCheck] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => setModalVisible(!modalVisible);
 
@@ -45,6 +52,38 @@ const Auth = ({ navigation }) => {
     updateEmail(email);
   };
 
+  const Initialization = async () => {
+    setSessionCheck(true);
+    let storedUserToken = await getDataObject(USER_KEY);
+    let storedAuthToken = await getDataObject('auth');
+
+    //console.log("stored Auth: ", storedAuthToken);
+    //console.log("stored User: ", storedUserToken);
+    if (storedUserToken) {
+      onSignInSuccess({ user: storedUserToken, auth: storedAuthToken });
+
+      setSessionCheck(false);
+    }
+    setSessionCheck(false);
+  };
+
+  useEffect(() => {
+    Initialization();
+
+    return () => {};
+  }, []);
+
+  if (sessionCheck) {
+    return (
+      <Box flex={1} justifyContent={"center"} alignItems={"center"} px={'xxl'}>
+        <ActivityIndicator size={"large"} color="green" />
+        <Text variant={"body1"} textAlign={"center"}>
+          Veuillez patienter pendant que nous restaurons votre session
+          précédente.{" "}
+        </Text>
+      </Box>
+    );
+  }
   return (
     <ImageBackground
       source={require("../../../assets/Auth/bg2.png")}
@@ -91,7 +130,12 @@ const Auth = ({ navigation }) => {
             onChange={onChangePassword}
             placeholder={"Mot de Passe"}
           />
-          <Button primary loading={isLoading} title="Se Connecter" onPress={onClickLogin} />
+          <Button
+            primary
+            loading={isLoading}
+            title="Se Connecter"
+            onPress={onClickLogin}
+          />
           <Button primary={false} title="S'inscrire" onPress={handleSignUp} />
           <AuthSectionDivider />
           <SocialIconGroup onPress={() => {}} />
@@ -131,8 +175,8 @@ function ConfirmationModal({ modalVisible, ToggleModal }) {
   const navigation = useNavigation();
   const { password, password1, onChangePassword1 } = useAuthController();
 
-  console.log("modal 1:", password);
-  console.log("modal 2:", password1);
+  //console.log("modal 1:", password);
+  //console.log("modal 2:", password1);
 
   const handleValidate = () => {
     if (password !== password1) {

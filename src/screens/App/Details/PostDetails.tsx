@@ -1,51 +1,100 @@
-import React, { useEffect } from "react";
-import { ActivityIndicator, ScrollView } from "react-native";
-import { Box, Post, ReplyField, Line, Text } from "../../../components";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Platform, ScrollView } from "react-native";
+import {
+  Box,
+  Post,
+  ReplyField,
+  Line,
+  Text,
+  ErrorDisplayView,
+} from "../../../components";
+import { useUserContext } from "../../../Context";
 
 import usePostController from "../../../viewController/Post/usePostController";
 
 export default function PostDetails({ route }) {
+  const { user } = useUserContext();
+
   const { postId } = route.params;
-  const { isLoading, postData, error, getPostData } = usePostController();
-  console.log("post params: ", route.params);
+  const {
+    getPostById,
+    comment,
+    handleCommentChange,
+    newComment,
+    isSuccess: isCommentSuccess,
+    isError: isCommentError,
+    isLoading: sendingCOmment,
+    data: commentData,
+  } = usePostController();
+  const {
+    data: postData,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = getPostById(postId);
+  const [image, setImage] = useState([]);
 
-  console.log("single Post: ", postData);
+  // //console.log("post params: ", route.params);
 
-  useEffect(() => {
-    getPostData(postId);
-    return () => {};
-  }, []);
+  ////console.log("single Post: ", postData);
+  const handleSubmitComment = async () => {
+    const commentPayload = new FormData();
+    commentPayload.append("user", user.id);
+    commentPayload.append("thread", postData.data.thread_id);
+    commentPayload.append("text", comment);
 
-  if (isLoading) {
+    if (image.length == 0) commentPayload.append("type", "1");
+    else if (image.length > 0) {
+      const upload =
+        Platform.OS === "android"
+          ? image[0].uri
+          : image[0].uri.replace("file://", "");
+      commentPayload.append("type", "2");
+      commentPayload.append("image", upload);
+    }
+    await newComment(commentPayload);
+    if (isCommentSuccess) handleCommentChange("");
+  };
+  //console.log("comment response : ", commentData);
+
+  // //console.log("post deails request: ", postData);
+
+  if (isLoading || isFetching) {
     return (
       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
         <ActivityIndicator size={"large"} color="green" />
       </Box>
     );
   }
-  if (error) {
-    return (
-      <Box my={"s"} px={"s"} backgroundColor="white" alignItems={"center"}>
-        <Text color={"danger"} variant={"body2"}>
-          {error}
-        </Text>
-      </Box>
-    );
+  if (isError) {
+    return <ErrorDisplayView message={error?.error} />;
   }
   return (
     <ScrollView contentContainerStyle={{ padding: 2, flexGrow: 1 }}>
-      <Post data={postData} type={"details"} onPress={() => {}} />
-      <Line
-        width={"100%"}
-        height={2}
-        alignSelf={"center"}
-        backgroundColor={"lightgreen"}
+      {postData.status !== 200 ? (
+        <ErrorDisplayView message={postData.message} />
+      ) : (
+        <>
+          <Post data={postData.data} type={"details"} onPress={() => {}} />
+          <Line
+            width={"100%"}
+            height={2}
+            alignSelf={"center"}
+            backgroundColor={"lightgreen"}
+          />
+        </>
+      )}
+
+      <ReplyField
+        value={comment}
+        onChange={handleCommentChange}
+        onSubmit={handleSubmitComment}
+        placeholder="Votre Commentaire"
       />
 
-      <ReplyField placeholder="Votre Commentaire" />
-
-      {!isLoading && postData?.reply.length > 0
-        ? postData?.reply.map((postReply, index) => (
+      {postData?.replys_count && postData?.replys_count.length > 0
+        ? postData?.replys_count.map((postReply, index) => (
             <>
               <Post
                 key={`post-reply-0${index}`}

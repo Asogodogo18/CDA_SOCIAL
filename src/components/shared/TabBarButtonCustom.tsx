@@ -10,7 +10,7 @@ const SIZE = 60;
 const AddButton = () => {
   const navigation = useNavigation();
   const navState = navigation.getState();
-  console.log("nav state: ", navState);
+  ////console.log("nav state: ", navState);
 
   const [isCheck, setIsCheck] = useState(false);
   const AnimatedTouch = Animated.createAnimatedComponent(TouchableOpacity);

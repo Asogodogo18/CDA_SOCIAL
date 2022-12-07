@@ -12,6 +12,7 @@ const stories: React.FC<StoryListProps> = ({ data }) => {
   return (
     <ScrollView
       horizontal
+      style={{maxHeight:60}}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
         flexGrow: 1,

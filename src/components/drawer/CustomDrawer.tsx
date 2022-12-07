@@ -257,7 +257,7 @@ const CustomDrawer = (props) => {
           label={({ focused }) => {
             return (
               <Text style={focused ? styles.activeText : styles.inactiveText}>
-                Parametre
+                Réglages
               </Text>
             );
           }}

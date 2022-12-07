@@ -3,32 +3,18 @@ import React, { useEffect, useState } from "react";
 import { FeedApi, PostApi } from "../../Api";
 import axios from "axios";
 import { MOCK_SERVER_URL } from "../../constants/api-constants";
+import { useListFeedQuery } from "../../Api/FeedApi";
 
 const useFeedController = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const getFeedList = (id) => {
+    //console.log("query: ", id);
+    const payload = new FormData();
+    payload.append("user", id);
 
-  useEffect(() => {
-    const URL = `${MOCK_SERVER_URL}/feeds?userId=99889`;
-    setIsLoading(true);
-    // axios
-    //   .get(URL)
+    return useListFeedQuery(payload);
+  };
 
-      PostApi.getAll().then((result) => {
-        // console.log("result: ", result.data);
-        setPosts(result.data);
-      })
-      .catch((err) => {
-        console.log("error: ", err);
-      })
-      .finally(() => setIsLoading(false));
-
-    return () => {
-      setPosts([]);
-    };
-  }, []);
-
-  return { isLoading, posts };
+  return { getFeedList };
 };
 
 export default useFeedController;

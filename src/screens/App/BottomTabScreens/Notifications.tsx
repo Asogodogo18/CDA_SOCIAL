@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native";
+import { useListUserNotificationsQuery } from "../../../Api/NotificationApi";
 import {
   Box,
   Text,
@@ -10,9 +11,22 @@ import {
   MainHeader,
   NotificationListing,
 } from "../../../components";
+import { useUserContext } from "../../../Context";
 import Notify from "../../../data/notify";
+import useNotificationController from "../../../viewController/Notifications/NotificationController";
 
 const Notifications = () => {
+  const { user } = useUserContext();
+  const { getAllUserNotifications } = useNotificationController();
+  const { data, isLoading, isFetching, isError, error } =
+    getAllUserNotifications(user.id);
+
+    // console.log('notifications: ',data);
+    // console.log('notifications status : ',isLoading);
+    // console.log('notifications error: ',error);
+
+
+    
   return (
     <ScrollView
       bounces

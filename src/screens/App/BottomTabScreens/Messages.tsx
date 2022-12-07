@@ -1,5 +1,5 @@
 import { SimpleLineIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity, Dimensions } from "react-native";
 import {
   Box,
@@ -13,9 +13,32 @@ import {
 } from "../../../components";
 import FollowingList from "../../../data/stories";
 import defaultMessageList from "../../../data/messageLisiting";
+import { useUserContext } from "../../../Context";
+import useChatController from "../../../viewController/Messages/ChatController";
 const { width, height } = Dimensions.get("screen");
 
 const Messages = () => {
+  const { getUserChats } = useChatController();
+  const { user } = useUserContext();
+  const [isActive, setisActive] = useState(0);
+
+  const {
+    isLoading,
+    isError,
+    isFetching,
+    isSuccess,
+    isUninitialized,
+    error,
+    data,
+  } = getUserChats(user.id);
+
+  console.log("chats success: ", isSuccess);
+  console.log("chats error: ", error);
+  console.log("chats data: ", data);
+
+  const onSwitch = () => {
+    setisActive(isActive == 1 ? 0 : 1);
+  };
   const [search, setSearch] = useState("");
 
   const onSearchChange = (param: string) => {
@@ -32,18 +55,31 @@ const Messages = () => {
         <MainHeader title="Messages" />
         <Box mb={"ml"}>
           <Searchbar
+            loader={false}
             value={search}
             onChange={onSearchChange}
             placeholder="Recherche"
           />
         </Box>
-        <SwitchControl />
+        <SwitchControl activeIndex={isActive} onSwitch={onSwitch} />
         <SectionHeader title={"En Ligne"} more={true} />
 
         <Stories data={FollowingList} />
         <SectionHeader title={"Tous Les Messages"} more={false} />
 
-        <MessageListing data={defaultMessageList} />
+        {isActive === 0 ? (
+          <MessageListing
+            states={{
+              isLoading,
+              isError,
+              isFetching,
+              isSuccess,
+              isUninitialized,
+              error,
+            }}
+            data={data}
+          />
+        ) : null}
       </Box>
     </ScrollView>
   );

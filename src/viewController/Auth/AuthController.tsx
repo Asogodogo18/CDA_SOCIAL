@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useAuthModel from "../../viewModel/AuthModel";
 import useAuth from "../../Context/AuthContext";
-import { USER_KEY } from "../../constants/general-constatnts";
+import { USER_KEY } from "../../constants/general-constants";
 import { removeData, storeDataObject } from "../../services/storage";
 import { useUserContext } from "../../Context";
 
@@ -40,20 +40,20 @@ const useAuthController = () => {
       surname,
       username,
     };
-    console.log("payload signup :", payload);
+    //console.log("payload signup :", payload);
 
     SignUp(payload)
       .then((json) => {
-        console.log("signUp: ", json);
+        //console.log("signUp: ", json);
         if (json.code !== 200) {
-          console.log("login error: ", json);
+          //console.log("login error: ", json);
           setError(`${json.message}: ${json.err_code}`);
           return;
         }
         storeDataObject(USER_KEY, json);
       })
       .catch((e) => {
-        console.log("error sign up:", e);
+        //console.log("error sign up:", e);
         setError(e);
       })
       .finally(() => setIsLoading(false));
@@ -64,20 +64,20 @@ const useAuthController = () => {
       email,
       password,
     };
-    console.log("login payload: ", payload);
+    //console.log("login payload: ", payload);
     setIsLoading(true);
     Login(payload)
       .then((json) => {
-        console.log("login: ", json);
+        //console.log("login: ", json);
 
         if (json.code !== 200) {
-          console.log("login error: ", json);
+          //console.log("login error: ", json);
           setError(`${json.message}: ${json.err_code}`);
           return;
         }
-        console.log("login: ", json);
+        //console.log("login: ", json);
         const user = json;
-        console.log("user: ", user);
+        //console.log("user: ", user);
 
         storeDataObject(USER_KEY, user.data);
         storeDataObject("auth", user.auth);
@@ -90,6 +90,7 @@ const useAuthController = () => {
 
   const onClickLogout = () => {
     removeData(USER_KEY);
+    removeData("auth");
     onLogOut();
   };
 

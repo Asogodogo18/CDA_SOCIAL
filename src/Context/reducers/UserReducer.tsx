@@ -22,7 +22,7 @@ const userReducer = (state: any, action: { type: any; payload: any }) => {
         isLoading: true,
       };
     case "SIGN_IN_SUCCESS":
-      console.log("payload signIn success: ", payload);
+      //console.log("payload signIn success: ", payload);
 
       return {
         ...state,

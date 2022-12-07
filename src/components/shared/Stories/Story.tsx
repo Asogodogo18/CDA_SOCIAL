@@ -25,7 +25,7 @@ const Story: React.FC<StoryProps> = ({
   isOnline,
   ...props
 }) => (
-  <>
+  <Box maxHeight={80}>
     {primary ? (
       <TouchableOpacity onPress={onPress}>
         <Box
@@ -53,7 +53,7 @@ const Story: React.FC<StoryProps> = ({
           backgroundColor={"nobg"}
           borderRadius={8}
           borderWidth={1}
-          overflow={'hidden'}
+          overflow={"hidden"}
           borderColor={isOnline ? "borderColor1" : "black"}
           {...props}
         >
@@ -65,7 +65,7 @@ const Story: React.FC<StoryProps> = ({
         </Box>
       </TouchableOpacity>
     )}
-  </>
+  </Box>
 );
 
 export default Story;

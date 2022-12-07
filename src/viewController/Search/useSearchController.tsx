@@ -1,31 +1,43 @@
-import { View, Text } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
-import { PostApi, UserApi } from "../../Api";
-import debounce from "lodash.debounce";
 
-const useUserController = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+import debounce from "lodash.debounce";
+import { useSearchUserMutation } from "../../Api/SearchApi";
+
+const useUserSearchController = () => {
+  const [
+    searchUser,
+    { isLoading, isSuccess, isError, data: userSearchResults, error },
+  ] = useSearchUserMutation();
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (text) => {
     setSearchTerm(text);
   };
 
-  if (searchTerm !== "") {
-  }
-
-  const debouncedResults = useMemo(() => {
-    return debounce(handleChange, 300);
+  const debouncedUserSearch = useMemo(() => {
+    return debounce((query) => {
+      if (query.length >2 ) searchUser(query);
+    }, 500);
   }, []);
 
   useEffect(() => {
+    debouncedUserSearch(searchTerm);
     return () => {
-      debouncedResults.cancel();
+      debouncedUserSearch.cancel();
     };
-  });
+  }, [searchTerm]);
 
-  return { isLoading, searchTerm, handleChange, error, debouncedResults };
+  return {
+    isLoading,
+    searchTerm,
+    handleChange,
+    error,
+    debouncedUserSearch,
+    isSuccess,
+    isError,
+    userSearchResults,
+  };
 };
 
-export default useUserController;
+export default useUserSearchController;

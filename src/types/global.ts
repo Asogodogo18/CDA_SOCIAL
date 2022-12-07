@@ -8,11 +8,9 @@ export type MediaType = {
   type: keyof typeof typeMedia;
 };
 
-export type SingleMessagePreviewProps = {
-  thumbnail: string;
-  name: string;
-  lastMessage: { text: string; timestamp: string; unread: boolean };
-  onPress?: () => void;
+export type SingleChatProps = {
+  chatId: string;
+  // onPress?: (chatId: string) => void;
 };
 
 enum NotificationType {
