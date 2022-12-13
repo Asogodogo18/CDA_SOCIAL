@@ -20,6 +20,7 @@ import {
   ScrollView,
   StatusBar,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 
 import defaultFilters from "../../../data/feed";
@@ -29,7 +30,6 @@ import {
   PostImage,
   PostMixedContent,
   PostMultipleImages,
-  PostVideo,
 } from "../../../data/post";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useFeedController from "../../../viewController/Feed/FeedController";
@@ -37,18 +37,19 @@ import useFeedController from "../../../viewController/Feed/FeedController";
 const { width, height } = Dimensions.get("screen");
 
 const Home = ({ navigation }) => {
-  const handleNavigation = () => {
+
+  const handleNavigation = (id) => {
     navigation.navigate("Accueil", {
       screen: "Publication",
+      params: { postId: id },
     });
   };
 
   const { isLoading, posts } = useFeedController();
+  console.log("posts feed scren: ", posts);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
+    <SafeAreaView style={{ flex: 1 }}>
       {/* <StatusBar backgroundColor="white" barStyle={"dark-content"} /> */}
 
       <FlatList
@@ -63,11 +64,13 @@ const Home = ({ navigation }) => {
             <Stories data={FollowingList} />
           </>
         )}
-        data={Poste}
+        data={posts}
+        initialNumToRender={10}
+        contentContainerStyle={{ flexGrow: 1 }}
+        onEndReachedThreshold={0.3}
         renderItem={({ item }) => (
           <Post data={item} type={"main"} onPress={handleNavigation} />
         )}
-        // keyExtractor={(item) => item.id}
         ListFooterComponent={() => (
           <ScrollView
             horizontal

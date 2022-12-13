@@ -4,7 +4,7 @@ enum typeMedia {
 }
 
 export type MediaType = {
-  url: string;
+  uri: string;
   type: keyof typeof typeMedia;
 };
 

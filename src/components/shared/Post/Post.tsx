@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 
+import { joinReplys } from "../../../utils";
 import theme, { Theme } from "../../../theme";
 import Box from "../Box";
 import Text from "../Text";
@@ -19,9 +20,13 @@ import {
   PanResponder,
   Modal,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
+
 import Media from "../Media";
 import { MediaType } from "../../../types/global";
+import useUserController from "../../../viewController/Users/UserController";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -34,7 +39,7 @@ enum PostTypes {
 type PostProps = {
   data: any;
   type: keyof typeof PostTypes;
-  onPress: () => void;
+  onPress?: () => void;
 } & Partial<BoxProps<Theme>>;
 
 type PostHeaderProps = {
@@ -42,20 +47,22 @@ type PostHeaderProps = {
   name: string;
   username: string;
   timestamp: string;
+  onAvatarPress: () => void;
   type: keyof typeof PostTypes;
 };
 
 type PostFooterProps = {
-  commentsCount: string;
-  likeCount: string;
-  retweetCount: string;
-  shareCount: string;
+  replys_count: string;
+  likes_count: string;
+  repost_count: string;
+  shareCount?: string;
 };
 
 type PostContentProps = {
   media: MediaType[];
   body?: string;
   timestamp: string;
+  replyTo?: [];
   type: keyof typeof PostTypes;
   toggleModal: Function;
   setCurrentMedia: React.Dispatch<React.SetStateAction<null>>;
@@ -67,6 +74,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   username,
   timestamp,
   type,
+  onAvatarPress,
 }) => {
   return (
     <Box
@@ -76,7 +84,11 @@ const PostHeader: React.FC<PostHeaderProps> = ({
       flexDirection={"row"}
       height={60}
     >
-      <Avatar type="header" source={{ uri: avatarSrc }} />
+      <Avatar
+        onPress={onAvatarPress}
+        type="header"
+        source={{ uri: avatarSrc }}
+      />
       <Box marginLeft={"l"} alignItems={"flex-start"}>
         <Box
           flexDirection={"row"}
@@ -98,7 +110,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
               backgroundColor={"grayDark"}
             />
             <Text marginLeft={"s"} variant={"caption"}>
-              Il y'a {timestamp}
+              {timestamp}
             </Text>
           </Box>
         )}
@@ -108,10 +120,10 @@ const PostHeader: React.FC<PostHeaderProps> = ({
 };
 
 const PostFooter: React.FC<PostFooterProps> = ({
-  commentsCount,
-  likeCount,
-  retweetCount,
-  shareCount,
+  replys_count,
+  likes_count,
+  repost_count,
+  shareCount = 0,
 }) => {
   return (
     <Box
@@ -124,7 +136,7 @@ const PostFooter: React.FC<PostFooterProps> = ({
         <Box flexDirection={"row"} alignItems={"center"}>
           <EvilIcons name="comment" size={24} color={theme.colors.grayDark} />
           <Text fontSize={11} variant={"caption"}>
-            {commentsCount}
+            {replys_count}
           </Text>
         </Box>
       </TouchableOpacity>
@@ -136,7 +148,7 @@ const PostFooter: React.FC<PostFooterProps> = ({
             color={theme.colors.grayDark}
           />
           <Text fontSize={11} variant={"caption"}>
-            {likeCount}
+            {likes_count}
           </Text>
         </Box>
       </TouchableOpacity>
@@ -144,7 +156,7 @@ const PostFooter: React.FC<PostFooterProps> = ({
         <Box flexDirection={"row"} alignItems={"center"}>
           <EvilIcons name="retweet" size={24} color={theme.colors.grayDark} />
           <Text fontSize={11} variant={"caption"}>
-            {retweetCount}
+            {repost_count}
           </Text>
         </Box>
       </TouchableOpacity>
@@ -168,15 +180,16 @@ const PostContent: React.FC<PostContentProps> = ({
   type,
   media,
   body,
+  replyTo,
   timestamp,
   toggleModal,
   setCurrentMedia,
 }) => {
   return (
-    <Box flex={1} width={"100%"}>
+    <Box flex={1} width={"100%"} px={"l"}>
       {type === "reply" && (
         <Text fontSize={12} variant={"caption"}>
-          En réponse{" "}
+          En réponse à {joinReplys(replyTo)}
         </Text>
       )}
 
@@ -200,7 +213,9 @@ const PostContent: React.FC<PostContentProps> = ({
         </Box>
       )}
 
-      <Text variant="body1">{body}</Text>
+      <Text mt={"s"} variant="body1">
+        {body}
+      </Text>
       {type === "details" && <Text variant={"caption"}>{timestamp}</Text>}
     </Box>
   );
@@ -213,35 +228,96 @@ if (Platform.OS === "android") {
 }
 
 const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
-  const { userDetails, media, text, footer } = data;
+  const { id, user_id, media, text, replys_count, likes_count, reposts_count } =
+    data;
+  const { isLoading, user, getPostUser, error } = useUserController();
   const [layoutData, setData] = useState(null);
   const [currentMedia, setCurrentMedia] = useState(null);
 
+  const navigation = useNavigation();
+  // console.log('Post data : ',data);
+
+  // console.log("media : ", media);
+
+  // console.log('post user : ',user_id);
+
+  const handleNavigation = (id) => {
+    navigation.navigate("Accueil", {
+      screen: "Publication",
+      params: { postId: id },
+    });
+  };
+
+  const onAvatarPress = () => {
+    navigation.navigate("Profile", { userID: user_id, self: false });
+  };
+  useEffect(() => {
+    getPostUser(user_id);
+    return () => {};
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Box flex={1} justifyContent={"center"} alignItems={"center"}>
+        <ActivityIndicator size={"large"} color="green" />
+      </Box>
+    );
+  }
+  if (error) {
+    return (
+      <Box
+        my={"s"}
+        px={"s"}
+        backgroundColor="white"
+        alignItems={"center"}
+        flexDirection={"row"}
+        minWidth={300}
+        {...props}
+      >
+        <Text color={"danger"} variant={"body2"}>
+          {error}
+        </Text>
+      </Box>
+    );
+  }
   return (
     <Box
       my={"s"}
       px={"s"}
       backgroundColor="white"
       alignItems={"center"}
-      flexDirection={"row"}
-      minWidth={300}
+      justifyContent={"center"}
+      width={"100%"}
+      minHeight={100}
       {...props}
     >
       <TouchableOpacity
         activeOpacity={0.7}
         style={{ width: "100%" }}
-        onPress={onPress}
+        onPress={() => handleNavigation(id)}
       >
-        <PostHeader type={type} {...userDetails} />
+        <PostHeader
+          type={type}
+          onAvatarPress={onAvatarPress}
+          avatarSrc={user.avatar}
+          name={`${user.firstName} ${user.lastName}`}
+          username={user.username}
+          timestamp={data.time}
+        />
         <PostContent
           type={type}
           media={media}
+          replyTo={type == "reply" ? data.reply_to : null}
           body={text}
-          timestamp={userDetails.timestamp}
+          timestamp={data.time}
           toggleModal={(data: any) => setData(data)}
           setCurrentMedia={setCurrentMedia}
         />
-        <PostFooter {...footer} />
+        <PostFooter
+          likes_count={likes_count}
+          repost_count={reposts_count}
+          replys_count={replys_count}
+        />
       </TouchableOpacity>
 
       {layoutData !== null && (

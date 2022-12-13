@@ -1,19 +1,19 @@
 import { TouchableOpacity, ImageBackground } from "react-native";
 import React from "react";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign, SimpleLineIcons, Entypo } from "@expo/vector-icons";
 import Box from "../shared/Box";
 import Avatar from "../shared/Avatar";
 import Text from "../shared/Text";
 
 type HeaderProps = {
-  user: string;
+  user?: {};
 };
 
 type ProfileNavProps = {
   name: string;
   username: string;
-  onPress:()=>void
+  onPress: () => void;
 };
 
 type ActionProps = {
@@ -32,7 +32,7 @@ const Action: React.FC<ActionProps> = ({ count, title }) => {
   );
 };
 
-const Navbar: React.FC<ProfileNavProps> = ({ name, username,onPress }) => {
+const Navbar: React.FC<ProfileNavProps> = ({ name, username, onPress }) => {
   return (
     <Box
       position={"absolute"}
@@ -46,8 +46,7 @@ const Navbar: React.FC<ProfileNavProps> = ({ name, username,onPress }) => {
       alignItems={"center"}
     >
       <TouchableOpacity
-          onPress={onPress}
-
+        onPress={onPress}
         style={{
           width: 30,
           height: 30,
@@ -69,7 +68,25 @@ const Navbar: React.FC<ProfileNavProps> = ({ name, username,onPress }) => {
   );
 };
 
-const Banner = () => {
+type BannerProps = {
+  postsCount: string;
+  followCount: string;
+  followingCount: string;
+  userBio: string;
+  country: string;
+  city: string;
+  memberSince: string;
+};
+
+const Banner: React.FC<BannerProps> = ({
+  postsCount,
+  followCount,
+  followingCount,
+  userBio,
+  country,
+  city,
+  memberSince,
+}) => {
   return (
     <Box
       position={"absolute"}
@@ -86,8 +103,7 @@ const Banner = () => {
         <Avatar
           type="floating"
           source={{
-            uri:
-              "https://images.ctfassets.net/hrltx12pl8hq/3j5RylRv1ZdswxcBaMi0y7/b84fa97296bd2350db6ea194c0dce7db/Music_Icon.jpg",
+            uri: "https://images.ctfassets.net/hrltx12pl8hq/3j5RylRv1ZdswxcBaMi0y7/b84fa97296bd2350db6ea194c0dce7db/Music_Icon.jpg",
           }}
         />
       </Box>
@@ -100,13 +116,12 @@ const Banner = () => {
           justifyContent={"flex-start"}
           alignItems={"center"}
         >
-          <Action count="25" title="Postes" />
-          <Action count="1500" title="Abonnés" />
-          <Action count="3265" title="Abonnemet" />
+          <Action count={postsCount} title="Postes" />
+          <Action count={followCount} title="Abonnés" />
+          <Action count={followingCount} title="Abonnemet" />
         </Box>
         <Text textAlign={"left"} mb={"s"} variant={"subtitleLightWhite"}>
-          Nullam quis imperdiet augue. Vestibulum auctor ornare .augue.
-          Vestibulum auctor ornare
+          {userBio}
         </Text>
         <Box
           width={"100%"}
@@ -123,21 +138,21 @@ const Banner = () => {
             <Entypo name="location" size={18} color="green" />
             <Box ml={"s"}>
               <Text variant={"caption"} fontSize={8}>
-                Bamako
+                {city}
               </Text>
               <Text variant={"btnTextInactive"} fontSize={9} fontWeight={"500"}>
-                Mali
+                {country}
               </Text>
             </Box>
           </UserInfoContainer>
           <UserInfoContainer>
             <AntDesign name="calendar" size={18} color="green" />
-            <Box ml={"s"} px={'s'}>
+            <Box ml={"s"} px={"s"}>
               <Text variant={"caption"} fontSize={8}>
                 Membre Depuis
               </Text>
               <Text variant={"btnTextInactive"} fontSize={9} fontWeight={"500"}>
-                Novembre 2020
+                {memberSince}
               </Text>
             </Box>
           </UserInfoContainer>
@@ -147,7 +162,7 @@ const Banner = () => {
   );
 };
 const Header: React.FC<HeaderProps> = ({ user }) => {
-  const Navigation = useNavigation ()
+  const Navigation = useNavigation();
 
   return (
     <Box overflow={"hidden"} minHeight={237} maxHeight={250} elevation={5}>
@@ -161,12 +176,24 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
           overflow: "hidden",
         }}
         source={{
-          uri:
-            "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm309-aew-013_1_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=2724bd9481a065ee24e7e7eaaabf1c55",
+          uri: "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm309-aew-013_1_1.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=2724bd9481a065ee24e7e7eaaabf1c55",
         }}
       >
-        <Navbar name={"Jhon Doe"} username={"Zifu_D0"} onPress={()=>Navigation.goBack()} />
-        <Banner />
+        <Navbar
+          name={`${user.firstName}  ${user.lastName}`}
+          username={user.username}
+          onPress={() => Navigation.goBack()}
+        />
+        <Banner
+          country={user.country}
+          city={user?.city || ""}
+          userBio={user["about_you"]}
+          postsCount={user["post_count"]}
+          memberSince={user["member_since"]}
+          followCount={user['follower_count']}
+          followingCount={user['following_count']}
+          
+        />
       </ImageBackground>
     </Box>
   );
