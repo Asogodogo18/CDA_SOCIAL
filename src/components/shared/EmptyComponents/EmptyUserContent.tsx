@@ -2,15 +2,15 @@ import React from "react";
 import Box from "../Box";
 import Text from "../Text";
 
-const EmptySearch = () => {
+const EmptyUserContent = () => {
   return (
     <Box flex={1} height={"100%"} justifyContent="center" alignItems={"center"}>
-      <Text variant={"title1"}>Empty Search</Text>
+      <Text variant={"title1"}>Empty Post</Text>
       <Text px={"xl"} mt={"ml"} textAlign={"center"} variant={"title"}>
-        Veuillez éffectuer une recherche afin de recevoir des suggestions
+        Cet utilisateur n'a aucun poste
       </Text>
     </Box>
   );
 };
 
-export default EmptySearch;
+export default EmptyUserContent;

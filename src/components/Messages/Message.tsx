@@ -42,7 +42,7 @@ const Message: React.FC<MessageProps> = ({ message, self }) => {
   const [currentMedia, setCurrentMedia] = useState(null);
 
   return (
-    <Box margin={"m"} alignSelf={self ? "flex-end" : "flex-start"}>
+    <Box  margin={"m"} alignSelf={self ? "flex-end" : "flex-start"}>
       <Box
         backgroundColor={self ? "messageOutBG" : "messageInBg"}
         borderRadius={5}

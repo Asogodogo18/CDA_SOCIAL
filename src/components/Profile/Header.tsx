@@ -5,9 +5,11 @@ import { AntDesign, SimpleLineIcons, Entypo } from "@expo/vector-icons";
 import Box from "../shared/Box";
 import Avatar from "../shared/Avatar";
 import Text from "../shared/Text";
+import { formatDate } from "../../utils";
 
 type HeaderProps = {
   user?: {};
+  isOwner: boolean;
 };
 
 type ProfileNavProps = {
@@ -76,6 +78,7 @@ type BannerProps = {
   country: string;
   city: string;
   memberSince: string;
+  isOwner: boolean;
 };
 
 const Banner: React.FC<BannerProps> = ({
@@ -86,6 +89,7 @@ const Banner: React.FC<BannerProps> = ({
   country,
   city,
   memberSince,
+  isOwner,
 }) => {
   return (
     <Box
@@ -127,13 +131,19 @@ const Banner: React.FC<BannerProps> = ({
           width={"100%"}
           flexDirection={"row"}
           alignItems={"center"}
-          justifyContent={"space-between"}
+          justifyContent={"flex-end"}
         >
-          <UserInfoContainer>
-            <SimpleLineIcons name="user-follow" size={18} color="green" />
-            <Box width={1} height={12} backgroundColor={"gray"} />
-            <AntDesign name="message1" size={18} color="green" />
-          </UserInfoContainer>
+          {isOwner ? null : (
+            <UserInfoContainer>
+              <TouchableOpacity >
+                <SimpleLineIcons name="user-follow" size={18} color="green" />
+              </TouchableOpacity>
+              <Box width={1} height={12} backgroundColor={"gray"} />
+              <TouchableOpacity>
+                <AntDesign name="message1" size={18} color="green" />
+              </TouchableOpacity>
+            </UserInfoContainer>
+          )}
           <UserInfoContainer>
             <Entypo name="location" size={18} color="green" />
             <Box ml={"s"}>
@@ -161,7 +171,7 @@ const Banner: React.FC<BannerProps> = ({
     </Box>
   );
 };
-const Header: React.FC<HeaderProps> = ({ user }) => {
+const Header: React.FC<HeaderProps> = ({ user, isOwner }) => {
   const Navigation = useNavigation();
 
   return (
@@ -180,19 +190,19 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
         }}
       >
         <Navbar
-          name={`${user.firstName}  ${user.lastName}`}
-          username={user.username}
+          name={`${user?.first_name}  ${user?.last_name}`}
+          username={user?.user_name}
           onPress={() => Navigation.goBack()}
         />
         <Banner
-          country={user.country}
+          isOwner={isOwner}
+          country={user?.country}
           city={user?.city || ""}
-          userBio={user["about_you"]}
+          userBio={user?.about_you}
           postsCount={user["post_count"]}
-          memberSince={user["member_since"]}
-          followCount={user['follower_count']}
-          followingCount={user['following_count']}
-          
+          memberSince={formatDate(user["member_since"])}
+          followCount={user?.followers?.total}
+          followingCount={user?.following?.total}
         />
       </ImageBackground>
     </Box>
@@ -205,6 +215,7 @@ const UserInfoContainer = (props) => {
       height={30}
       minWidth={70}
       maxWidth={120}
+      mx={"s"}
       px={"s"}
       py={"s"}
       backgroundColor={"white"}

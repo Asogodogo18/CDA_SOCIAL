@@ -106,7 +106,7 @@ const CustomDrawer = (props) => {
               : styles.inActiveContainer,
             { paddingLeft: 25 },
           ]}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => navigation.navigate("Profile", { self: true })}
           focused={isFocused("Profile")}
         />
 

@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
 import { Ionicons, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 
-import { joinReplys } from "../../../utils";
+import { computeTimeDiff, formatDate, joinReplys } from "../../../utils";
 import theme, { Theme } from "../../../theme";
 import Box from "../Box";
 import Text from "../Text";
@@ -136,8 +136,8 @@ const PostHeader: React.FC<PostHeaderProps> = ({
                 borderRadius={4}
                 backgroundColor={"grayDark"}
               />
-              <Text marginLeft={"s"} variant={"caption"}>
-                {timestamp}
+              <Text marginLeft={"s"}  variant={"caption"}>
+                {computeTimeDiff(timestamp)}
               </Text>
             </Box>
           )}
@@ -272,7 +272,7 @@ const PostContent: React.FC<PostContentProps> = ({
       <Text mt={"s"} variant="body1">
         {body}
       </Text>
-      {type === "details" && <Text variant={"caption"}>{timestamp}</Text>}
+      {type === "details" && <Text my={"xs"} variant={"caption"}>{formatDate(timestamp)}</Text>}
     </Box>
   );
 };
@@ -345,7 +345,7 @@ const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
   };
 
   const onAvatarPress = () => {
-    navigation.navigate("Profile", { userID: user_id, self: false });
+    navigation.navigate("Profile", { userID: data.user_id, self: false });
   };
 
   if (isLoading || isFetching) {

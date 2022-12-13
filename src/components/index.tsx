@@ -16,14 +16,18 @@ export { default as ReplyField } from "./shared/ReplyField";
 export { default as Searchbar } from "./search/Searchbar";
 export { default as SearchFilter } from "./search/SearchFilter";
 export { default as SearchFilters } from "./search/SearchFilters";
+
 export { default as SwitchControl } from "./Messages/SwitchControl";
 // export { default as SingleMessagePreview } from "./Messages/SingleChat";
 export { default as MessageListing } from "./Messages/MessageListing";
 export { default as ContactSuggestion } from "./Messages/NewMessages";
 
 export { default as NotificationListing } from "./Notification/NotificationListing";
+
 export { default as ProfileHeader } from "./Profile/Header";
 export { default as TabNav } from "./Profile/TabNav";
+export { default as ProfileContent } from "./Profile/ProfileContent";
+
 export { default as AuthSectionDivider } from "./Auth/Divider";
 export { default as SocialIconGroup } from "./shared/SocialGroup";
 export { default as CustomDrawerContent } from "./drawer/CustomDrawer";
@@ -35,11 +39,10 @@ export { default as TabBarButton } from "./shared/TabBarButtonCustom";
 export { default as SectionHeader } from "./shared/SectionHeader";
 export { default as SectionItems } from "./Settings/SectionsItems";
 export { default as SectionInput } from "./Settings/SectionInput";
+
 export { default as Infos } from "./Params/Infos";
 export { default as Securite } from "./Params/Securite";
-
 export { default as Notify } from "./Params/Notify";
-
 export { default as Verify } from "./Params/Verify";
 export { default as Language } from "./Params/Language";
 export { default as Country } from "./Params/Country";
@@ -60,3 +63,4 @@ export { default as PopUp } from "./AnimatedPopUp";
 export { default as ErrorDisplayView } from "./shared/ErrorDisplayView";
 
 export { default as EmptySearchComponent } from "./shared/EmptyComponents/EmptySearch";
+export { default as EmptyUserContent } from "./shared/EmptyComponents/EmptyUserContent";

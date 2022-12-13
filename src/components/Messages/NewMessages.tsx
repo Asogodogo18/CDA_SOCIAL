@@ -36,7 +36,7 @@ const NewMessage = ({ data, onPress }) => {
         {data?.isnect && <Pill />}
         <Box marginLeft={"ml"}>
           <Text variant={"title"}>
-            {data?.fname}
+            {data?.fname} {" "}
             {data?.lname}
           </Text>
           <Text variant={"caption"}>{data?.username}</Text>

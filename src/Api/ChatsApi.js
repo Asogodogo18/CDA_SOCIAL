@@ -31,7 +31,7 @@ export const chatApi = api.injectEndpoints({
     //   }),
     // }),
     getChatById: build.query({
-      providesTags: ["ChatsId"],
+      // providesTags:(id) =>[{type:"Chats",id}],
       query: (payload) => ({
         body: payload,
         method: "POST",

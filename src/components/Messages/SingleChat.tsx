@@ -1,5 +1,5 @@
 import { Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SkeletonContent from "react-native-skeleton-content";
 import _ from "lodash";
 import Box from "../shared/Box";
@@ -12,6 +12,7 @@ import Loader from "../shared/Loader";
 import Avatar from "../shared/Avatar";
 
 const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
+  const [initialRender, setInitialRender] = useState(true);
   const navigation = useNavigation();
 
   const { getSingleChatById } = useChatController();
@@ -24,6 +25,14 @@ const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
     data,
     error,
   } = getSingleChatById(chatId);
+
+  useEffect(() => {
+    if (isSuccess) setInitialRender(false);
+
+    return () => {
+      setInitialRender(true);
+    };
+  }, []);
 
   const handlePress = () => {
     navigation.navigate("Accueil", { screen: "Chats", params: { chatId } });
@@ -84,11 +93,11 @@ const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
             {data.chat["user_two"].fname} {data?.chat["user_two"].lname}
           </Text>
           <Text variant={"caption"}>
-            {
-              data.chat.messages.data[data.chat.messages.data.length - 1][
+            {data?.chat?.messages?.data !== undefined &&
+              data?.chat?.messages?.data.length > 0 &&
+              data?.chat?.messages?.data[data?.chat?.messages?.data.length - 1][
                 "message"
-              ]
-            }
+              ]}
           </Text>
         </Box>
         <Box
@@ -99,13 +108,18 @@ const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
         >
           {Boolean(
             Number(
-              data.chat.messages.data[data.chat.messages.data.length - 1][
-                "seen"
-              ]
+              data?.chat?.messages?.data !== undefined &&
+                data?.chat?.messages?.data.length > 0 &&
+                data.chat.messages.data[data.chat.messages.data.length - 1][
+                  "seen"
+                ]
             )
           ) && <Pill />}
           <Text variant={"caption"}>
-            {/* {_.last(data?.chat?.messages.data).message.time} */}
+            {data?.chat?.messages?.data !== undefined &&
+              data?.chat?.messages?.data.length > 0 &&
+              data?.chat?.messages?.data[data?.chat?.messages?.data.length - 1]
+                .time}
           </Text>
         </Box>
       </TouchableOpacity>

@@ -6,12 +6,15 @@ import {
   useBookmarksUnbookmarksPostMutation,
   useLikeUnlikePostMutation,
   usePostsByIdQuery,
-  useDeletePostMutation
+  usePostsByUserMutation,
+  useDeletePostMutation,
 } from "../../Api/PostApi";
 
 const usePostController = () => {
   const [addPost, { isLoading, isError, error, isSuccess, data }] =
     useAddPostMutation();
+  const [postsByUser, { isLoading: isGettingUserPost }] =
+    usePostsByUserMutation();
 
   const [
     bookmarksUnbookmarksPost,
@@ -59,6 +62,13 @@ const usePostController = () => {
     const payload = new FormData();
     payload.append("id", id);
     return usePostsByIdQuery(payload);
+  };
+
+  const getPostByUser = (id) => {
+    //console.log("query: ", id);
+    const payload = new FormData();
+    payload.append("user", id);
+    return postsByUser(payload).unwrap();
   };
 
   const createPost = (payload: FormData) => {
@@ -130,6 +140,7 @@ const usePostController = () => {
   };
 
   return {
+    getPostByUser,
     getPostById,
     message,
     comment,
@@ -159,7 +170,7 @@ const usePostController = () => {
     isBookingError,
     bookingError,
     isBookingSuccess,
-    bookingData
+    bookingData,
   };
 };
 

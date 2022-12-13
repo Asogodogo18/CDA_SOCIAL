@@ -7,7 +7,7 @@ type ErrorDisplayViewProps = {
 };
 const ErrorDisplayView: React.FC<ErrorDisplayViewProps> = ({ message }) => {
   return (
-    <Box flex={1} padding={"m"} justifyContent={"center"} alignItems={"center"}>
+    <Box flex={1} backgroundColor={'white'} padding={"m"} justifyContent={"center"} alignItems={"center"}>
       <Text color={'danger'} variant={"body"} textAlign={"center"}>
         {message}
       </Text>

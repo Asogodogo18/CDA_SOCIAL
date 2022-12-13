@@ -6,10 +6,12 @@ import {
   ErrorDisplayView,
   Loader,
 } from "../../../components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import _ from "lodash";
+
 import HeaderMsg from "../../../data/headerMsg";
 import { singleMessage, singleMessageWithMedia } from "../../../data/message";
-import { ScrollView } from "react-native";
+import { FlatList, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useChatController from "../../../viewController/Messages/ChatController";
 import useMessageController from "../../../viewController/Messages/MessageController";
@@ -17,7 +19,16 @@ import { useUserContext } from "../../../Context";
 
 const Chats = ({ navigation, route }) => {
   const [chatId, setChatId] = useState("");
-  const { getSingleChatById } = useChatController();
+  const isChatCreated = useRef(false);
+  const {
+    getSingleChatById,
+    createChat,
+    isCreationError,
+    isCreationLoading,
+    isCreationSuccess,
+    isCreationUninitialized,
+    createChatData,
+  } = useChatController();
   const { user } = useUserContext();
   const {
     isSending,
@@ -45,12 +56,28 @@ const Chats = ({ navigation, route }) => {
     error,
   } = getSingleChatById(chatId);
 
+  const newChat = async (receiverId: string) => {
+    try {
+      const payload = await createChat({ senderId: user.id, receiverId });
+      console.log("fulfilled", payload);
+      if (payload.code == 200) {
+        setChatId(payload.chat.id);
+        isChatCreated.current = true;
+      }
+    } catch (error) {
+      console.log("rejected: ", error);
+    }
+  };
+
   useEffect(() => {
     if (route.params.chatId !== undefined) {
       setChatId(route.params.chatId);
     }
+    if (route.params.receiverId !== undefined && !isChatCreated.current) {
+      newChat(route.params.receiverId);
+    }
     return () => {
-      setChatId(null);
+      setChatId('');
     };
   }, []);
 
@@ -82,10 +109,7 @@ const Chats = ({ navigation, route }) => {
           onMenuPress={() => {}}
           user={data.chat["user_two"]}
         />
-        <ChatContent
-          messages={data?.chat?.messages.data}
-          sender={data?.chat["user_one"]["id"]}
-        />
+        <ChatContent messages={data?.chat?.messages.data} sender={user.id} />
         <Box position={"absolute"} bottom={0} width={"100%"} flex={1}>
           <ReplyField
             value={message}
@@ -101,10 +125,13 @@ const Chats = ({ navigation, route }) => {
 
 const ChatContent = ({ messages, sender }) => {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      {messages?.map((message, index) => (
+    <FlatList
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 10 }}
+      data={_.reverse([...messages])}
+      inverted={true}
+      renderItem={({ item: message }) => (
         <Message
-          key={index}
           self={message?.sent_by === sender}
           message={{
             text: message.message,
@@ -112,8 +139,8 @@ const ChatContent = ({ messages, sender }) => {
             timestamp: message.time,
           }}
         />
-      ))}
-    </ScrollView>
+      )}
+    />
   );
 };
 

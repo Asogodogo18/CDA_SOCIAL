@@ -17,6 +17,16 @@ export const userApi = api.injectEndpoints({
       },
       // providesTags: (_result, _err, id) => [{ type: "Users", id }],
     }),
+    getUserFromId: build.mutation({
+      query: (payload) => {
+        return {
+          body: payload,
+          method: "POST",
+          url: "/user/info",
+        };
+      },
+      providesTags: () => [{ type: "Users", id: "userProfile" }],
+    }),
     updateUser: build.mutation({
       query: (payload) => ({
         body: payload,
@@ -87,4 +97,5 @@ export const {
   useUnfollowUserMutation,
   useSavePasswordUpdateMutation,
   useRequestPasswordUpdateMutation,
+  useGetUserFromIdMutation,
 } = userApi;

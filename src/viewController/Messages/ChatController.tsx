@@ -77,11 +77,11 @@ const useChatController = () => {
 
     return deleteChat(formData);
   };
-  const createChat = (payload: { sender_id: string; receiver_id: string }) => {
+  const createChat = async (payload: { senderId: string; receiverId: string }) => {
     const formData = new FormData();
-    formData.append("sender_id", payload.sender_id);
-    formData.append("receiver_id", payload.receiver_id);
-    return createChatMutation(formData);
+    formData.append("sender_id", payload.senderId);
+    formData.append("receiver_id", payload.receiverId);
+    return await createChatMutation(formData).unwrap();
   };
 
   return {

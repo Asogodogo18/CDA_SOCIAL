@@ -44,16 +44,16 @@ const useAuthController = () => {
 
     SignUp(payload)
       .then((json) => {
-        //console.log("signUp: ", json);
+        console.log("signUp: ", json);
         if (json.code !== 200) {
-          //console.log("login error: ", json);
+          console.log("login error: ", json);
           setError(`${json.message}: ${json.err_code}`);
           return;
         }
         storeDataObject(USER_KEY, json);
       })
       .catch((e) => {
-        //console.log("error sign up:", e);
+        console.log("error sign up:", e);
         setError(e);
       })
       .finally(() => setIsLoading(false));

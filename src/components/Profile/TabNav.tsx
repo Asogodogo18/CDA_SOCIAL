@@ -5,7 +5,10 @@ import { AntDesign } from "@expo/vector-icons";
 import Box from "../shared/Box";
 import Text from "../shared/Text";
 
-type TabNavProps = {};
+type TabNavProps = {
+  isActive: number;
+  onSwitch: (param: any) => void;
+};
 
 type TabContainerProps = {
   onPress: () => void;
@@ -27,14 +30,12 @@ const TabContainer: React.FC<TabContainerProps> = (props) => (
   </TouchableOpacity>
 );
 
-const TabNav: React.FC<TabNavProps> = () => {
-  const [isActive, setIsActive] = useState(0);
-
+const TabNav: React.FC<TabNavProps> = ({ isActive, onSwitch }) => {
   return (
     <Box
       width={320}
       height={50}
-      alignSelf={'center'}
+      alignSelf={"center"}
       alignItems={"center"}
       justifyContent={"center"}
       backgroundColor="white"
@@ -42,7 +43,7 @@ const TabNav: React.FC<TabNavProps> = () => {
       flexDirection="row"
       elevation={5}
     >
-      <TabContainer onPress={() => setIsActive(0)}>
+      <TabContainer onPress={() => onSwitch(0)}>
         <AntDesign
           name="appstore-o"
           size={18}
@@ -56,7 +57,7 @@ const TabNav: React.FC<TabNavProps> = () => {
           Médias
         </Text>
       </TabContainer>
-      <TabContainer onPress={() => setIsActive(1)}>
+      <TabContainer onPress={() => onSwitch(1)}>
         <AntDesign
           name="bars"
           size={18}
@@ -70,7 +71,7 @@ const TabNav: React.FC<TabNavProps> = () => {
           Postes
         </Text>
       </TabContainer>
-      <TabContainer onPress={() => setIsActive(2)}>
+      <TabContainer onPress={() => onSwitch(2)}>
         <AntDesign
           name="hearto"
           size={18}

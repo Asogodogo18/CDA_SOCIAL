@@ -46,7 +46,7 @@ const Header: React.FC<MessageHeaderProps> = ({
         justifyContent={"center"}
       >
         <Text variant={"title1"}>{user.name}</Text>
-        <Text variant={"caption"}>{user.status}</Text>
+        <Text mt={'s'} variant={"caption"} fontSize={12} >{user.username}</Text>
       </Box>
       <TouchableOpacity
         onPress={onMenuPress}
