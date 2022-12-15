@@ -1,15 +1,53 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import useAuthModel from "../../viewModel/AuthModel";
 import useAuth from "../../Context/AuthContext";
-import { USER_KEY } from "../../constants/general-constants";
-import { removeData, storeDataObject } from "../../services/storage";
+import {
+  USER_BIO,
+  USER_COUNTRY,
+  USER_KEY,
+  USER_LANG,
+} from "../../constants/general-constants";
+import {
+  removeData,
+  storeDataObject,
+  getDataObject,
+  storeData,
+} from "../../services/storage";
 import { useUserContext } from "../../Context";
+import { toastError, toastSuccess } from "../../utils/toastHandler";
+import {
+  convertContactPrivacy,
+  convertIndexPrivacy,
+  convertProfilePrivacy,
+} from "../../utils/privacyValueConverter";
+import {
+  useUpdateUserAvatarMutation,
+  useUpdateUserMutation,
+  useUpdateUserPrivacyMutation,
+  useUpdateUserCoverMutation,
+  useSavePasswordUpdateMutation,
+  useRequestPasswordUpdateMutation,
+} from "../../Api/UserApi";
 
 const useAuthController = () => {
   const { Login, SignUp } = useAuthModel();
   const { authInfo } = useAuth();
   const { onSignInSuccess, onLogOut } = useUserContext();
+
+  const [updateAvatar, avatarUpdataRes] = useUpdateUserAvatarMutation();
+  const [updateCover, coverUpdataRes] = useUpdateUserCoverMutation();
+  const [requestPassChange] = useRequestPasswordUpdateMutation();
+  const [savePassUpdate] = useSavePasswordUpdateMutation();
+
+  const [
+    updatePrivacy,
+    { isLoading: updating, isError, error: privacyErr, data: privacyRes },
+  ] = useUpdateUserPrivacyMutation();
+  const [updateProfile, profileUpdateRes] = useUpdateUserMutation();
+  console.log("privacy err: ", privacyErr);
+  console.log("sending privacy: ", updating);
+  console.log("privacy res: ", privacyRes);
 
   const [name, setName] = useState(authInfo.name);
   const [error, setError] = useState<string>();
@@ -31,8 +69,12 @@ const useAuthController = () => {
 
   const onChangePassword = (text: string) => setPassword(text);
 
-  const onClickSignUp = () => {
-    setIsLoading(true);
+  if (error) {
+    toastError(error);
+    setError("");
+  }
+
+  const onClickSignUp = async () => {
     let payload = {
       email,
       password,
@@ -42,21 +84,69 @@ const useAuthController = () => {
     };
     //console.log("payload signup :", payload);
 
-    SignUp(payload)
-      .then((json) => {
-        console.log("signUp: ", json);
-        if (json.code !== 200) {
-          console.log("login error: ", json);
-          setError(`${json.message}: ${json.err_code}`);
-          return;
-        }
-        storeDataObject(USER_KEY, json);
-      })
-      .catch((e) => {
-        console.log("error sign up:", e);
-        setError(e);
-      })
-      .finally(() => setIsLoading(false));
+    return await SignUp(payload);
+  };
+
+  const updateUserBio = async (payload: string) => {
+    if (payload == "") return;
+    await storeData(USER_BIO, payload);
+  };
+
+  const updateUserLocalization = async (payload: {
+    country: string;
+    language: string;
+  }) => {
+    await storeData(USER_COUNTRY, payload.country);
+    await storeData(USER_LANG, payload.language);
+  };
+
+  const updateUserPrivacy = async (payload: {
+    privacy1: string;
+    privacy2: string;
+    privacy3: string;
+  }) => {
+    const user =await getDataObject(USER_KEY);
+    const formData = new FormData();
+    formData.append("id", user.id);
+    formData.append("profile_privacy", convertProfilePrivacy(payload.privacy1));
+    formData.append("contact_privacy", convertContactPrivacy(payload.privacy2));
+    formData.append("index_privacy", convertIndexPrivacy(payload.privacy3));
+
+    return await updatePrivacy(formData).unwrap();
+  };
+
+  const updateUserProfile = async () => {
+    //TODO
+  };
+
+  const updateUserCover = async (payload) => {
+    const user = getDataObject(USER_KEY);
+    const formData = new FormData();
+    formData.append("id", user.id);
+    formData.append("cover", payload);
+  };
+
+  const updateUserAvatar = async (payload) => {
+    const user = getDataObject(USER_KEY);
+    const formData = new FormData();
+    formData.append("id", user.id);
+    formData.append("avatar", payload);
+  };
+
+  const requestPasswordChange = async (email: string) => {
+    const formData = new FormData();
+    formData.append("email", email);
+  };
+
+  const savePasswordChange = async (payload: {
+    password: string;
+    confirm_password: string;
+    code: string;
+  }) => {
+    const formData = new FormData();
+    formData.append("password", payload.password);
+    formData.append("confirm_password", payload.confirm_password);
+    formData.append("code", payload.code);
   };
 
   const onClickLogin = () => {
@@ -64,15 +154,20 @@ const useAuthController = () => {
       email,
       password,
     };
-    //console.log("login payload: ", payload);
+    if (email === "" || password === "") {
+      toastError("Les champs sont vides");
+      return;
+    }
+    console.log("login payload: ", payload);
     setIsLoading(true);
     Login(payload)
       .then((json) => {
-        //console.log("login: ", json);
+        console.log("login: ", json);
 
         if (json.code !== 200) {
           //console.log("login error: ", json);
           setError(`${json.message}: ${json.err_code}`);
+          setIsLoading(false);
           return;
         }
         //console.log("login: ", json);
@@ -112,6 +207,9 @@ const useAuthController = () => {
     onClickLogin,
     onClickSignUp,
     onClickLogout,
+    updateUserBio,
+    updateUserLocalization,
+    updateUserPrivacy,
   };
 };
 

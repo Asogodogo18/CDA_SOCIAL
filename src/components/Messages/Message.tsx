@@ -14,21 +14,28 @@ import {
   Modal,
   StyleSheet,
 } from "react-native";
+import Menu, {
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
 
 import Box from "../shared/Box";
 import { MediaType } from "../../types";
 import Text from "../shared/Text";
 import Media from "../shared/Media";
+import { formatDate } from "../../utils";
+import { Theme } from "../../theme";
+import { useTheme } from "@shopify/restyle";
+import IconContainer from "../shared/IconContainer";
+import useMessageController from "../../viewController/Messages/MessageController";
 
 const { width, height } = Dimensions.get("screen");
 
 type MessageProps = {
-  message: {
-    text: string;
-    media: MediaType[];
-    timestamp: string;
-  };
+  message: any;
   self: boolean;
+  onReplyFocus?: () => void;
 };
 
 if (Platform.OS === "android") {
@@ -37,17 +44,36 @@ if (Platform.OS === "android") {
   }
 }
 
-const Message: React.FC<MessageProps> = ({ message, self }) => {
+const Message: React.FC<MessageProps> = ({ message, self, onReplyFocus }) => {
+  const theme = useTheme<Theme>();
   const [layoutData, setData] = useState(null);
   const [currentMedia, setCurrentMedia] = useState(null);
+  const [openMenu, setOpenMenu] = useState(false);
+  const { onDeleteMessage } = useMessageController();
+
+  const onMenuPress = () => {
+    setOpenMenu(!openMenu);
+  };
+
+  const onBackdropPress = () => {
+    setOpenMenu(false);
+  };
+
+  console.log(`chat message: `, message);
 
   return (
-    <Box  margin={"m"} alignSelf={self ? "flex-end" : "flex-start"}>
-      <Box
-        backgroundColor={self ? "messageOutBG" : "messageInBg"}
-        borderRadius={5}
-        maxWidth={200}
-        padding={"m"}
+    <Box margin={"m"} alignSelf={self ? "flex-end" : "flex-start"}>
+      <TouchableOpacity
+        onLongPress={onMenuPress}
+        activeOpacity={0.7}
+        style={{
+          backgroundColor: self
+            ? theme.colors.messageOutBG
+            : theme.colors.messageInBg,
+          borderRadius: 5,
+          maxWidth: 200,
+          padding: 8,
+        }}
       >
         {message?.media == undefined ? null : message?.media.length <= 1 ? (
           <Media
@@ -68,10 +94,41 @@ const Message: React.FC<MessageProps> = ({ message, self }) => {
           </Box>
         )}
         <Text variant={"body2"}>{message.text}</Text>
-      </Box>
-      <Box position={"relative"} top={0} left={15}>
+        <Menu
+          opened={openMenu}
+          // renderer={renderers.Popover}
+          // rendererProps={{ preferredPlacement: "right" }}
+          onBackdropPress={onBackdropPress}
+        >
+          <MenuTrigger />
+
+          <MenuOptions>
+            <MenuOption onSelect={onReplyFocus}>
+              <IconContainer>
+                <Text ml={"ml"}>Répondre</Text>
+              </IconContainer>
+            </MenuOption>
+            <MenuOption onSelect={() => {}}>
+              <IconContainer>
+                <Text ml={"ml"}>Transférer</Text>
+              </IconContainer>
+            </MenuOption>
+            <MenuOption
+              onSelect={() => {
+                onDeleteMessage(message.id);
+                onMenuPress();
+              }}
+            >
+              <IconContainer>
+                <Text ml={"ml"}>Effacer </Text>
+              </IconContainer>
+            </MenuOption>
+          </MenuOptions>
+        </Menu>
+      </TouchableOpacity>
+      <Box position={"relative"} top={0} left={0}>
         <Text fontSize={8} variant={"caption"}>
-          {message.timestamp}
+          {formatDate(message.timestamp)}
         </Text>
       </Box>
       {layoutData !== null && (

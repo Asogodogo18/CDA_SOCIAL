@@ -11,7 +11,7 @@ const useFeedController = () => {
     const payload = new FormData();
     payload.append("user", id);
 
-    return useListFeedQuery(payload);
+    return useListFeedQuery(payload,{refetchOnMountOrArgChange:true});
   };
 
   return { getFeedList };

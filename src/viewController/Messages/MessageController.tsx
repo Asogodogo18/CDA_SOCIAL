@@ -4,8 +4,10 @@ import {
   useDeleteMessageMutation,
   useSendChatMessageMutation,
 } from "../../Api/MessageApi";
+import { useUserContext } from "../../Context";
 
 const useMessageController = () => {
+  const { user } = useUserContext();
   const [
     sendChatMessage,
     {
@@ -17,6 +19,7 @@ const useMessageController = () => {
       data: requestResponse,
     },
   ] = useSendChatMessageMutation();
+  const [deleteChatMessage, { isLoading }] = useDeleteMessageMutation();
 
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<
@@ -27,8 +30,19 @@ const useMessageController = () => {
     setMessage(text);
   };
 
-  const onDeleteMessage = () => {
-    //TODO Transaction delete chat message
+  const onDeleteMessage = async (id) => {
+    console.log("message Id: ", id);
+
+    const formdata = new FormData();
+    formdata.append("userid", user.id);
+    formdata.append("messageid", id);
+    try {
+      const payload = await deleteChatMessage(formdata).unwrap();
+      console.log("fulfilled deletion: ", payload);
+    } catch (error) {
+      console.log("error deletion: ", error);
+    }
+    return;
   };
   const onSubmitMessage = (payload: { chatId: string; senderId: string }) => {
     setStatus("sending");

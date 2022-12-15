@@ -1,7 +1,12 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
-import { Ionicons, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
-
+import {
+  Ionicons,
+  EvilIcons,
+  SimpleLineIcons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { computeTimeDiff, formatDate, joinReplys } from "../../../utils";
 import theme, { Theme } from "../../../theme";
 import Box from "../Box";
@@ -24,11 +29,9 @@ import {
   Alert,
 } from "react-native";
 import Menu, {
-  MenuProvider,
   MenuOptions,
   MenuOption,
   MenuTrigger,
-  renderers,
 } from "react-native-popup-menu";
 
 import Media from "../Media";
@@ -37,6 +40,7 @@ import useUserController from "../../../viewController/Users/UserController";
 import usePostController from "../../../viewController/Post/usePostController";
 import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../../../Context";
+import IconContainer from "../IconContainer";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -45,6 +49,8 @@ enum PostTypes {
   details,
   reply,
 }
+
+
 
 type PostProps = {
   data: any;
@@ -136,7 +142,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
                 borderRadius={4}
                 backgroundColor={"grayDark"}
               />
-              <Text marginLeft={"s"}  variant={"caption"}>
+              <Text marginLeft={"s"} variant={"caption"}>
                 {computeTimeDiff(timestamp)}
               </Text>
             </Box>
@@ -163,11 +169,33 @@ const PostHeader: React.FC<PostHeaderProps> = ({
           <MenuTrigger />
 
           <MenuOptions>
-            <MenuOption onSelect={onPostSave} text="Enregistrer" />
+            <MenuOption onSelect={onPostSave}>
+              <IconContainer>
+                <MaterialCommunityIcons
+                  name="bookmark-outline"
+                  size={20}
+                  color="black"
+                />
+                <Text  ml={'s'}>Enregistrer</Text>
+                {/*
+                component when post is bookmarked
+                <MaterialCommunityIcons name="bookmark-check" size={24} color="black" /> */}
+              </IconContainer>
+            </MenuOption>
             {isOwner ? (
-              <MenuOption onSelect={onPostDelete} text="Supprimer" />
+              <MenuOption onSelect={onPostDelete}>
+                <IconContainer>
+                  <MaterialIcons name="delete-outline" size={20} color="black" />
+                  <Text ml={'s'}>Supprimer</Text>
+                </IconContainer>
+              </MenuOption>
             ) : null}
-            <MenuOption onSelect={() => {}} text="Signaler un Abus" />
+            <MenuOption onSelect={() => {}}>
+            <IconContainer>
+                <MaterialCommunityIcons name="alert" size={20} color="red" />
+                  <Text ml={'s'} color={'danger'}>Signaler un Abus</Text>
+                </IconContainer>
+            </MenuOption>
           </MenuOptions>
         </Menu>
       </Box>
@@ -272,7 +300,11 @@ const PostContent: React.FC<PostContentProps> = ({
       <Text mt={"s"} variant="body1">
         {body}
       </Text>
-      {type === "details" && <Text my={"xs"} variant={"caption"}>{formatDate(timestamp)}</Text>}
+      {type === "details" && (
+        <Text my={"xs"} variant={"caption"}>
+          {formatDate(timestamp)}
+        </Text>
+      )}
     </Box>
   );
 };

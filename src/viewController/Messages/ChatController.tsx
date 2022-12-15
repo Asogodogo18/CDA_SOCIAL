@@ -55,7 +55,7 @@ const useChatController = () => {
   const getUserChats = (userId: string) => {
     const payload = new FormData();
     payload.append("userid", userId);
-    return useGetChatsByUserQuery(payload);
+    return useGetChatsByUserQuery(payload,{refetchOnMountOrArgChange:true});
   };
 
   // const getSingleChat = (chatId: string) => {

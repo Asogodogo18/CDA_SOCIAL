@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
     isError,
     error,
   } = getFeedList(user.id);
-  //console.log("user id homescreen: ", posts);
+  console.log("user id homescreen: ", posts);
 
   const handleNavigation = (id) => {
     navigation.navigate("Accueil", {
@@ -92,8 +92,17 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor="white" barStyle={"dark-content"} />
-      {posts.code !== 200 ? (
-       <ErrorDisplayView message={posts.message} />
+      {posts.code!==undefined && posts.code !== 200 ? (
+        <Box flex={1}>
+        <MainHeader title="Accueil" />
+        <FeedFilters
+          data={defaultFilters}
+          onPress={() => console.log("Press")}
+        />
+        <SectionHeader title={"Now"} more={true} link={() => {}} />
+        <Stories data={FollowingList} />
+        <ErrorDisplayView message={posts.message} />
+      </Box>
       ) : (
         <FlatList
           ListHeaderComponent={() => (

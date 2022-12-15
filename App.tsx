@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
+import Toast from "react-native-toast-message";
 import { ThemeProvider } from "@shopify/restyle";
 import { StatusBar } from "expo-status-bar";
 import { MenuProvider } from "react-native-popup-menu";
@@ -14,6 +15,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { UserProvider } from "./src/Context";
 import { Provider } from "react-redux";
 import store from "./src/store/store";
+import { toastConfig } from "./src/utils/toastHandler";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -36,6 +38,7 @@ export default function App() {
               </UserProvider>
             </Provider>
           </NavigationContainer>
+          <Toast config={toastConfig} position="bottom" bottomOffset={20} />
         </SafeAreaProvider>
       </ThemeProvider>
     );

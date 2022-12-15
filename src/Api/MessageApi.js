@@ -7,7 +7,7 @@ export default APP_API.endpoints.messages;
 export const chatApi = api.injectEndpoints({
   endpoints: (build) => ({
     sendChatMessage: build.mutation({
-      invalidatesTags: ["ChatsId"],
+      invalidatesTags: ["ChatsId",'Chats'],
       query: (payload) => ({
         body: payload,
         method: "POST",
@@ -30,7 +30,7 @@ export const chatApi = api.injectEndpoints({
       }),
     }),
     deleteMessage: build.mutation({
-      invalidatesTags:['Messages'],
+      invalidatesTags:['Messages', 'Chats','ChatsId'],
       query: (payload) => ({
         body: payload,
         method: "POST",

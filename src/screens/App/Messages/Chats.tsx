@@ -11,7 +11,7 @@ import _ from "lodash";
 
 import HeaderMsg from "../../../data/headerMsg";
 import { singleMessage, singleMessageWithMedia } from "../../../data/message";
-import { FlatList, ScrollView } from "react-native";
+import { FlatList, ScrollView, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useChatController from "../../../viewController/Messages/ChatController";
 import useMessageController from "../../../viewController/Messages/MessageController";
@@ -20,6 +20,7 @@ import { useUserContext } from "../../../Context";
 const Chats = ({ navigation, route }) => {
   const [chatId, setChatId] = useState("");
   const isChatCreated = useRef(false);
+  const inputRef = useRef<TextInput>();
   const {
     getSingleChatById,
     createChat,
@@ -68,6 +69,9 @@ const Chats = ({ navigation, route }) => {
       console.log("rejected: ", error);
     }
   };
+  const onReplyPress = () => {
+    inputRef.current?.focus();
+  };
 
   useEffect(() => {
     if (route.params.chatId !== undefined) {
@@ -77,7 +81,7 @@ const Chats = ({ navigation, route }) => {
       newChat(route.params.receiverId);
     }
     return () => {
-      setChatId('');
+      setChatId("");
     };
   }, []);
 
@@ -109,9 +113,14 @@ const Chats = ({ navigation, route }) => {
           onMenuPress={() => {}}
           user={data.chat["user_two"]}
         />
-        <ChatContent messages={data?.chat?.messages.data} sender={user.id} />
+        <ChatContent
+          onReplyPress={onReplyPress}
+          messages={data?.chat?.messages.data}
+          sender={user.id}
+        />
         <Box position={"absolute"} bottom={0} width={"100%"} flex={1}>
           <ReplyField
+            ref={inputRef}
             value={message}
             onChange={onChangeMessage}
             onSubmit={() => onSubmitMessage({ chatId, senderId: user.id })}
@@ -123,7 +132,7 @@ const Chats = ({ navigation, route }) => {
   );
 };
 
-const ChatContent = ({ messages, sender }) => {
+const ChatContent = ({ messages, sender, onReplyPress }) => {
   return (
     <FlatList
       style={{ flex: 1 }}
@@ -132,11 +141,13 @@ const ChatContent = ({ messages, sender }) => {
       inverted={true}
       renderItem={({ item: message }) => (
         <Message
+          onReplyFocus={onReplyPress}
           self={message?.sent_by === sender}
           message={{
             text: message.message,
             media: message.media,
             timestamp: message.time,
+            ...message,
           }}
         />
       )}

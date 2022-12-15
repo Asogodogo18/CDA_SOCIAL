@@ -22,6 +22,7 @@ import useAuth from "../../Context/AuthContext";
 import { getDataObject } from "../../services/storage";
 import { useUserContext } from "../../Context";
 import { USER_KEY } from "../../constants/general-constants";
+import { toastError } from "../../utils/toastHandler";
 const { height, width } = Dimensions.get("screen");
 
 const Auth = ({ navigation }) => {
@@ -44,7 +45,7 @@ const Auth = ({ navigation }) => {
 
   const handleSignUp = () => {
     if (email === "" || password === "") {
-      Alert.alert("Les Champs sont vides");
+      toastError("Les Champs sont vides");
       return;
     }
     toggleModal();
@@ -55,7 +56,7 @@ const Auth = ({ navigation }) => {
   const Initialization = async () => {
     setSessionCheck(true);
     let storedUserToken = await getDataObject(USER_KEY);
-    let storedAuthToken = await getDataObject('auth');
+    let storedAuthToken = await getDataObject("auth");
 
     //console.log("stored Auth: ", storedAuthToken);
     //console.log("stored User: ", storedUserToken);
@@ -75,7 +76,7 @@ const Auth = ({ navigation }) => {
 
   if (sessionCheck) {
     return (
-      <Box flex={1} justifyContent={"center"} alignItems={"center"} px={'xxl'}>
+      <Box flex={1} justifyContent={"center"} alignItems={"center"} px={"xxl"}>
         <ActivityIndicator size={"large"} color="green" />
         <Text variant={"body1"} textAlign={"center"}>
           Veuillez patienter pendant que nous restaurons votre session
@@ -155,7 +156,7 @@ const Auth = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity>
             <Text variant={"body"} color="white">
-              Aide ?
+              Aide
             </Text>
           </TouchableOpacity>
         </Box>
@@ -180,7 +181,7 @@ function ConfirmationModal({ modalVisible, ToggleModal }) {
 
   const handleValidate = () => {
     if (password !== password1) {
-      Alert.alert("Les mots de passe ne sont pas identiques");
+      toastError("Les mots de passe ne sont pas identiques");
       return;
     }
     navigation.navigate("ProfileUpdate");

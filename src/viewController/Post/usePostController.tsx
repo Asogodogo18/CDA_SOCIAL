@@ -61,7 +61,7 @@ const usePostController = () => {
     //console.log("query: ", id);
     const payload = new FormData();
     payload.append("id", id);
-    return usePostsByIdQuery(payload);
+    return usePostsByIdQuery(payload,{refetchOnMountOrArgChange:true});
   };
 
   const getPostByUser = (id) => {

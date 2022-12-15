@@ -9,12 +9,16 @@ import {
 const useUserController = () => {
   const [getUser, { isLoading, isSuccess }] = useGetUserFromIdMutation();
   const getUserById = (id: string) => {
+    console.log('user query fired \n');
+    
     const payload = new FormData();
     payload.append("id", id);
     return useGetUserByIdQuery(payload);
   };
 
   const getUserFromId = async (id: string) => {
+    console.log('user mutation fired \n');
+
     const payload = new FormData();
     payload.append("id", id);
     return await getUser(payload).unwrap();

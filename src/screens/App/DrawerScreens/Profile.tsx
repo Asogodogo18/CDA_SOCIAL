@@ -19,6 +19,7 @@ import { UserApi } from "../../../Api";
 import { useUserContext } from "../../../Context";
 import { SafeAreaView } from "react-native-safe-area-context";
 import filterPosts from "../../../utils/filterPosts";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Profile = ({ navigation, route }) => {
   //console.log("profile params :", route.params);
@@ -50,6 +51,8 @@ const Profile = ({ navigation, route }) => {
     setIsLoadingUser(true);
     try {
       const payload = await getUserFromId(id);
+      console.log("use mutation response");
+
       if (payload.code === 200) {
         setUserProfile(payload.data);
         setIsLoadingUser(false);
@@ -89,32 +92,33 @@ const Profile = ({ navigation, route }) => {
   };
 
   const getProfileData = async (id) => {
-    await loadUserData(id);
-    await loadUserPostData(id);
+    return await Promise.all([loadUserData(id), loadUserPostData(id)]);
   };
 
   useEffect(() => {
     console.log("route params: ", route.params);
-    if (route.params.self !== undefined) {
-      if (route.params.seff === false) {
-        console.log("route params: ", route.params.userID);
-
-        getProfileData(route.params.userID).then(() => {
-          if (isLoadingUser && isLoading) setIsReady(true);
-        });
-      }
-
-      getProfileData(user.id).then(() => {
-        if (isLoadingUser && isLoading) setIsReady(true);
+    if (route.params.self !== undefined && route.params.self == false) {
+      console.log("route params: ", route.params.userID);
+      getProfileData(route.params.userID).then(() => {
+        setIsReady(true);
       });
+    } else {
+      console.log('getting own profile');
+      
+      getProfileData(user.id).then(() => {
+        setIsReady(true);
+      });
+      return;
     }
 
     return () => {
       setUserProfile(null);
-      setIsLoading(true);
+      setIsLoading(false);
       setIsReady(false);
+      setPostsMedia([]);
+      setPosts([]);
     };
-  }, []);
+  }, [route.params]);
 
   if (!isReady) {
     return (
@@ -143,9 +147,10 @@ const Profile = ({ navigation, route }) => {
         showsHorizontalScrollIndicator={false}
       >
         <Box mt={"xl"}>
-          <ProfileHeader 
-          isOwner={userProfile.id === user.id}
-          user={userProfile} />
+          <ProfileHeader
+            isOwner={userProfile.id === user.id}
+            user={userProfile}
+          />
         </Box>
         <Box my={"m"}>
           <TabNav isActive={isActive} onSwitch={switchHandler} />

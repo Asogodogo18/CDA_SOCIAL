@@ -18,6 +18,7 @@ const FeedFilters: React.FC<FeedFiltersProps> = ({ data, onPress }) => {
   return (
       <FlatList
         horizontal
+        style={{maxHeight:35}}
         data={data}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(filter) => filter.id}

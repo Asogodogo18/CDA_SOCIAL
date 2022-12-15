@@ -31,7 +31,7 @@ export const chatApi = api.injectEndpoints({
     //   }),
     // }),
     getChatById: build.query({
-      // providesTags:(id) =>[{type:"Chats",id}],
+      providesTags: (id) => ["ChatsId"],
       query: (payload) => ({
         body: payload,
         method: "POST",
@@ -39,6 +39,8 @@ export const chatApi = api.injectEndpoints({
       }),
     }),
     deleteChat: build.mutation({
+      invalidatesTags: ["Chats", "ChatsId"],
+
       query: (payload) => ({
         body: payload,
         method: "POST",

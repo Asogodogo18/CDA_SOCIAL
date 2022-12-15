@@ -17,7 +17,10 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { useAuthController } from "../../viewController";
 import { useAuth } from "../../Context";
-import { AVATAR_URL } from "../../constants/general-constants";
+import { AVATAR_URL, USER_KEY } from "../../constants/general-constants";
+import { toastError, toastSuccess } from "../../utils/toastHandler";
+import { useNavigation } from "@react-navigation/native";
+import { storeDataObject } from "../../services/storage";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -30,9 +33,12 @@ const ProfileUpdate = () => {
     onChangeSurname,
     onChangeUsername,
     onClickSignUp,
+    updateUserBio,
+    updateUserLocalization,
+    updateUserPrivacy,
   } = useAuthController();
   const { updateUsername, updateName, updateSurname } = useAuth();
-
+  const navigation = useNavigation();
   const [active, setActive] = useState(0);
   const [image, setImage] = useState(AVATAR_URL);
   const [genre, setGenre] = useState("Sexe");
@@ -67,19 +73,55 @@ const ProfileUpdate = () => {
   const onPrivacy3Change = (text) => {
     setPrivacy3(text);
   };
+  const submitProfile = async () => {
+    const payload = { privacy1, privacy2, privacy3 };
+    try {
+      const res = await updateUserPrivacy(payload);
 
+      console.log("reponse: ", res);
+
+      if (res.status === 200) {
+        toastSuccess(res.message);
+        navigation.goBack();
+      } else toastError(res.message);
+    } catch (error) {
+      toastError(error);
+    }
+  };
   const handleNext = () => {
-    if (active === 1) {
+    if (active == 0) setActive(active + 1);
+    else if (active === 1) {
       if (name === "" || surname === "" || username === "") {
-        Alert.alert("Les champs sont vides!!!");
+        toastError("Les champs sont vides!!!");
         return;
       }
       updateName(name);
       updateSurname(surname);
       updateUsername(username);
-      onClickSignUp();
+      onClickSignUp()
+        .then((json) => {
+          console.log("signUp: ", json);
+          if (json.code !== 200) {
+            console.log("login error: ", json);
+            toastError(`${json.message}: ${json.err_code}`);
+            return;
+          }
+          toastSuccess("Votre compte a été créé avec succès");
+          storeDataObject(USER_KEY, json.data);
+          setActive(active + 1);
+        })
+        .catch((e) => {
+          console.log("error sign up:", e);
+          toastError(e);
+        });
+    } else if (active === 2) {
+      updateUserBio(bio);
+      setActive(active + 1);
+    } else if (active === 3) {
+      updateUserLocalization({ language, country });
+      setActive(active + 1);
+    } else if (active === 4) {
     }
-    setActive(active + 1);
   };
 
   const handlePrev = () => {
@@ -173,9 +215,9 @@ const ProfileUpdate = () => {
           </TouchableOpacity>
         )}
         <TouchableOpacity
-          onPress={handleNext}
+          onPress={active < 4 ? handleNext : submitProfile}
           style={{ position: "absolute", right: 10, alignSelf: "center" }}
-          disabled={active >= STEPS.length - 1}
+          disabled={active > STEPS.length - 1}
         >
           <Box flexDirection={"row"} alignItems={"center"}>
             <Text variant={"btnText2"}>Suivant</Text>

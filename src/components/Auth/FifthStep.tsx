@@ -58,13 +58,13 @@ const FifthStep: React.FC<FifthStepProps> = ({
       <Input
         my={"m"}
         type="dropdown"
-        value={privacy2}
+        value={privacy3}
         dropdownValues={[
           "Afficher votre profil dans les moteurs de recherche?",
           "Oui",
           "Non",
         ]}
-        onChange={onPrivacy2Change}
+        onChange={onPrivacy3Change}
       />
     </Box>
   );

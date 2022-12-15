@@ -1,5 +1,11 @@
 import { View, TouchableOpacity, TextInput, StyleSheet } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Ionicons, Entypo, EvilIcons, AntDesign } from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
 
@@ -14,12 +20,8 @@ type ReplyFieldProps = {
   onSubmit: () => void;
 };
 
-const ReplyField: React.FC<ReplyFieldProps> = ({
-  placeholder,
-  value,
-  onChange,
-  onSubmit,
-}) => {
+const ReplyField: React.FC<ReplyFieldProps> = forwardRef((props, ref) => {
+  const { placeholder, value, onChange, onSubmit } = props;
   const [visibleBottom, setVisibleBottom] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -119,10 +121,12 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
             </TouchableOpacity>
           </Box>
           <TextInput
+            ref={ref}
             style={{ paddingLeft: 5 }}
             value={value}
             onChangeText={onChange}
             placeholder={placeholder}
+            onSubmitEditing={onSubmit}
           />
         </Box>
         <Box
@@ -147,6 +151,6 @@ const ReplyField: React.FC<ReplyFieldProps> = ({
       </Box>
     </>
   );
-};
+});
 
 export default ReplyField;
