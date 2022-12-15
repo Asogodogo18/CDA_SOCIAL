@@ -1,4 +1,10 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+  useReducer,
+} from "react";
 import { BoxProps, TextProps } from "@shopify/restyle";
 import {
   Ionicons,
@@ -40,9 +46,13 @@ import useUserController from "../../../viewController/Users/UserController";
 import usePostController from "../../../viewController/Post/usePostController";
 import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../../../Context";
+import FeedSkeleton from "../skeleton/FeedSkeleton";
+import { MotiView } from "moti";
+import { Skeleton } from "moti/skeleton";
 import IconContainer from "../IconContainer";
 
 const { width, height } = Dimensions.get("screen");
+const Spacer = ({ height = 16 }) => <MotiView style={{ height }} />;
 
 enum PostTypes {
   main,
@@ -305,6 +315,11 @@ const PostContent: React.FC<PostContentProps> = ({
           {formatDate(timestamp)}
         </Text>
       )}
+      {type === "details" && (
+        <Text my={"xs"} variant={"caption"}>
+          {formatDate(timestamp)}
+        </Text>
+      )}
     </Box>
   );
 };
@@ -380,10 +395,11 @@ const Post: React.FC<PostProps> = ({ data, type, onPress, ...props }) => {
     navigation.navigate("Profile", { userID: data.user_id, self: false });
   };
 
-  if (isLoading || isFetching) {
+  if (isLoading || !isFetching) {
     return (
-      <Box flex={1} justifyContent={"center"} alignItems={"center"}>
-        <ActivityIndicator size={"large"} color="green" />
+      <Box flex={1}>
+        {/* <ActivityIndicator size={"large"} color="green" /> */}
+        <FeedSkeleton />
       </Box>
     );
   }
@@ -621,5 +637,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     marginTop: 100,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  padded: {
+    padding: 16,
   },
 });

@@ -15,6 +15,7 @@ import FollowingList from "../../../data/stories";
 import defaultMessageList from "../../../data/messageLisiting";
 import { useUserContext } from "../../../Context";
 import useChatController from "../../../viewController/Messages/ChatController";
+import { Skeleton } from "moti/skeleton";
 const { width, height } = Dimensions.get("screen");
 
 const Messages = () => {
@@ -63,8 +64,43 @@ const Messages = () => {
         </Box>
         <SwitchControl activeIndex={isActive} onSwitch={onSwitch} />
         <SectionHeader title={"En Ligne"} more={true} />
+        {!isFetching || isLoading ? (
+          <Box
+            flexDirection={"row"}
+            justifyContent={"space-between"}
+            m={"s"}
+            mb={"xxl"}
+            p={"m"}
+          >
+            <Skeleton
+              colorMode={"light"}
+              width={75}
+              height={50}
+              radius="square"
+            />
+            <Skeleton
+              colorMode={"light"}
+              width={75}
+              height={50}
+              radius="square"
+            />
+            <Skeleton
+              colorMode={"light"}
+              width={75}
+              height={50}
+              radius="square"
+            />
+            <Skeleton
+              colorMode={"light"}
+              width={75}
+              height={50}
+              radius="square"
+            />
+          </Box>
+        ) : (
+          <Stories data={FollowingList} />
+        )}
 
-        <Stories data={FollowingList} />
         <SectionHeader title={"Tous Les Messages"} more={false} />
 
         {isActive === 0 ? (

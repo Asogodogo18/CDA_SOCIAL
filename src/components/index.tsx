@@ -64,6 +64,6 @@ export { default as ErrorDisplayView } from "./shared/ErrorDisplayView";
 
 export { default as EmptySearchComponent } from "./shared/EmptyComponents/EmptySearch";
 export { default as EmptyUserContent } from "./shared/EmptyComponents/EmptyUserContent";
-
+export {default as FeedSkeleton} from './shared/skeleton/FeedSkeleton'
 //Miscelleanous
 export { default as IconContainer } from "./shared/IconContainer";
