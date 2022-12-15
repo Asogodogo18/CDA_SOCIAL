@@ -28,20 +28,23 @@ const Notifications = () => {
 
     
   return (
-    <ScrollView
+    <>
+      <MainHeader title="Notifications" />
+     <ScrollView
       bounces
       contentContainerStyle={{
         flexGrow: 1,
         backgroundColor: "#F3F3F3",
         paddingTop: 20,
-        paddingBottom: 50,
+        paddingBottom: 55,
       }}
     >
-      <MainHeader title="Notifications" />
       <Box style={{ paddingBottom: 10 }}>
         <NotificationListing data={Notify} />
       </Box>
     </ScrollView>
+    </>
+   
   );
 };
 

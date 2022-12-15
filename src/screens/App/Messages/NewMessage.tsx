@@ -64,6 +64,8 @@ const NewMessage = () => {
           renderItem={({ item }) => (
             <ContactSuggestion
               data={item}
+              isLoading={isLoading}
+
               onPress={() =>
                 navigation.navigate("Chats", { receiverId: item.id })
               }

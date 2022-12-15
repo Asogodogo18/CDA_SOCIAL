@@ -10,6 +10,7 @@ import useChatController from "../../viewController/Messages/ChatController";
 import ErrorDisplayView from "../shared/ErrorDisplayView";
 import Loader from "../shared/Loader";
 import Avatar from "../shared/Avatar";
+import { Skeleton } from "moti/skeleton";
 
 const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
   const [initialRender, setInitialRender] = useState(true);
@@ -86,19 +87,50 @@ const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
               overflow: "hidden",
             }}
           /> */}
-          <Avatar type="menu" source={{ uri: data.chat["user_two"].avatar }} />
+          {!isFetching || isLoading ? (
+            <Skeleton
+            transition={{
+              type: "spring",
+            }} colorMode={"light"} width={70} height={70} radius={16} />
+          ) : (
+            <Avatar
+              type="menu"
+              source={{ uri: data.chat["user_two"].avatar }}
+            />
+          )}
         </Box>
         <Box flex={6} ml={"l"} py={"m"} justifyContent={"space-around"}>
-          <Text variant={"title1"}>
-            {data.chat["user_two"].fname} {data?.chat["user_two"].lname}
-          </Text>
-          <Text variant={"caption"}>
-            {data?.chat?.messages?.data !== undefined &&
-              data?.chat?.messages?.data.length > 0 &&
-              data?.chat?.messages?.data[data?.chat?.messages?.data.length - 1][
-                "message"
-              ]}
-          </Text>
+          {!isFetching || isFetching ? (
+            <Skeleton
+            transition={{
+              type: "spring",
+            }}
+              colorMode={"light"}
+              width={"85%"}
+              height={20}
+              radius={10}
+            />
+          ) : (
+            <Text variant={"title1"}>
+              {data.chat["user_two"].fname} {data?.chat["user_two"].lname}
+            </Text>
+          )}
+          {!isFetching || isLoading ? (
+            <Skeleton
+              colorMode={"light"}
+              width={"50%"}
+              height={10}
+              radius={10}
+            />
+          ) : (
+            <Text variant={"caption"}>
+              {data?.chat?.messages?.data !== undefined &&
+                data?.chat?.messages?.data.length > 0 &&
+                data?.chat?.messages?.data[
+                  data?.chat?.messages?.data.length - 1
+                ]["message"]}
+            </Text>
+          )}
         </Box>
         <Box
           flex={2}
@@ -115,12 +147,21 @@ const SingleChat: React.FC<SingleChatProps> = ({ chatId }) => {
                 ]
             )
           ) && <Pill />}
-          <Text variant={"caption"}>
-            {data?.chat?.messages?.data !== undefined &&
-              data?.chat?.messages?.data.length > 0 &&
-              data?.chat?.messages?.data[data?.chat?.messages?.data.length - 1]
-                .time}
-          </Text>
+           {!isFetching || isLoading ?
+             <Skeleton
+             colorMode={"light"}
+             width={"30%"}
+             height={15}
+             radius={10}
+           />:
+           <Text variant={"caption"}>
+           {data?.chat?.messages?.data !== undefined &&
+             data?.chat?.messages?.data.length > 0 &&
+             data?.chat?.messages?.data[data?.chat?.messages?.data.length - 1]
+               .time}
+         </Text>
+           }
+        
         </Box>
       </TouchableOpacity>
     </Box>
